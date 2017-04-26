@@ -27,12 +27,7 @@ class AutoSmokingTest extends TestCase
 
     //不需要测试的接口
     private $noTestApi = [
-        '/bo/v1/web/photo/upload',
-        '/bo/v1/web/file/upload',
-        '/bo/v1/private/errorStatus',
-        '/bo/v1/web/developer/app/{appId}/publish',
-        '/bo/v1/private/tool/list',
-        '/bo/v1/private/app/info/{appId}'
+
     ];
 
     public function setUp()

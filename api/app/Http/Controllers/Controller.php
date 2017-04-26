@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\HttpStatusService;
+use App\Services\Errors;
 use App\Services\ConstService;
 use App\Services\ResultTrait;
 use App\Services\ValidateService;
@@ -24,14 +24,17 @@ class Controller extends BaseController
      * @param $msg
      * @param $data
      * @return string
-     * 尽量不在Controller里面直接调用这个方法了, 而应该直接调用json()
+     *
      */
-    public function toJson($status, $msg, $data)
+    private function toJson($status, $msg, $data)
     {
         $result = is_array($data) ? self::convertData($data) : $data;
-        $tcost = round(microtime(1) - $this->beginTime, 4);
+        $timeCost = round(microtime(1) - $this->beginTime, 4);
+        $debug = [
+            'timeCost' => $timeCost
+        ];
         return json_encode([
-            'tcost' => $tcost,
+            'debug' => $debug,
             'status' => $status,
             'msg' => $msg,
             'data' => $result
@@ -46,28 +49,8 @@ class Controller extends BaseController
      */
     public function json($status, $data=[], $msg='')
     {
-        $msg = $msg ?: HttpStatusService::getErrorMsg($status);
+        $msg = $msg ?: Errors::getErrorMsg($status);
         return $this->toJson($status, $msg, $data);
-    }
-
-    /**
-     * @param $data
-     * @param int $expired   $expired=0不缓存, $expired>0 缓存的秒数
-     * @return string
-     * 只有返回200的数据才有缓存的价值, 所以这里也不需要调用者传递$status和$msg了
-     * @notice 仅用于返回正确值的情况!
-     */
-    public function jsonWithCacheCtrl($data, $expired=0)
-    {
-        $result = is_array($data) ? self::convertData($data) : $data;
-        $tcost = round(microtime(1) - $this->beginTime, 4);
-        return json_encode([
-            'tcost' => $tcost,
-            'status' => HttpStatusService::HTTP_OK,
-            'msg' => 'OK',
-            'data' => $result,
-            'cache' => ['expired' => $expired]
-        ]);
     }
 
     /**
@@ -87,15 +70,15 @@ class Controller extends BaseController
      */
     public function notLogin($request, $userType = ConstService::MEMBER_TYPE_MERCHANT)
     {
-        $status = HttpStatusService::MERCHANT_NOT_LOGIN;
+        $status = Errors::MERCHANT_NOT_LOGIN;
         $msg = 'Merchant Not Login';
         if ($userType == ConstService::MEMBER_TYPE_DEVELOPER)
         {
-            $status = HttpStatusService::DEVELOPER_NOT_LOGIN;
+            $status = Errors::DEVELOPER_NOT_LOGIN;
             $msg = 'Developer Not Login';
         }
         if ($userType == ConstService::MEMBER_TYPE_ADMIN){
-            $status = HttpStatusService::ADMIN_NOT_LOGIN;
+            $status = Errors::ADMIN_NOT_LOGIN;
             $msg = 'Admin Not Login';
         }
 
