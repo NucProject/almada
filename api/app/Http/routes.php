@@ -11,6 +11,6 @@ $app->group([
 
     $app->get('devices', 'DeviceController@devices');
 
-    $app->post('send', 'DataController@send');
+    $app->post('send/{deviceId}', 'DataController@send');
 
 });

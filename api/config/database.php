@@ -176,12 +176,6 @@ return [
         'timeout' => 30,
         'connect_timeout' => 5,
     ],
-    /**
-     * 商户登录接口
-     * 
-     */
-    'login' => [
-        'merchant'=> trim(env('XAPI_URL'),'/').'/mapp/v1/'
-    ]
+
 ];
 

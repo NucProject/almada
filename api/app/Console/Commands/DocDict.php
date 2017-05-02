@@ -17,8 +17,9 @@ class DocDict
 {
     static $map = [
         // APP 相关
-        'deviceId' => ['int', '设备ID', '12'],
+        'deviceId'      => ['int', '设备ID', '12'],
 
+        'saved'         => ['int', '是否保存(1保存成功, 0保存失败)', '1'],
 
     ];
 

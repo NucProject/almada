@@ -57,8 +57,8 @@ class DocCommand extends Command
             });
         }
         $this->generateDoc($routes);
-        system("python storage/docs/auto_publish/auto_publish.py");
 
+        // system("python storage/docs/auto_publish/auto_publish.py");
     }
 
     /**
@@ -90,6 +90,8 @@ class DocCommand extends Command
                 }
             } catch (\Exception $e) {
                 echo "$controllerName, $methodName\n";
+                var_dump($e->getLine());
+
                 var_dump($e->getMessage());
                 var_dump($e->getCode());
             }

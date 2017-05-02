@@ -28,7 +28,7 @@ class AccessControlAllowOrigin
     public function handle($request, Closure $next, $guard = null)
     {
         $allowOriginList = explode(',', env('ALLOW_ORIGIN'));
-        $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';
+        $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
         if (in_array($origin, $allowOriginList)) {
             header('Access-Control-Allow-Origin:' . $origin);
         } else {

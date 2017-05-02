@@ -1,0 +1,89 @@
+<!-- REST API doc template for WIKI -->
+<!-- 目录部分 -->
+<h2>
+    <img class="editor-inline-macro"
+         src="http:///plugins/servlet/confluence/placeholder/macro?definition=e3RvY30&amp;locale=en_GB&amp;version=2"
+         data-macro-name="toc" data-macro-id="b0eef2ab-c820-486c-b34f-9306f727e6c9" data-macro-schema-version="1">
+</h2>
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- REST API doc template for WIKI -->
+<h3>1.&nbsp;数据接收接口&nbsp;</h3>
+<table class="confluenceTable table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;/d/send/{deviceId}</p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>数据接收接口</p></td>
+    </tr>
+    <!-- URL 参数 -->
+        <tr>
+        <td class="confluenceTd" rowspan="2"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd"><p><strong>名称</strong></p></td>
+        <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+        <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        <td class="confluenceTd"><p><strong>必选</strong></p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>deviceId</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>设备ID</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="2"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>data</p></td>
+                <td class="confluenceTd"><p>array</p></td>
+                <td class="confluenceTd"><p>数据</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="4"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>saved</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>是否保存(1保存成功, 0保存失败)</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>data示例</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"saved":&nbsp;1<br>}            </p>
+        </td>
+    </tr>
+
+    </tbody>
+</table>

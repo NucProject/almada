@@ -39,7 +39,7 @@ class DocPage
     private function writeToc($file)
     {
         ob_start();
-        $host = '';
+        $host = ''; // TODO:
         include 'templates/apidoc_toc.php';
         $tocContent = ob_get_contents();
         ob_end_clean();

@@ -33,4 +33,9 @@ trait ResultTrait
     {
         return ['error' => 0, 'data' => $data];
     }
+
+    public static function isValidId($objectId)
+    {
+        return $objectId && is_numeric($objectId) && (intval($objectId) > 0);
+    }
 }

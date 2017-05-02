@@ -178,13 +178,13 @@ class BaseModel extends Model
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @param bool|true $safe
      * @param bool|array $fields
      * 如果safe=true则检查Model的$fillable成员, 否则不检查. 注意!
      * @return void
      */
-    public function setAttributes($data, $safe=true, $fields=false)
+    public function setAttributes(array $data, $safe=true, $fields=false)
     {
         $fieldsData = self::convertToSnakeCaseKeyAndValues($data, $fields);
         if ($safe)
@@ -202,11 +202,11 @@ class BaseModel extends Model
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @param $fields
      * @return array
      */
-    public static function convertToSnakeCaseKeyAndValues($data, $fields)
+    public static function convertToSnakeCaseKeyAndValues(array $data, $fields)
     {
         $result = [];
         foreach ($data as $key => $value)

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\Errors;
-use App\Services\ConstService;
 use App\Services\ResultTrait;
 use App\Services\ValidateService;
 use Illuminate\Support\Str;
@@ -14,19 +13,22 @@ class Controller extends BaseController
 {
     use ResultTrait;
 
+    private $beginTime = 0;
+
     public function __construct()
     {
         $this->beginTime = microtime(1);
     }
 
     /**
-     * @param $status
-     * @param $msg
-     * @param $data
+     * @param int $status
+     * @param array $data
+     * @param string $msg
+     *
      * @return string
      *
      */
-    private function toJson($status, $msg, $data)
+    private function toJson($status, $data, $msg)
     {
         $result = is_array($data) ? self::convertData($data) : $data;
         $timeCost = round(microtime(1) - $this->beginTime, 4);
@@ -42,15 +44,15 @@ class Controller extends BaseController
     }
 
     /**
-     * @param $status
-     * @param $data
+     * @param int $status
+     * @param array $data
      * @param string $msg
      * @return string
      */
     public function json($status, $data=[], $msg='')
     {
         $msg = $msg ?: Errors::getErrorMsg($status);
-        return $this->toJson($status, $msg, $data);
+        return $this->toJson($status, $data, $msg);
     }
 
     /**
@@ -60,33 +62,6 @@ class Controller extends BaseController
     public function jsonFromError($error)
     {
         return $this->json($error['error'], $error['data']);
-    }
-
-    /**
-     * @param $request
-     * @param $userType
-     *
-     * @return string
-     */
-    public function notLogin($request, $userType = ConstService::MEMBER_TYPE_MERCHANT)
-    {
-        $status = Errors::MERCHANT_NOT_LOGIN;
-        $msg = 'Merchant Not Login';
-        if ($userType == ConstService::MEMBER_TYPE_DEVELOPER)
-        {
-            $status = Errors::DEVELOPER_NOT_LOGIN;
-            $msg = 'Developer Not Login';
-        }
-        if ($userType == ConstService::MEMBER_TYPE_ADMIN){
-            $status = Errors::ADMIN_NOT_LOGIN;
-            $msg = 'Admin Not Login';
-        }
-
-        $data = [];
-        $data['userType'] = $userType;
-        $data['requestUri'] = $request->getRequestUri();
-
-        return $this->toJson($status, $msg, $data);
     }
 
     /**
