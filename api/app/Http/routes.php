@@ -14,3 +14,14 @@ $app->group([
     $app->post('send/{deviceId}', 'DataController@send');
 
 });
+
+$app->group([
+    'prefix' => '/p',
+    // 'middleware' => ['AccessControlAllowOrigin'],
+    'namespace' => 'App\Http\Controllers'], function () use ($app) {
+
+    $app->get('doc/list', 'DocController@pages');
+
+    $app->get('doc/{docName}', 'DocController@render');
+
+});
