@@ -17,36 +17,31 @@ class DataService
     /**
      * @param int $deviceId
      * @param array $data
-     * @param int $dataTime
      * @return array
      */
-    public static function save($deviceId, $data, $dataTime=0)
+    public static function save($deviceId, array $data)
     {
         // 动态Model生成
-        $model = new DtData($deviceId);
+        foreach ($data as $item) {
+            // var_dump($item);exit;
+            if (!array_key_exists('dataTime', $item)) {
+                // 必须在data中含有dataTime, 或者在Request中发送dataTime字段.
+                return self::error(Errors::NoDataTime, []);
+            }
 
-        if (!array_key_exists('dataTime', $data) && !$dataTime) {
-            // 必须在data中含有dataTime, 或者在Request中发送dataTime字段.
-            return self::error(Errors::NoDataTime, []);
+            $model = new DtData($deviceId);
+            $model->setAttributes($item, false);
+            $model->status = 1;
+
+            if (!$model->save()) {
+                // 保存成功!
+                return self::error(Errors::SaveFailed, []);
+            }
+
         }
 
-        if (!$dataTime) {
-            $dataTime = $data['dataTime'];
-        }
-        unset($data['dataTime']);
-
-        $model->setAttributes($data, false);
-
-        $model->data_time = $dataTime;
-        $model->status = 1;
-
-        if ($model->save()) {
-            // 保存成功!
-            return self::ok(['deviceId' => $deviceId]);
-        }
-
-        return self::error(Errors::SaveFailed, []);
-    }
+        return self::ok(['deviceId' => $deviceId]);
+   }
 
 
     public static function createTable($deviceId)

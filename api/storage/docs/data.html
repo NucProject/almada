@@ -35,43 +35,37 @@
             
     <!-- Form表单 参数 -->
             <tr>
-            <td class="confluenceTd" rowspan="2"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd" rowspan="3"><p><strong>表单参数 </strong></p></td>
             <td class="confluenceTd"><p><strong>名称</strong></p></td>
             <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
             <td class="confluenceTd"><p><strong>说明</strong></p></td>
             <td class="confluenceTd"><p><strong>必选</strong></p></td>
         </tr>
                     <tr>
+                <td class="confluenceTd"><p>history</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>是否是历史数据(默认值为0, 表示实时数据; 1表示历史数据)</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
                 <td class="confluenceTd"><p>data</p></td>
                 <td class="confluenceTd"><p>array</p></td>
-                <td class="confluenceTd"><p>数据</p></td>
+                <td class="confluenceTd"><p>Form表单Array, data[]={dataTime=UNIX-TIME, 其他字段值}</p></td>
                 <td class="confluenceTd"><p>Yes</p></td>
             </tr>
             
     <!-- 返回值 字段 -->
             <tr>
-            <td class="confluenceTd" rowspan="4"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd" rowspan="2"><p><strong>返回值字段 </strong></p></td>
             <td class="confluenceTd"><p><strong>名称</strong></p></td>
             <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
             <td class="confluenceTd"><p><strong>说明</strong></p></td>
             <td class="confluenceTd"><p><strong>其他</strong></p></td>
         </tr>
                     <tr>
-                <td class="confluenceTd"><p>saved</p></td>
+                <td class="confluenceTd"><p>saved.deviceId</p></td>
                 <td class="confluenceTd"><p>int</p></td>
-                <td class="confluenceTd"><p>是否保存(1保存成功, 0保存失败)</p></td>
-                <td class="confluenceTd"><p></p></td>
-            </tr>
-                    <tr>
-                <td class="confluenceTd"><p></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
-                <td class="confluenceTd"><p></p></td>
-            </tr>
-                    <tr>
-                <td class="confluenceTd"><p></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p>保存成功的信息</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
             
@@ -81,7 +75,7 @@
         <td class="confluenceTd" rowspan="3"><p><strong>data示例</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
-                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"saved":&nbsp;1<br>}            </p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"saved":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
         </td>
     </tr>
 

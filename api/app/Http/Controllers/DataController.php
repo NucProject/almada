@@ -24,11 +24,10 @@ class DataController extends Controller
      *
      * @url-param deviceId || int || 设备ID
      *
-     * @form-param data || json || 数据(dataTime: 数据时间(UNIX-TIME), 其他数据项)
+     * @form-param history || int || 是否是历史数据(默认值为0, 表示实时数据; 1表示历史数据)
+     * @form-param data || array || Form表单Array, data[]={dataTime=UNIX-TIME, 其他字段值}
      *
-     * @ret-val saved
-     * @ret-val
-     * @ret-val
+     * @ret-val saved.deviceId || int || 保存成功的信息 || 1
      *
      * @param Request $request
      * @param int $deviceId
@@ -40,19 +39,16 @@ class DataController extends Controller
             return $this->json(Errors::BadArguments, ['msg' => 'Bad deviceId']);
         }
 
-        $data = $request->input('data', '');
-        if (!$data) {
+        $data = $request->input('data', []);
+        if (!$data || !is_array($data)) {
             return $this->json(Errors::BadArguments, ['msg' => 'Bad data']);
         }
 
-        $data = json_decode($data, true);
-
-        $dataTime = $request->input('dataTime', 0);
-
-        $saveResult = DataService::save($deviceId, $data, $dataTime);
+        $saveResult = DataService::save($deviceId, $data);
         if ($this->isOk($saveResult)) {
 
-            return $this->json(Errors::Ok, ['data' => $data]);
+            $saved = $saveResult['data'];
+            return $this->json(Errors::Ok, ['saved' => $saved]);
         }
 
         return $this->jsonFromError($saveResult);
