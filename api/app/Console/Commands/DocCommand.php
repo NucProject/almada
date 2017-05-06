@@ -146,9 +146,12 @@ class DocCommand extends Command
             'formParams' => [],
             'retFields' => [],
             'statusEnum' => [],
-            'retVal' => self::convertToHtml([])
+            'retVal' => self::convertToHtml([]),
+            'examples' => []
         ];
 
+        $inExample = false;
+        $exampleLines = [];
         foreach ($docLines as $line)
         {
             if (Str::startsWith($line, '@title')) {
@@ -211,6 +214,16 @@ class DocCommand extends Command
                 ];
 
                 $doc['statusEnum'][] = $status;
+            } elseif (Str::startsWith($line, '@example-begin')) {
+                $inExample = true;
+            } elseif (Str::startsWith($line, '@example-end')) {
+                $doc['examples'][] = implode("<br>", $exampleLines);
+                $inExample = false;
+                $exampleLines = [];
+            } else {
+                if ($inExample) {
+                    $exampleLines[] = $line;
+                }
             }
         }
 

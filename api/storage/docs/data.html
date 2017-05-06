@@ -50,7 +50,7 @@
                     <tr>
                 <td class="confluenceTd"><p>data</p></td>
                 <td class="confluenceTd"><p>array</p></td>
-                <td class="confluenceTd"><p>Form表单Array, data[]={dataTime=UNIX-TIME, 其他字段值}</p></td>
+                <td class="confluenceTd"><p>Form表单Array, data[]={dataTime=UNIX-TIME, 其他字段值}, 参见调用示例</p></td>
                 <td class="confluenceTd"><p>Yes</p></td>
             </tr>
             
@@ -70,14 +70,40 @@
             </tr>
             
     <!-- 返回值status 说明 -->
+            <tr>
+            <td class="confluenceTd" rowspan="2"><p><strong>返回值状态 </strong></p></td>
+            <td class="confluenceTd"><p><strong>值</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>0</p></td>
+                <td class="confluenceTd"><p>OK</p></td>
+            </tr>
+            
+
+            <tr>
+            <td class="confluenceTd" rowspan="1"><p><strong>调用示例</strong></p></td>
+            <td class="confluenceTd" colspan="4">
+                <p>
+                    d = new FormData()<br>d.append("data[0][v1]", 1)<br>d.append("data[0][v2]", 2)<br>d.append("data[0][dataTime]", 1)<br>d.append("data[1][v1]", 2)<br>d.append("data[1][v2]", 1)<br>d.append("data[1][dataTime]", 1)<br><br>var xhr = new XMLHttpRequest();<br>xhr.open("POST", "http://host:port/d/send/1");<br>xhr.send(d);                </p>
+            </td>
+        </tr>
+            <tr>
+            <td class="confluenceTd" rowspan="1"><p><strong>调用示例</strong></p></td>
+            <td class="confluenceTd" colspan="4">
+                <p>
+                    curl -d "" ...                </p>
+            </td>
+        </tr>
     
     <tr>
-        <td class="confluenceTd" rowspan="3"><p><strong>data示例</strong></p></td>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
                 {<br>&nbsp;&nbsp;&nbsp;&nbsp;"saved":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
         </td>
     </tr>
+
 
     </tbody>
 </table>

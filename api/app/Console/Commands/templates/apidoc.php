@@ -74,28 +74,37 @@
         <tr>
             <td class="confluenceTd" rowspan="<?=count($doc['statusEnum']) + 1?>"><p><strong>返回值状态 </strong></p></td>
             <td class="confluenceTd"><p><strong>值</strong></p></td>
-            <td class="confluenceTd"><p><strong></strong></p></td>
             <td class="confluenceTd"><p><strong>说明</strong></p></td>
-            <td class="confluenceTd"><p><strong></strong></p></td>
         </tr>
         <?php foreach ($doc['statusEnum'] as $ret):?>
             <tr>
                 <td class="confluenceTd"><p><?=$ret['value']?></p></td>
-                <td class="confluenceTd"><p></p></td>
                 <td class="confluenceTd"><p><?=$ret['comment']?></p></td>
-                <td class="confluenceTd"><p></p></td>
             </tr>
         <?php endforeach;?>
     <?php endif;?>
 
+
+    <?php foreach ($doc['examples'] as $example):?>
+        <tr>
+            <td class="confluenceTd" rowspan="1"><p><strong>调用示例</strong></p></td>
+            <td class="confluenceTd" colspan="4">
+                <p>
+                    <?=$example?>
+                </p>
+            </td>
+        </tr>
+    <?php endforeach;?>
+
     <tr>
-        <td class="confluenceTd" rowspan="3"><p><strong>data示例</strong></p></td>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
                 <?=$doc['retVal']?>
             </p>
         </td>
     </tr>
+
 
     </tbody>
 </table>

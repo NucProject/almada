@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
-
     /**
      * @cat data
      * @title 数据接收接口
@@ -25,13 +24,35 @@ class DataController extends Controller
      * @url-param deviceId || int || 设备ID
      *
      * @form-param history || int || 是否是历史数据(默认值为0, 表示实时数据; 1表示历史数据)
-     * @form-param data || array || Form表单Array, data[]={dataTime=UNIX-TIME, 其他字段值}
+     * @form-param data || array || Form表单Array, data[]={dataTime=UNIX-TIME, 其他字段值}, 参见调用示例
      *
      * @ret-val saved.deviceId || int || 保存成功的信息 || 1
      *
      * @param Request $request
      * @param int $deviceId
      * @return string
+     *
+     * @status 0 || OK
+     *
+     * @case deviceId=1 @form data[]=?
+     *
+     * @example-begin JavaScript
+     * d = new FormData()
+     * d.append("data[0][v1]", 1)
+     * d.append("data[0][v2]", 2)
+     * d.append("data[0][dataTime]", 1)
+     * d.append("data[1][v1]", 2)
+     * d.append("data[1][v2]", 1)
+     * d.append("data[1][dataTime]", 1)
+     *
+     * var xhr = new XMLHttpRequest();
+     * xhr.open("POST", "http://host:port/d/send/1");
+     * xhr.send(d);
+     * @example-end
+     *
+     * @example-begin
+     * curl -d "" ...
+     * @example-end
      */
     public function send(Request $request, $deviceId)
     {
@@ -43,6 +64,11 @@ class DataController extends Controller
         if (!$data || !is_array($data)) {
             return $this->json(Errors::BadArguments, ['msg' => 'Bad data']);
         }
+
+        //var_dump($data);exit;
+
+        $history = $request->input('history', 0);
+        // TODO:
 
         $saveResult = DataService::save($deviceId, $data);
         if ($this->isOk($saveResult)) {
