@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\AdDevice;
+use App\Services\DeviceService;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
 
@@ -55,6 +56,12 @@ class DeviceController extends Controller
 
         }
 
+        $deviceTypeId = $request->input('deviceTypeId', 0);
+        if (!ResultTrait::isValidId($deviceTypeId)) {
+
+        }
+
+        DeviceService::createDevice($groupId, $deviceTypeId);
     }
 
 }

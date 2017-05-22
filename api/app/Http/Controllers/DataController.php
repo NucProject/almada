@@ -41,6 +41,7 @@ class DataController extends Controller
      * d.append("data[0][v1]", 1)
      * d.append("data[0][v2]", 2)
      * d.append("data[0][dataTime]", 1)
+     * // 支持多个数据包
      * d.append("data[1][v1]", 2)
      * d.append("data[1][v2]", 1)
      * d.append("data[1][dataTime]", 1)

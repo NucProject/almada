@@ -23,4 +23,23 @@ class DeviceService
         return $device;
     }
 
+    /**
+     * @param $groupId
+     * @param $deviceTypeId
+     *
+     * @return array
+     */
+    public static function createDevice($groupId, $deviceTypeId)
+    {
+        // TODO: deviceType find
+
+        $device = new AdDevice();
+        $device->group_id = $groupId;
+
+        if (!$device->save()) {
+
+        }
+
+        // TODO: 创建数据表
+    }
 }

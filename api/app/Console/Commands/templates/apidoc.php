@@ -1,8 +1,10 @@
-
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
 <!-- REST API doc template for WIKI -->
 <h3><?=$doc['index']?>.&nbsp;<?=$doc['title']?>&nbsp;</h3>
-<table class="confluenceTable table table-bordered table-striped">
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
@@ -108,3 +110,4 @@
 
     </tbody>
 </table>
+</div>

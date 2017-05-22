@@ -1,14 +1,10 @@
-<!-- REST API doc template for WIKI -->
-<!-- 目录部分 -->
-<h2>
-    <img class="editor-inline-macro"
-         src="http:///plugins/servlet/confluence/placeholder/macro?definition=e3RvY30&amp;locale=en_GB&amp;version=2"
-         data-macro-name="toc" data-macro-id="b0eef2ab-c820-486c-b34f-9306f727e6c9" data-macro-schema-version="1">
-</h2>
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
 <!-- REST API doc template for WIKI -->
 <h3>1.&nbsp;数据接收接口&nbsp;</h3>
-<table class="confluenceTable table table-bordered table-striped">
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
@@ -85,7 +81,7 @@
             <td class="confluenceTd" rowspan="1"><p><strong>调用示例</strong></p></td>
             <td class="confluenceTd" colspan="4">
                 <p>
-                    d = new FormData()<br>d.append("data[0][v1]", 1)<br>d.append("data[0][v2]", 2)<br>d.append("data[0][dataTime]", 1)<br>d.append("data[1][v1]", 2)<br>d.append("data[1][v2]", 1)<br>d.append("data[1][dataTime]", 1)<br><br>var xhr = new XMLHttpRequest();<br>xhr.open("POST", "http://host:port/d/send/1");<br>xhr.send(d);                </p>
+                    d = new FormData()<br>d.append("data[0][v1]", 1)<br>d.append("data[0][v2]", 2)<br>d.append("data[0][dataTime]", 1)<br>// 支持多个数据包<br>d.append("data[1][v1]", 2)<br>d.append("data[1][v2]", 1)<br>d.append("data[1][dataTime]", 1)<br><br>var xhr = new XMLHttpRequest();<br>xhr.open("POST", "http://host:port/d/send/1");<br>xhr.send(d);                </p>
             </td>
         </tr>
             <tr>
@@ -107,3 +103,4 @@
 
     </tbody>
 </table>
+</div>

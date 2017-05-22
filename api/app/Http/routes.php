@@ -13,6 +13,8 @@ $app->group([
 
     $app->post('send/{deviceId}', 'DataController@send');
 
+    $app->post('group/', 'GroupController@create');
+
 });
 
 $app->group([

@@ -11,6 +11,9 @@ namespace App\Models\Base;
  * @property $group_id    
  * @property $group_name    
  * @property $group_desc    
+ * @property $status    
+ * @property $create_time    
+ * @property $update_time    
  */
 class AdGroupBase extends BaseModel
 {

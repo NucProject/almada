@@ -21,7 +21,7 @@ class DocPage
     public function save($fileName)
     {
         $file = fopen($fileName, 'wb');
-        $this->writeToc($file);
+        // $this->writeToc($file);  // 暂时不需要TOC
         $index = 1;
         foreach ($this->apiList as $api)
         {

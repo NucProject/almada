@@ -23,7 +23,7 @@ class DataService
     {
         // 动态Model生成
         foreach ($data as $item) {
-            
+
             if (!array_key_exists('dataTime', $item)) {
                 // 必须在data中含有dataTime, 或者在Request中发送dataTime字段.
                 return self::error(Errors::NoDataTime, []);
