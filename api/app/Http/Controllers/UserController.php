@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\Errors;
+use App\Services\GroupService;
 use App\Services\ResultTrait;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -84,7 +86,7 @@ class UserController extends Controller
 
     /**
      * @param Request $request
-     * @param $groupId
+     *
      *
      * @cat user
      * @title 用户申请加入组
@@ -92,8 +94,28 @@ class UserController extends Controller
      *
      * @return string
      */
-    public function applyForGroup(Request $request, $groupId)
+    public function join(Request $request)
     {
+        $invite = $request->input('invite');
+        if (!$invite) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Wrong Invite']);
+        }
+
+        $userId = $request->user()->getUid();
+        if (!self::isValidId($userId)) {
+            return $this->json(Errors::UserNotLogin);
+        }
+
+        $result = GroupService::getGroupByInvite($invite);
+        if (self::hasError($result)) {
+            return $this->jsonFromError($result);
+        }
+
+        $group = $result['data'];
+
+        UserService::joinGroup($userId, $group['group_id']);
+
+
 
     }
 }

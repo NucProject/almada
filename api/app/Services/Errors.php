@@ -25,6 +25,10 @@ class Errors
 
     const UserNotFound = 6;
 
+    const UserNotLogin = 7;
+
+    const UserStateError = 8;
+
 
     private static $errorsMap = [
         self::Ok           => ['msg' => 'OK', 'comment' => '成功'],
@@ -34,6 +38,8 @@ class Errors
         self::DeviceNotFound   => ['msg' => 'No this device', 'comment' => '设备未找到'],
         self::GroupNotFound   => ['msg' => 'No this group', 'comment' => '没有这个用户组'],
         self::UserNotFound   => ['msg' => 'No this user', 'comment' => '没有这个用户'],
+        self::UserNotLogin   => ['msg' => 'User not login', 'comment' => '用户没有登录'],
+        self::UserStateError   => ['msg' => 'User state error', 'comment' => '用户状态错误'],
 
     ];
 

@@ -29,6 +29,9 @@ class GroupService
             $group->group_name = $data['groupDesc'];
         }
 
+        // 创建组的时候生成邀请码
+        $group->group_invite = substr(md5($group->group_name . time()), 0, 10);
+
         $group->status = 1;
         if (!$group->save()) {
             return self::error(Errors::SaveFailed);
@@ -61,5 +64,15 @@ class GroupService
     public static function find($groupId)
     {
         return AdGroup::query()->find($groupId)->first();
+    }
+
+    public static function getGroupByInvite($invite)
+    {
+        $group = AdGroup::query()->where('group_invite', $invite)->first();
+        if (!$group) {
+            return self::error(Errors::GroupNotFound, ['msg' => 'Bad invitation']);
+        }
+
+        return self::ok($group->toArray());
     }
 }
