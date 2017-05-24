@@ -15,6 +15,10 @@ $app->group([
 
     $app->post('group/', 'GroupController@create');
 
+    $app->post('device/type', 'DeviceTypeController@create');
+
+    $app->post('device/type/{$typeId}', 'DeviceTypeController@modifyFields');
+
 });
 
 $app->group([
