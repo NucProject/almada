@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Models\AdDevice;
+use App\Models\AdDeviceField;
 use App\Models\AdDeviceType;
 
 class DeviceTypeService
@@ -22,6 +23,37 @@ class DeviceTypeService
         return self::ok($types->toArray());
     }
 
+    public static function createDeviceType($data)
+    {
+        $type = new AdDeviceType();
+        $type->type_name = $data['typeName'];
+        $type->type_desc = $data['typeDesc'];
+        $type->status = 1;
+        if (!$type->save()) {
+            return self::error(Errors::SaveFailed);
+        }
+
+        return self::ok($type->toArray());
+    }
+
+    public static function updateDeviceType($typeId, $data)
+    {
+        $type = AdDeviceType::query()->where('type_id', $typeId)->first();
+        if (!$type) {
+            return self::error(Errors::DeviceNotFound); // TODO:
+        }
+
+        $type->type_name = $data['typeName'];
+        $type->type_desc = $data['typeDesc'];
+        $type->status = 1;
+        if (!$type->save()) {
+            return self::error(Errors::SaveFailed);
+        }
+
+        return self::ok($type->toArray());
+
+    }
+
     /**
      * @param $typeId
      * @param $fields
@@ -31,10 +63,34 @@ class DeviceTypeService
     public static function updateFields($typeId, $fields)
     {
         if (!is_array($fields)) {
-
+            return self::error(Errors::BadArguments);
         }
 
+        foreach ($fields as $field) {
+            $fieldId = 0;
+            $fieldObj = false;
+            if (array_key_exists('fieldId', $field)) {
+                $fieldId = $field['fieldId'];
+                if (self::isValidId($fieldId)) {
+                    $fieldObj = AdDeviceField::query()->find($fieldId);
+                }
+            } else {
+                $fieldObj = new AdDeviceField();
+            }
 
+            if (!$fieldObj) {
+                continue;
+            }
+
+            $fieldObj->setAttributes($field, false, ['fieldName', 'fieldDesc', 'fieldTitle', 'fieldUnit']);
+            $fieldObj->type_id = $typeId;
+            $fieldObj->status = 1;
+            if (!$fieldObj->save()) {
+                return self::error(Errors::SaveFailed);
+            }
+        }
+
+        return self::ok($fields);
     }
 
     public static function checkFields($fields)
@@ -47,5 +103,6 @@ class DeviceTypeService
                 return self::error(Errors::BadArguments);
             }
         }
+        return self::ok([]);
     }
 }

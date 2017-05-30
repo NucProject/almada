@@ -79,6 +79,5 @@ class DataController extends Controller
         }
 
         return $this->jsonFromError($saveResult);
-
     }
 }

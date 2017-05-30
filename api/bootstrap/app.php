@@ -48,8 +48,10 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
+
 $app->configure('app');
-$app->configure('imageupload');
+
+//$app->configure('imageupload');
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -67,10 +69,7 @@ $app->configure('imageupload');
 
 $app->routeMiddleware([
     'AccessControlAllowOrigin' => App\Http\Middleware\AccessControlAllowOrigin::class,
-    'MerchantLoginAuth' => \App\Http\Middleware\MerchantLoginAuth::class,
-    'DeveloperInfo' => App\Http\Middleware\DeveloperInfo::class,
-    'Login' => App\Http\Middleware\Login::class,
-    'AdminLoginAuth' => App\Http\Middleware\AdminLoginAuth::class,
+    'UserAuth' => \App\Http\Middleware\UserAuth::class,
 ]);
 
 /*

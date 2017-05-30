@@ -10,9 +10,20 @@ namespace App\Services;
 
 
 use App\Models\AdDevice;
+use App\Models\AdDeviceField;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class DeviceService
 {
+    use ResultTrait;
+
+    // Field-types supported
+    const FieldType_Int = 1;
+    const FieldType_Double = 2;
+    const FieldType_Boolean = 3;
+    const FieldType_String = 4;
+
     /**
      * @param $deviceId
      * @return \App\Models\Base\AdDeviceBase;
@@ -24,22 +35,77 @@ class DeviceService
     }
 
     /**
-     * @param $groupId
-     * @param $deviceTypeId
+     * @param int $groupId
+     * @param int $typeId
+     * @param array $data
      *
      * @return array
      */
-    public static function createDevice($groupId, $deviceTypeId)
+    public static function createDevice($groupId, $typeId, $data=[])
     {
         // TODO: deviceType find
-
         $device = new AdDevice();
         $device->group_id = $groupId;
+        $device->type_id = $typeId;
+
+        $device->setAttributes($data, false, ['device_name']);
+        $device->status = 1;
 
         if (!$device->save()) {
-
+            return self::error(Errors::SaveFailed, ['msg' => 'Device create failed']);
         }
 
-        // TODO: 创建数据表
+        // 创建数据表
+        $tableResult = self::createDeviceTable($device->device_id, $typeId);
+        if (self::hasError($tableResult)) {
+            return self::error(Errors::SaveFailed, ['msg' => 'Create table failed']);
+        }
+
+
+        return self::ok($device->toArray());
+    }
+
+    /**
+     * @param $deviceId
+     * @param $typeId
+     * @return array
+     */
+    public static function createDeviceTable($deviceId, $typeId)
+    {
+        $tableName = "dt_data_{$deviceId}";
+        // TODO: Error handling
+        Schema::create($tableName, function(Blueprint $table) use ($typeId) {
+            $table->engine = 'InnoDB';
+            $table->increments('data_id');
+            $table->integer('data_time');
+            self::setDataFields($table, $typeId);
+            $table->integer('status');
+            $table->integer('create_time');
+            $table->integer('update_time');
+        });
+
+        return self::ok([]);
+    }
+
+    /**
+     * @param Blueprint $table
+     * @param $typeId
+     */
+    public static function setDataFields(Blueprint $table, $typeId)
+    {
+        // Read the type fields from $typeId
+        $fields = AdDeviceField::query()->where('type_id', $typeId)->get()->toArray();
+        foreach ($fields as $field) {
+            $fieldName = $field['field_name'];
+            if ($field['field_type'] == self::FieldType_Int) {
+                $table->integer($fieldName);
+            } elseif ($field['field_type'] == self::FieldType_Double) {
+                $table->double($fieldName);
+            } elseif ($field['field_type'] == self::FieldType_Boolean) {
+                $table->tinyInteger($fieldName);
+            }  elseif ($field['field_type'] == self::FieldType_String) {
+                $table->string($fieldName);
+            }
+        }
     }
 }

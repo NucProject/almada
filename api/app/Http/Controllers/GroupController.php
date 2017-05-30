@@ -32,7 +32,7 @@ class GroupController extends Controller
     {
         $data = $request->input();
 
-        $valid = $this->validate2($data, []);
+        $valid = $this->validate2($data, ['groupName' => 'required|string']);
         if ($valid->fails()) {
 
         }

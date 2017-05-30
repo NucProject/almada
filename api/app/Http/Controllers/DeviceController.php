@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdDevice;
 use App\Services\DeviceService;
+use App\Services\Errors;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,16 @@ class DeviceController extends Controller
         $query = AdDevice::query();
 
         $groupId = $request->input('groupId', 0);
+        $typeId = $request->input('typeId', 0);
+
+        if (!self::isValidId($groupId)) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Group id is required']);
+        }
+
+        if (!self::isValidId($typeId)) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Type id is required']);
+        }
+
         if ($groupId) {
             $query->where('group_id', $groupId);
         }
@@ -53,15 +64,15 @@ class DeviceController extends Controller
     {
         $groupId = $request->input('groupId', 0);
         if (!ResultTrait::isValidId($groupId)) {
-
+            return $this->json(Errors::BadArguments, ['msg' => 'Group id is required']);
         }
 
-        $deviceTypeId = $request->input('deviceTypeId', 0);
-        if (!ResultTrait::isValidId($deviceTypeId)) {
-
+        $typeId = $request->input('typeId', 0);
+        if (!self::isValidId($typeId)) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Type id is required']);
         }
 
-        DeviceService::createDevice($groupId, $deviceTypeId);
+        DeviceService::createDevice($groupId, $typeId);
     }
 
 }

@@ -10,6 +10,7 @@ namespace App\Http\Middleware;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Closure;
 
 class UserAuth
 {
@@ -19,10 +20,13 @@ class UserAuth
 
         // TODO: SessionId to token?
 
+
         $request->setUserResolver(function() use ($token) {
             $user = new User();
             $user->setUid(1);
             return $user;
         });
+
+        return $next($request);
     }
 }
