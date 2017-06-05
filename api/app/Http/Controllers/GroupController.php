@@ -11,10 +11,12 @@ namespace App\Http\Controllers;
 
 use App\Services\Errors;
 use App\Services\GroupService;
+use App\Services\ResultTrait;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+    use ResultTrait;
     /**
      * @cat group
      * @title 创建组
@@ -63,6 +65,25 @@ class GroupController extends Controller
             return $this->json(Errors::Ok, $data);
         }
 
+    }
+
+    /**
+     * @param Request $request
+     * @param $groupId
+     * @return string
+     *
+     * @cat group
+     * @title 用户组用户列表
+     * @comment 用户组用户列表
+     *
+     */
+    public function users(Request $request, $groupId)
+    {
+        if (!ResultTrait::isValidId($groupId) && $groupId != 'all') {
+            return $this->json(Errors::BadArguments, []);
+        }
+
+        $result = GroupService::getUsers($groupId);
     }
 
 

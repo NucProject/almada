@@ -47,13 +47,12 @@ class UserController extends Controller
 
         }
 
-
         $result = UserService::newUser($data);
         if (self::isOk($result)) {
-
+            return $this->json(Errors::Ok, ['user' => $result['data']]);
         }
 
-
+        return $this->jsonFromError($result['data']);
     }
 
 
@@ -78,9 +77,15 @@ class UserController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-        if ($valid->fails()) {
 
+        if ($valid->fails()) {
+            return $this->json(Errors::BadArguments, []);
         }
+
+        $token = null;
+
+        // TODO: Set-Cookie
+        return $this->json(Errors::Ok, ['token' => $token]);
 
     }
 
@@ -113,9 +118,11 @@ class UserController extends Controller
 
         $group = $result['data'];
 
-        UserService::joinGroup($userId, $group['group_id']);
+        $result = UserService::joinGroup($userId, $group['group_id']);
+        if (self::hasError($result)) {
+            return $this->jsonFromError($result);
+        }
 
-
-
+        return $this->json(Errors::Ok, []);
     }
 }

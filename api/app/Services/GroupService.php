@@ -75,4 +75,13 @@ class GroupService
 
         return self::ok($group->toArray());
     }
+
+    /**
+     * @param $groupId
+     * @return array
+     */
+    public static function getUsers($groupId)
+    {
+        // TODO:
+    }
 }

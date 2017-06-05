@@ -67,12 +67,19 @@ class DeviceController extends Controller
             return $this->json(Errors::BadArguments, ['msg' => 'Group id is required']);
         }
 
+        // 设备必有其类型!
         $typeId = $request->input('typeId', 0);
         if (!self::isValidId($typeId)) {
             return $this->json(Errors::BadArguments, ['msg' => 'Type id is required']);
         }
 
-        DeviceService::createDevice($groupId, $typeId);
+        $data = $request->input();
+        $result = DeviceService::createDevice($groupId, $typeId, $data);
+        if (self::hasError($result)) {
+            return $this->jsonFromError($result);
+        }
+
+        return $this->json(Errors::Ok, $result['data']);
     }
 
 }
