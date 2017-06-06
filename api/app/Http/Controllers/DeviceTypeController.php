@@ -80,12 +80,18 @@ class DeviceTypeController extends Controller
      * @title 修改设备类型字段信息
      * @comment 修改设备类型字段信息
      *
-     * @form-param fields || array || 设备类型名称
+     * @form-param fields || array || 设备类型名称(参加返回值字段)
+     *
+     * @ret-val fields.0.fieldId
+     * @ret-val fields.0.fieldName
+     * @ret-val fields.0.fieldTitle
+     *
+     * @case @form
      */
     public function modifyFields(Request $request, $typeId)
     {
         if (!self::isValidId($typeId)) {
-
+            return $this->json(Errors::BadArguments);
         }
 
         $fields = $request->input('fields');
@@ -95,14 +101,15 @@ class DeviceTypeController extends Controller
             return $this->jsonFromError($check);
         }
 
-        var_dump($fields);
+        // var_dump($fields);
         $result = DeviceTypeService::updateFields($typeId, $fields);
         if (self::hasError($result)) {
             return $this->jsonFromError($result);
         }
 
-        return $this->json(Errors::Ok, []);
-
+        return $this->json(Errors::Ok, [
+            'fields' => $result['data']
+        ]);
     }
 
     /**

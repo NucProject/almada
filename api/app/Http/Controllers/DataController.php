@@ -80,4 +80,20 @@ class DataController extends Controller
 
         return $this->jsonFromError($saveResult);
     }
+
+    /**
+     * @param Request $request
+     * @return string
+     *
+     * @cat data
+     * @title 数据查询接口
+     * @comment 数据查询接口
+     *
+     */
+    public function query(Request $request)
+    {
+        // TODO:
+        $data = [];
+        return $this->json(Errors::Ok, ['data' => $data]);
+    }
 }

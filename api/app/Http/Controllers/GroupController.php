@@ -49,7 +49,7 @@ class GroupController extends Controller
     /**
      * @cat group
      * @title 用户组列表
-     * @comment 用户组列表
+     * @comment 用户组列表(由于隐私原因, 可能会被改造)
      *
      * @param Request $request
      * @return string

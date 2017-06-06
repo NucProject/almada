@@ -35,6 +35,22 @@ class DeviceService
     }
 
     /**
+     * @param $groupId
+     * @return array
+     */
+    public static function getDevices($groupId)
+    {
+        $query = AdDevice::query();
+
+        if (self::isValidId($groupId)) {
+            $query->where('group_id', $groupId);
+        }
+
+        $devices = $query->get()->toArray();
+        return self::ok($devices);
+    }
+
+    /**
      * @param int $groupId
      * @param int $typeId
      * @param array $data
@@ -58,7 +74,7 @@ class DeviceService
         // 创建数据表
         $tableResult = self::createDeviceTable($device->device_id, $typeId);
         if (self::hasError($tableResult)) {
-            return self::error(Errors::SaveFailed, ['msg' => 'Create table failed']);
+            return self::error(Errors::SaveFailed, ['msg' => 'Create data table failed']);
         }
 
 
