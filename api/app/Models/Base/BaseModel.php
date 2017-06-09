@@ -63,6 +63,19 @@ class BaseModel extends Model
     }
 
     /**
+     * @param $deviceId
+     * @return \Illuminate\Database\Eloquent\Builder
+     * 指代查询所有的, 那么就会去掉对status!=0的条件.
+     */
+    public static function queryDevice($deviceId)
+    {
+        $model = (new static);
+        $model->setDeviceId($deviceId);
+
+        return $model->newQuery();
+    }
+
+    /**
      * 检查必填字段
      * @param array $request
      * @return bool

@@ -83,6 +83,7 @@ class DataController extends Controller
 
     /**
      * @param Request $request
+     * @param int $deviceId
      * @return string
      *
      * @cat data
@@ -90,10 +91,24 @@ class DataController extends Controller
      * @comment 数据查询接口
      *
      */
-    public function query(Request $request)
+    public function query(Request $request, $deviceId)
     {
-        // TODO:
-        $data = [];
+        if (!self::isValidId($deviceId)) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        $timeBegin = $request->input('timeBegin', 0);
+        // TODO: Parse time if in some format?
+        $timeEnd = $request->input('timeEnd', time());
+        if ($timeBegin > $timeEnd) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        $algo = $request->input('algo', 'avg');
+
+        $data = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $algo);
+
+
         return $this->json(Errors::Ok, ['data' => $data]);
     }
 }

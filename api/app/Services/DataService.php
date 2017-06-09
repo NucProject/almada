@@ -29,7 +29,8 @@ class DataService
                 return self::error(Errors::NoDataTime, []);
             }
 
-            $model = new DtData($deviceId);
+            $model = new DtData();
+            $model->setDeviceId($deviceId);
             $model->setAttributes($item, false);
             $model->status = 1;
 
@@ -53,5 +54,22 @@ class DataService
         }
 
 
+    }
+
+    /**
+     * @param $deviceId
+     * @param $timeRange
+     * @param $algo
+     *
+     * @return array
+     */
+    public static function queryData($deviceId, $timeRange, $algo)
+    {
+        $data = DtData::queryDevice($deviceId)->whereBetween('data_time', $timeRange)->get();
+
+        if ($data) {
+            return self::ok($data->toArray());
+        }
+        return self::ok([]);
     }
 }

@@ -5,11 +5,9 @@ $app->group([
     'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
-    $app->get('test', function() {
-        echo "Hello lumen";
-    });
-
     $app->get('devices', 'DeviceController@devices');
+
+    $app->get('device/{deviceId}/data', 'DataController@query');
 
     $app->post('send/{deviceId}', 'DataController@send');
 

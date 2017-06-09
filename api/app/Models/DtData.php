@@ -13,14 +13,9 @@ use App\Models\Base\DtDataBase;
  */
 class DtData extends DtDataBase
 {
-    /**
-     * @param int $deviceId
-     */
-    public function __construct($deviceId)
-    {
+    public function setDeviceId($deviceId) {
         $this->table = "dt_data_{$deviceId}";
     }
-
 
 }
 
