@@ -64,7 +64,7 @@ class DeviceService
         $device->group_id = $groupId;
         $device->type_id = $typeId;
 
-        $device->setAttributes($data, false, ['device_name']);
+        $device->setAttributes($data, false, ['deviceName']);
         $device->status = 1;
 
         if (!$device->save()) {

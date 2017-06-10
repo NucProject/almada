@@ -29,10 +29,9 @@ class Errors
 
     const UserStateError = 8;
 
-
     private static $errorsMap = [
         self::Ok           => ['msg' => 'OK', 'comment' => '成功'],
-        self::BadArguments => ['msg' => 'OK', 'comment' => '参数错误'],
+        self::BadArguments => ['msg' => 'Bad arguments', 'comment' => '参数错误'],
         self::SaveFailed   => ['msg' => 'Model saved failed', 'comment' => '保存失败'],
         self::NoDataTime   => ['msg' => 'No dataTime field', 'comment' => '没有dataTime字段'],
         self::DeviceNotFound   => ['msg' => 'No this device', 'comment' => '设备未找到'],
@@ -40,7 +39,6 @@ class Errors
         self::UserNotFound   => ['msg' => 'No this user', 'comment' => '没有这个用户'],
         self::UserNotLogin   => ['msg' => 'User not login', 'comment' => '用户没有登录'],
         self::UserStateError   => ['msg' => 'User state error', 'comment' => '用户状态错误'],
-
     ];
 
     public static function getErrorMsg($status)

@@ -11,6 +11,7 @@ namespace App\Models\Base;
  * @property $device_id    
  * @property $type_id    
  * @property $device_name    
+ * @property $device_desc    
  * @property $group_id    
  * @property $status    
  * @property $create_time    
