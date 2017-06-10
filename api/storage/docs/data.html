@@ -2,13 +2,112 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>1.&nbsp;数据接收接口&nbsp;</h3>
+<h3>1.&nbsp;数据查询接口&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>POST&nbsp;/d/send/{deviceId}</p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/device/{deviceId}/data'>/d/device/{deviceId}/data</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>数据查询接口</p></td>
+    </tr>
+    <!-- URL 参数 -->
+        <tr>
+        <td class="confluenceTd" rowspan="5"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd"><p><strong>名称</strong></p></td>
+        <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+        <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        <td class="confluenceTd"><p><strong>必选</strong></p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>deviceId</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>设备ID</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>timeBegin</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>开始时间</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>timeEnd</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>结束时间</p></td>
+        <td class="confluenceTd"><p>No</p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>algo</p></td>
+        <td class="confluenceTd"><p>string</p></td>
+        <td class="confluenceTd"><p>数字取值算法</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.dataTime</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.someFieldValue</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>pager.currentPage</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>pager.totalPage</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataTime":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"someFieldValue":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;],<br>&nbsp;&nbsp;&nbsp;&nbsp;"pager":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"currentPage":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"totalPage":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>2.&nbsp;数据接收接口&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/send/{deviceId}'>/d/send/{deviceId}</a></p></td>
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
@@ -93,7 +192,7 @@
         </tr>
     
     <tr>
-        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例</strong></p></td>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
                 {<br>&nbsp;&nbsp;&nbsp;&nbsp;"saved":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>

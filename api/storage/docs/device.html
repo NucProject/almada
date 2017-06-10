@@ -8,11 +8,86 @@
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>GET&nbsp;/d/devices</p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/devices'>/d/devices</a></p></td>
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
         <td class="confluenceTd" colspan="4"><p>设备列表</p></td>
+    </tr>
+    <!-- URL 参数 -->
+        <tr>
+        <td class="confluenceTd" rowspan="2"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd"><p><strong>名称</strong></p></td>
+        <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+        <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        <td class="confluenceTd"><p><strong>必选</strong></p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>groupId</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>分组ID</p></td>
+        <td class="confluenceTd"><p>No</p></td>
+    </tr>
+            
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="4"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.deviceId</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>设备ID</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.deviceName</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>2.&nbsp;创建设备类型&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/device/types'>/d/device/types</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>创建设备类型</p></td>
     </tr>
     <!-- URL 参数 -->
     
@@ -25,10 +100,308 @@
 
     
     <tr>
-        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例</strong></p></td>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
                 []            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>3.&nbsp;创建设备类型&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/device/type'>/d/device/type</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>创建设备类型</p></td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="4"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>typeName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备类型名称</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>typeDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备类型描述</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>isMovable</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>是否是移动设备</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+    
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                []            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>4.&nbsp;修改设备类型信息&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/device/type/{typeId}'>/d/device/type/{typeId}</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>修改设备类型信息基本</p></td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="4"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>typeName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备类型名称</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>typeDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备类型描述</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>isMovable</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>是否是移动设备</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+    
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                []            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>5.&nbsp;修改设备类型字段信息&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/device/type/{typeId}/fields'>/d/device/type/{typeId}/fields</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>修改设备类型字段信息</p></td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="2"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>fields</p></td>
+                <td class="confluenceTd"><p>array</p></td>
+                <td class="confluenceTd"><p>设备类型名称(参加返回值字段)</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="4"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>fields.0.fieldId</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>fields.0.fieldName</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>fields.0.fieldTitle</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"fields":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldId":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldName":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldTitle":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>6.&nbsp;创建设备&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/device'>/d/device</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>创建设备</p></td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>groupId</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>分组ID</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>typeId</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>设备类型ID</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>deviceName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备名称</p></td>
+                <td class="confluenceTd"><p>No</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>deviceSn</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备SN</p></td>
+                <td class="confluenceTd"><p>No</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>device.deviceId</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>设备ID</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>device.deviceName</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>device.typeId</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>device.groupId</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>用户组ID</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"device":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"groupId":&nbsp;3,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"typeId":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
         </td>
     </tr>
 

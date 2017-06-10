@@ -8,7 +8,7 @@
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p><?=$doc['httpMethod']?>&nbsp;<?=$doc['url']?></p></td>
+        <td class="confluenceTd" colspan="4"><p><?=$doc['httpMethod']?>&nbsp;<a href='<?=$doc['url']?>'><?=$doc['url']?></a></p></td>
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
@@ -99,7 +99,7 @@
     <?php endforeach;?>
 
     <tr>
-        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例</strong></p></td>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
                 <?=$doc['retVal']?>

@@ -90,6 +90,17 @@ class DataController extends Controller
      * @title 数据查询接口
      * @comment 数据查询接口
      *
+     * @url-param deviceId || int || 设备ID
+     * @url-param timeBegin || int || 开始时间
+     * @url-param timeEnd  || int || 结束时间 ||
+     * @url-param algo || string || 数字取值算法
+     *
+     * @ret-val list.0.dataTime
+     * @ret-val list.0.someFieldValue
+     *
+     * @ret-val pager.currentPage
+     * @ret-val pager.totalPage
+     *
      */
     public function query(Request $request, $deviceId)
     {
@@ -106,9 +117,14 @@ class DataController extends Controller
 
         $algo = $request->input('algo', 'avg');
 
-        $data = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $algo);
+        $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $algo);
+        if (self::isOk($result)) {
+            $data = $result['data'];
+            return $this->json(Errors::Ok, [
+                'list' => $data,
+                'pager' => []
+            ]);
+        }
 
-
-        return $this->json(Errors::Ok, ['data' => $data]);
     }
 }

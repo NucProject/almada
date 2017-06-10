@@ -22,7 +22,7 @@ class DeviceController extends Controller
      * @title 设备列表
      * @comment 设备列表
      *
-     * @url-param groupId
+     * @url-param groupId || int || 分组ID || 1
      *
      * @ret-val list.0.deviceId
      * @ret-val list.0.deviceName
@@ -53,9 +53,10 @@ class DeviceController extends Controller
      * @title 创建设备
      * @comment 创建设备
      *
-     * @form-param groupId
-     * @form-param typeId
-     * @form-param deviceName
+     * @form-param groupId || int || 分组ID
+     * @form-param typeId || int || 设备类型ID
+     * @form-param deviceName || string || 设备名称 ||
+     * @form-param deviceSn || string || 设备SN ||
      *
      * @ret-val device.deviceId
      * @ret-val device.deviceName

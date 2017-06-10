@@ -47,7 +47,7 @@ class DeviceTypeController extends Controller
      *
      * @form-param typeName || string || 设备类型名称
      * @form-param typeDesc || string || 设备类型描述
-     * @form-param deviceType
+     * @form-param isMovable || int || 是否是移动设备
      *
      */
     public function create(Request $request)
@@ -123,7 +123,7 @@ class DeviceTypeController extends Controller
      *
      * @form-param typeName || string || 设备类型名称
      * @form-param typeDesc || string || 设备类型描述
-     * @form-param deviceType
+     * @form-param isMovable || int || 是否是移动设备
      *
      */
     public function modify(Request $request, $typeId)
