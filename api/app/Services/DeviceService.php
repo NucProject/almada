@@ -64,7 +64,7 @@ class DeviceService
         $device->group_id = $groupId;
         $device->type_id = $typeId;
 
-        $device->setAttributes($data, false, ['deviceName']);
+        $device->setAttributes($data, false, ['deviceName', 'movable']);
         $device->status = 1;
 
         if (!$device->save()) {
@@ -72,7 +72,7 @@ class DeviceService
         }
 
         // 创建数据表
-        $tableResult = self::createDeviceTable($device->device_id, $typeId);
+        $tableResult = self::createDeviceTable($device->device_id, $typeId, $device->movable);
         if (self::hasError($tableResult)) {
             return self::error(Errors::SaveFailed, ['msg' => 'Create data table failed']);
         }
@@ -84,17 +84,23 @@ class DeviceService
     /**
      * @param $deviceId
      * @param $typeId
+     * @param $movable
      * @return array
      */
-    public static function createDeviceTable($deviceId, $typeId)
+    public static function createDeviceTable($deviceId, $typeId, $movable)
     {
         $tableName = "dt_data_{$deviceId}";
         // TODO: Error handling
-        Schema::create($tableName, function(Blueprint $table) use ($typeId) {
+
+
+        Schema::create($tableName, function(Blueprint $table) use ($typeId, $movable) {
             $table->engine = 'InnoDB';
             $table->increments('data_id');
             $table->integer('data_time');
             self::setDataFields($table, $typeId);
+            if ($movable) {
+                self::setMovableFields($table, $typeId);
+            }
             $table->integer('status');
             $table->integer('create_time');
             $table->integer('update_time');
@@ -123,5 +129,14 @@ class DeviceService
                 $table->string($fieldName);
             }
         }
+    }
+
+    /**
+     * @param Blueprint $table
+     */
+    public static function setMovableFields(Blueprint $table)
+    {
+        $table->decimal('lng', 10, 7);
+        $table->decimal('lat', 10, 7);
     }
 }

@@ -13,6 +13,7 @@ namespace App\Models\Base;
  * @property $device_name    
  * @property $device_desc    
  * @property $group_id    
+ * @property $movable    
  * @property $status    
  * @property $create_time    
  * @property $update_time    
