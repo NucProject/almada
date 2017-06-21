@@ -9,7 +9,11 @@ $app->group([
 
     $app->get('device/{deviceId}/data', 'DataController@query');
 
+    // 发送数据(Form)
     $app->post('send/{deviceId}', 'DataController@send');
+
+    // 发送文件
+    $app->post('file/{deviceId}', 'DataController@file');
 
     $app->post('group', 'GroupController@create');
 

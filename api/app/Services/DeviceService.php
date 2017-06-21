@@ -53,16 +53,18 @@ class DeviceService
     /**
      * @param int $groupId
      * @param int $typeId
+     * @param int $deviceId
      * @param array $data
      *
      * @return array
      */
-    public static function createDevice($groupId, $typeId, $data=[])
+    public static function createDevice($groupId, $typeId, $deviceId, $data=[])
     {
         // TODO: deviceType find
         $device = new AdDevice();
         $device->group_id = $groupId;
         $device->type_id = $typeId;
+        $device->depend_device_id = $deviceId;
 
         $device->setAttributes($data, false, ['deviceName', 'movable']);
         $device->status = 1;
@@ -76,7 +78,6 @@ class DeviceService
         if (self::hasError($tableResult)) {
             return self::error(Errors::SaveFailed, ['msg' => 'Create data table failed']);
         }
-
 
         return self::ok($device->toArray());
     }

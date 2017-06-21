@@ -105,4 +105,15 @@ class DeviceTypeService
         }
         return self::ok([]);
     }
+
+    public static function getDeviceTypeIdArrayByDependTypeId($dependTypeId)
+    {
+        $types = AdDeviceType::query()
+            ->select('type_id')
+            ->where('depend_type_id', $dependTypeId)
+            ->get()
+            ->toArray();
+
+        return self::ok($types);
+    }
 }

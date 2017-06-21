@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdDevice;
 use App\Services\DeviceService;
+use App\Services\DeviceTypeService;
 use App\Services\Errors;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
@@ -80,9 +81,23 @@ class DeviceController extends Controller
         }
 
         $data = $request->input();
-        $result = DeviceService::createDevice($groupId, $typeId, $data);
+        $result = DeviceService::createDevice($groupId, $typeId, 0, $data);
         if (self::hasError($result)) {
             return $this->jsonFromError($result);
+        }
+
+        $deviceId = $result['data']['device_id'];
+
+        $dependResult = DeviceTypeService::getDeviceTypeIdArrayByDependTypeId($typeId);
+        if (self::isOk($dependResult)) {
+            // 附属类型
+            $subTypeList = $dependResult['data'];
+            foreach ($subTypeList as $subType) {
+                $subTypeResult = DeviceService::createDevice($groupId, $subType['type_id'], $deviceId, $data);
+                if (self::hasError($subTypeResult)) {
+                    return $this->jsonFromError($subTypeResult);
+                }
+            }
         }
 
         return $this->json(Errors::Ok, $result['data']);

@@ -11,8 +11,10 @@ namespace App\Http\Controllers;
 
 use App\Services\DataService;
 use App\Services\Errors;
+use App\Services\Handlers\FileHandler;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class DataController extends Controller
 {
@@ -79,6 +81,27 @@ class DataController extends Controller
         }
 
         return $this->jsonFromError($saveResult);
+    }
+
+    /**
+     * @param Request $request
+     * @param $deviceId
+     * @return string
+     */
+    public function file(Request $request, $deviceId)
+    {
+        if (!ResultTrait::isValidId($deviceId)) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Bad deviceId']);
+        }
+
+        $file = $request->file('file');
+
+        $fileType = $request->input('fileType', '');
+
+        $handler = FileHandler::getHandler($fileType);
+        if ($handler) {
+            $handler->save($request, $file, $deviceId);
+        }
     }
 
     /**
