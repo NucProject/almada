@@ -41,7 +41,8 @@ class HpgeReportFileHandler extends FileHandler
         if (!$sid) {
             return self::error(Errors::BadArguments, ['reason' => 'Sid is required']);
         }
-        $destPath = "hpge/$sid/";
+
+        $destPath = env('DOWNLOAD_DIR') . "/hpge/$sid/";
 
         $destFilePath = FileHandler::checkPath($destPath);
         if (!$destFilePath) {
@@ -49,16 +50,8 @@ class HpgeReportFileHandler extends FileHandler
         }
         $fileName = $destFilePath . $this->fileName;
         $file->move($fileName);
-        $param = $request->input('param');
-        $params = explode(',', $param);
-        if (count($params) > 3 && $params[3] == 'RPT')
-        {
-            $station = 1;
-            $time = $params[2];
-            $sid = $request->input('folder');
-            $this->recordHpgeReport($fileName, $station, $time, $sid);
-        }
-        return true;
+
+        return self::ok(['fileLink' => $fileName]);
     }
 
     public function recordHpgeReport($filePath, $station, $time, $sid)

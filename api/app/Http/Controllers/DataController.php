@@ -100,8 +100,15 @@ class DataController extends Controller
 
         $handler = FileHandler::getHandler($fileType);
         if ($handler) {
-            $handler->save($request, $file, $deviceId);
+            $result = $handler->save($request, $file, $deviceId);
+            if (self::isOk($result)) {
+                return $this->json(Errors::Ok, $result['data']);
+            }
+
+            return $this->jsonFromError($result);
         }
+
+        return $this->json(Errors::BadArguments, ['msg' => 'No file handler for ' . $fileType]);
     }
 
     /**
