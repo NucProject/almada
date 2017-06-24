@@ -7,7 +7,6 @@ namespace App\Services\Handlers;
  * Time: 上午8:41
  */
 
-
 use App\Services\Errors;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
@@ -48,7 +47,7 @@ class HpgeReportFileHandler extends FileHandler
             $destFilePath = FileHandler::checkPath($destPath . "/$sid");
         } catch (\Exception $e) {
             return self::ok(['fileLink' => $destPath,
-                             'e' => $e->getMessage(),
+                             'errorMsg' => $e->getMessage(),
                              'fileName' => $this->fileName]);
         }
 
@@ -59,12 +58,23 @@ class HpgeReportFileHandler extends FileHandler
         $fileName = md5($this->fileName);
         $file->move($destFilePath, $fileName);
 
+        $param = $request->input('param');
+        $params = explode(',', $param);
+
         return self::ok(['fileLink' => $destFilePath . '/' . $fileName,
                          'fileName' => $fileName,
                          'dataTime' => time(),
+                         'fileType' => end($params),
                          'sid' => $sid]);
     }
 
+    /**
+     * @Deprecated
+     * @param $filePath
+     * @param $station
+     * @param $time
+     * @param $sid
+     */
     public function recordHpgeReport($filePath, $station, $time, $sid)
     {
         $flow = self::getFlowBySid($sid, $station);
