@@ -42,16 +42,27 @@ class HpgeReportFileHandler extends FileHandler
             return self::error(Errors::BadArguments, ['reason' => 'Sid is required']);
         }
 
-        $destPath = env('DOWNLOAD_DIR') . "/hpge/$sid/";
+        $destPath = base_path('storage/static') . "/hpge";
 
-        $destFilePath = FileHandler::checkPath($destPath);
+        try {
+            $destFilePath = FileHandler::checkPath($destPath . "/$sid");
+        } catch (\Exception $e) {
+            return self::ok(['fileLink' => $destPath,
+                             'e' => $e->getMessage(),
+                             'fileName' => $this->fileName]);
+        }
+
         if (!$destFilePath) {
             return false;
         }
-        $fileName = $destFilePath . $this->fileName;
-        $file->move($fileName);
 
-        return self::ok(['fileLink' => $fileName]);
+        $fileName = md5($this->fileName);
+        $file->move($destFilePath, $fileName);
+
+        return self::ok(['fileLink' => $destFilePath . '/' . $fileName,
+                         'fileName' => $fileName,
+                         'dataTime' => time(),
+                         'sid' => $sid]);
     }
 
     public function recordHpgeReport($filePath, $station, $time, $sid)

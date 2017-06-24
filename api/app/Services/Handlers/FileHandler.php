@@ -21,20 +21,15 @@ abstract class FileHandler
             return new HpgeReportFileHandler();
         }
     }
+
     public static function checkPath($path)
     {
-        $join = 'upload';
-        $parts = explode('/', $path);
-        foreach ($parts as $part)
-        {
-            $join = $join . '/' . $part;
-            if (!file_exists($join))
-            {
-                mkdir($join);
-            }
+        if (!file_exists($path)) {
+            mkdir($path);
         }
-        return $join;
+        return $path;
     }
+
     /**
      * @param Request $request
      * @param \Illuminate\Http\UploadedFile $file
