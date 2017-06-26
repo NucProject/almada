@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Models\DtData;
+use Illuminate\Support\Facades\DB;
 
 class DataService
 {
@@ -59,14 +60,27 @@ class DataService
     /**
      * @param $deviceId
      * @param $timeRange
-     * @param $algo
+     * @param $avg
      *
      * @return array
      */
-    public static function queryData($deviceId, $timeRange, $algo)
+    public static function queryData($deviceId, $timeRange, $avg)
     {
-        $data = DtData::queryDevice($deviceId)->whereBetween('data_time', $timeRange)->get();
+        $query = DtData::queryDevice($deviceId)
+            ->select('*')
+            ->whereBetween('data_time', $timeRange);
 
+        if ($avg == '5m') {
+            $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), floor( minute(FROM_UNIXTIME(data_time)) / 5) * 5) as avg_data_time'));
+        } elseif ($avg == '1h') {
+            $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d %H\') as avg_data_time'));
+        } elseif ($avg == '1d') {
+            $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d\') as avg_data_time'));
+        }
+
+        $query->groupBy('avg_data_time');
+
+        $data = $query->get();
         if ($data) {
             return self::ok($data->toArray());
         }
