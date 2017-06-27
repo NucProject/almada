@@ -9,6 +9,8 @@ $app->group([
 
     $app->get('device/{deviceId}/data', 'DataController@query');
 
+    $app->get('device/hpge/{deviceId}/data', 'HpgeController@query');
+
     // 发送数据(Form)
     $app->post('send/{deviceId}', 'DataController@send');
 
