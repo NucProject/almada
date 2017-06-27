@@ -173,6 +173,52 @@ class DataController extends Controller
 
     /**
      * @param Request $request
+     * @param int $deviceId
+     * @return string
+     *
+     * @cat data
+     * @title 最新数据查询接口
+     * @comment 最新数据查询接口(最新的一条)
+     *
+     * @url-param deviceId || int || 设备ID
+     *
+     *
+     * @ret-val list.0.dataTime
+     * @ret-val list.0.someFieldValue
+     *
+     * @ret-val pager.currentPage
+     * @ret-val pager.totalPage
+     *
+     */
+    public function latest(Request $request, $deviceId)
+    {
+        if (!self::isValidId($deviceId)) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        $timeBegin = $request->input('timeBegin', 0);
+        // TODO: Parse time if in some format?
+        $timeEnd = $request->input('timeEnd', time());
+        if ($timeBegin > $timeEnd) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        // $algo = $request->input('algo', 'avg');
+        $avg = $request->input('avg', '5m');
+
+        $result = DataService::latestData($deviceId, [$timeBegin, $timeEnd], $avg);
+        if (self::isOk($result)) {
+            $data = $result['data'];
+            return $this->json(Errors::Ok, [
+                'list' => $data,
+                'pager' => []
+            ]);
+        }
+
+    }
+
+    /**
+     * @param Request $request
      * @return array
      *
      * @cat data

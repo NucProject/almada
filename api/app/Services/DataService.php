@@ -86,4 +86,19 @@ class DataService
         }
         return self::ok([]);
     }
+
+    public static function latestData($deviceId)
+    {
+        $query = DtData::queryDevice($deviceId)
+            ->select('*')
+            ->orderBy('data_time', 'desc');
+
+        $query->limit(1);
+
+        $data = $query->get();
+        if ($data) {
+            return self::ok($data->toArray());
+        }
+        return self::ok([]);
+    }
 }
