@@ -14,6 +14,7 @@ use App\Services\Errors;
 use App\Services\Handlers\FileHandler;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 
 class DataController extends Controller
@@ -87,6 +88,16 @@ class DataController extends Controller
      * @param Request $request
      * @param $deviceId
      * @return string
+     *
+     * @cat data
+     * @title 文件上传
+     * @comment 文件上传接口
+     *
+     * @url-param file || File || 文件
+     * @url-param fileType || string || 文件类型
+     *
+     * @ret-val fileLink || string || 文件链接(文件路径)
+     * @ret-val fileName || string || 文件名
      */
     public function file(Request $request, $deviceId)
     {
@@ -146,7 +157,7 @@ class DataController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
-        $algo = $request->input('algo', 'avg');
+        // $algo = $request->input('algo', 'avg');
         $avg = $request->input('avg', '5m');
 
         $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg);
@@ -158,5 +169,28 @@ class DataController extends Controller
             ]);
         }
 
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @cat data
+     * @title 数据文件下载
+     * @comment 数据文件下载
+     * @url-param p || string || 文件路径
+     *
+     * @ret-val File || File || 文件
+     */
+    public function download(Request $request)
+    {
+        $path = $request->input('p');
+        $fileName = base_path('storage/static') . $path;
+        if (file_exists($fileName)) {
+            header('content-type', 'text/x-component');
+            readfile($fileName);
+        } else {
+            return $this->json(Errors::BadArguments);
+        }
     }
 }

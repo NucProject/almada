@@ -16,7 +16,7 @@
     </tr>
     <!-- URL 参数 -->
         <tr>
-        <td class="confluenceTd" rowspan="5"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd" rowspan="6"><p><strong>URL参数 </strong></p></td>
         <td class="confluenceTd"><p><strong>名称</strong></p></td>
         <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
         <td class="confluenceTd"><p><strong>说明</strong></p></td>
@@ -39,6 +39,12 @@
         <td class="confluenceTd"><p>int</p></td>
         <td class="confluenceTd"><p>结束时间</p></td>
         <td class="confluenceTd"><p>No</p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>avg</p></td>
+        <td class="confluenceTd"><p>string</p></td>
+        <td class="confluenceTd"><p>平均值时间间隔 5m, 1h, 1d</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
     </tr>
             <tr>
         <td class="confluenceTd"><p>algo</p></td>
@@ -196,6 +202,144 @@
         <td class="confluenceTd" colspan="4">
             <p>
                 {<br>&nbsp;&nbsp;&nbsp;&nbsp;"saved":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>3.&nbsp;文件上传&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/file/{deviceId}'>/d/file/{deviceId}</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>文件上传接口</p></td>
+    </tr>
+    <!-- URL 参数 -->
+        <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd"><p><strong>名称</strong></p></td>
+        <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+        <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        <td class="confluenceTd"><p><strong>必选</strong></p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>file</p></td>
+        <td class="confluenceTd"><p>File</p></td>
+        <td class="confluenceTd"><p>文件</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>fileType</p></td>
+        <td class="confluenceTd"><p>string</p></td>
+        <td class="confluenceTd"><p>文件类型</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="3"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>fileLink</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>文件链接(文件路径)</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>fileName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>文件名</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"fileLink":&nbsp;"None",<br>&nbsp;&nbsp;&nbsp;&nbsp;"fileName":&nbsp;"None"<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>4.&nbsp;数据文件下载&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/download/file'>/d/download/file</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>数据文件下载</p></td>
+    </tr>
+    <!-- URL 参数 -->
+        <tr>
+        <td class="confluenceTd" rowspan="2"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd"><p><strong>名称</strong></p></td>
+        <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+        <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        <td class="confluenceTd"><p><strong>必选</strong></p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>p</p></td>
+        <td class="confluenceTd"><p>string</p></td>
+        <td class="confluenceTd"><p>文件路径</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="2"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>File</p></td>
+                <td class="confluenceTd"><p>File</p></td>
+                <td class="confluenceTd"><p>文件</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                []            </p>
         </td>
     </tr>
 

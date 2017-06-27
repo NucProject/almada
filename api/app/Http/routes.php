@@ -15,6 +15,9 @@ $app->group([
     // 发送文件
     $app->post('file/{deviceId}', 'DataController@file');
 
+    // 发送文件
+    $app->get('download/file', 'DataController@download');
+
     $app->post('group', 'GroupController@create');
 
     $app->get('device/types', 'DeviceTypeController@deviceTypes');

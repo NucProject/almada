@@ -41,7 +41,8 @@ class HpgeReportFileHandler extends FileHandler
             return self::error(Errors::BadArguments, ['reason' => 'Sid is required']);
         }
 
-        $destPath = base_path('storage/static') . "/hpge";
+        $staticPath = base_path('storage/static');
+        $destPath = $staticPath . "/hpge";
 
         try {
             $destFilePath = FileHandler::checkPath($destPath . "/$sid");
