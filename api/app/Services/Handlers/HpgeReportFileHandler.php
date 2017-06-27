@@ -65,6 +65,8 @@ class HpgeReportFileHandler extends FileHandler
         return self::ok(['fileLink' => $destFilePath . '/' . $fileName,
                          'fileName' => $fileName,
                          'dataTime' => time(),
+                         'startTime' => $params[1],
+                         'endTime' => $params[2],
                          'fileType' => end($params),
                          'sid' => $sid]);
     }

@@ -158,7 +158,7 @@ class DataController extends Controller
         }
 
         // $algo = $request->input('algo', 'avg');
-        $avg = $request->input('avg', '5m');
+        $avg = $request->input('avg', 'none');
 
         $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg);
         if (self::isOk($result)) {

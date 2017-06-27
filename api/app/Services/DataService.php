@@ -70,15 +70,20 @@ class DataService
             ->select('*')
             ->whereBetween('data_time', $timeRange);
 
-        if ($avg == '5m') {
-            $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), floor(minute(FROM_UNIXTIME(data_time)) / 5) * 5) as avg_data_time'));
-        } elseif ($avg == '1h') {
-            $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:00\') as avg_data_time'));
-        } elseif ($avg == '1d') {
-            $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d 00:00\') as avg_data_time'));
-        }
+        if ($avg != 'none') {
+            if ($avg == '5m') {
+                $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), floor(minute(FROM_UNIXTIME(data_time)) / 5) * 5) as avg_data_time'));
+            } elseif ($avg == '1h') {
+                $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:00\') as avg_data_time'));
+            } elseif ($avg == '1d') {
+                $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d 00:00\') as avg_data_time'));
+            }
 
-        $query->groupBy('avg_data_time');
+            $query->groupBy('avg_data_time');
+
+        } else {
+            $query->addSelect(DB::raw('FROM_UNIXTIME(data_time) as avg_data_time'));
+        }
 
         $data = $query->get();
         if ($data) {
