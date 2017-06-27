@@ -20,6 +20,16 @@ class HpgeController extends Controller
      * @param $deviceId
      * @return array
      *
+     * @cat data
+     * @title HPGE数据查询接口
+     * @comment HPGE数据查询接口
+     * @url-param deviceId || int || 设备ID ||
+     * @url-param sid || string || SID ||
+     * @ret-val list.0.dataTime
+     * @ret-val list.0.someFieldValue
+     *
+     * @ret-val pager.currentPage
+     * @ret-val pager.totalPage
      */
     public function query(Request $request, $deviceId)
     {
