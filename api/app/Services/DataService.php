@@ -61,10 +61,10 @@ class DataService
      * @param $deviceId
      * @param $timeRange
      * @param $avg
-     *
+     * @param $order
      * @return array
      */
-    public static function queryData($deviceId, $timeRange, $avg)
+    public static function queryData($deviceId, $timeRange, $avg, $order='asc')
     {
         $query = DtData::queryDevice($deviceId)
             ->select('*')
@@ -72,7 +72,7 @@ class DataService
 
         if ($avg != 'none') {
             if ($avg == '5m') {
-                $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), floor(minute(FROM_UNIXTIME(data_time)) / 5) * 5) as avg_data_time'));
+                $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), LPAD(floor(minute(FROM_UNIXTIME(data_time)) / 5) * 5, 2, \'0\') ) as avg_data_time'));
             } elseif ($avg == '1h') {
                 $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:00\') as avg_data_time'));
             } elseif ($avg == '1d') {
@@ -85,6 +85,7 @@ class DataService
             $query->addSelect(DB::raw('FROM_UNIXTIME(data_time) as avg_data_time'));
         }
 
+        $query->orderBy('avg_data_time', $order);
         $data = $query->get();
         if ($data) {
             return self::ok($data->toArray());

@@ -159,8 +159,13 @@ class DataController extends Controller
 
         // $algo = $request->input('algo', 'avg');
         $avg = $request->input('avg', 'none');
+        $order = $request->input('order', '');
+        if (!$order) {
+            $order = 'asc';
+        }
 
-        $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg);
+
+        $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $order);
         if (self::isOk($result)) {
             $data = $result['data'];
             return $this->json(Errors::Ok, [
