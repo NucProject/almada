@@ -19,9 +19,13 @@ class DocDict
         // APP 相关
         'deviceId'      => ['int', '设备ID', '12'],
 
-        'groupId'      => ['int', '用户组ID', '3'],
-        'groupName'      => ['string', '用户组名称', '中检维康'],
-        'groupDesc'      => ['string', '用户组描述', '中检维康管理员分组'],
+        'groupId'       => ['int', '用户组ID', '3'],
+        'groupName'     => ['string', '用户组名称', '中检维康'],
+        'groupDesc'     => ['string', '用户组描述', '中检维康管理员分组'],
+
+        'maxFlow'       => ['float', '最大累积流量', '123.456'],
+        'timeBegin'     => ['int', '起始时间', '1493357200'],
+        'timeEnd'       => ['int', '结束时间', '1493358200'],
 
         'saved'         => ['int', '是否保存(1保存成功, 0保存失败)', '1'],
 

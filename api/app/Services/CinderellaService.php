@@ -2,38 +2,38 @@
 /**
  * Created by PhpStorm.
  * User: healer
- * Date: 2017/6/27
- * Time: 上午10:02
+ * Date: 2017/6/28
+ * Time: 下午10:26
  */
 
 namespace App\Services;
 
 
 use App\Models\DtData;
+use Illuminate\Support\Facades\DB;
 
-class HpgeService
+class CinderellaService
 {
     use ResultTrait;
+
     /**
      * @param $deviceId
      * @param $timeRange
-     * @param $sid
      * @return array
      */
-    public static function queryData($deviceId, $timeRange, $sid)
+    public static function queryData($deviceId, $timeRange)
     {
         $query = DtData::queryDevice($deviceId)
-            ->select('*')
+            ->select('sid', DB::raw('max(flow) as maxFlow'), DB::raw('min(data_time) as timeBegin'), DB::raw('max(data_time) as timeEnd'))
             ->whereBetween('data_time', $timeRange);
 
-        if ($sid) {
-            $query->where('sid', $sid);
-        }
+        $query->groupBy('sid');
 
         $data = $query->get();
         if ($data) {
             return self::ok($data->toArray());
         }
         return self::ok([]);
+
     }
 }

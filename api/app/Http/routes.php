@@ -13,6 +13,8 @@ $app->group([
 
     $app->get('device/hpge/{deviceId}/data', 'HpgeController@query');
 
+    $app->get('device/cinderella/{deviceId}/data', 'CinderellaController@query');
+
     // 发送数据(Form)
     $app->post('send/{deviceId}', 'DataController@send');
 
@@ -34,6 +36,8 @@ $app->group([
 
     $app->post('device', 'DeviceController@create');
 
+    //命令相关
+    $app->get('cmd/history', 'CommandController@history');
 });
 
 $app->group([

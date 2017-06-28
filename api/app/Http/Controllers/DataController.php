@@ -65,6 +65,8 @@ class DataController extends Controller
         }
 
         $data = $request->input('data', []);
+        // var_dump($data);
+        // exit;
         if (!$data || !is_array($data)) {
             return $this->json(Errors::BadArguments, ['msg' => 'Bad data']);
         }
