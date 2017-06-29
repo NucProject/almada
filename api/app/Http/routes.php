@@ -15,6 +15,8 @@ $app->group([
 
     $app->get('device/cinderella/{deviceId}/data', 'CinderellaController@query');
 
+    $app->get('device/weather/{deviceId}/data', 'WeatherController@query');
+
     // 发送数据(Form)
     $app->post('send/{deviceId}', 'DataController@send');
 

@@ -2,38 +2,44 @@
 /**
  * Created by PhpStorm.
  * User: healer
- * Date: 2017/6/27
- * Time: 上午9:47
+ * Date: 2017/6/29
+ * Time: 下午9:13
  */
 
 namespace App\Http\Controllers;
 
 
 use App\Services\Errors;
-use App\Services\HpgeService;
+use App\Services\ResultTrait;
+use App\Services\WeatherService;
 use Illuminate\Http\Request;
 
-class HpgeController extends Controller
+class WeatherController extends Controller
 {
+    use ResultTrait;
     /**
      * @param Request $request
      * @param $deviceId
      * @return array
      *
      * @cat data
-     * @title HPGE数据查询接口
-     * @comment HPGE数据查询接口
+     * @title 气象雨量数据统计接口
+     * @comment 在一天内最大的气象雨量
      * @url-param deviceId || int || 设备ID ||
-     * @url-param sid || string || SID ||
-     * @ret-val list.0.dataTime
-     * @ret-val list.0.someFieldValue
+     * @url-param timeBegin || int || 起始时间 ||
+     * @url-param timeEnd || int || 结束时间 ||
+     *
+     * @ret-val list.0.sid
+     * @ret-val list.0.maxFlow
+     * @ret-val list.0.timeBegin
+     * @ret-val list.0.timeEnd
      *
      * @ret-val pager.currentPage
      * @ret-val pager.totalPage
      */
     public function query(Request $request, $deviceId)
     {
-        $sid = $request->input('sid', '');
+        // $sid = $request->input('sid', '');
 
         if (!self::isValidId($deviceId)) {
             return $this->json(Errors::BadArguments);
@@ -46,7 +52,7 @@ class HpgeController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
-        $result = HpgeService::queryData($deviceId, [$timeBegin, $timeEnd], $sid);
+        $result = WeatherService::queryData($deviceId, [$timeBegin, $timeEnd]);
         if (self::isOk($result)) {
             $data = $result['data'];
             return $this->json(Errors::Ok, [
@@ -56,8 +62,4 @@ class HpgeController extends Controller
         }
     }
 
-    public function nuclide(Request $request, $deviceId)
-    {
-
-    }
 }
