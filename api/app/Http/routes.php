@@ -13,6 +13,8 @@ $app->group([
 
     $app->get('device/hpge/{deviceId}/data', 'HpgeController@query');
 
+    $app->get('device/hpge/{deviceId}/nuclide', 'HpgeController@nuclide');
+
     $app->get('device/cinderella/{deviceId}/data', 'CinderellaController@query');
 
     $app->get('device/weather/{deviceId}/data', 'WeatherController@query');

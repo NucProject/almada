@@ -58,6 +58,18 @@ class HpgeController extends Controller
 
     public function nuclide(Request $request, $deviceId)
     {
+        if (!self::isValidId($deviceId)) {
+            return $this->json(Errors::BadArguments);
+        }
 
+        $result = HpgeService::queryNuclide($deviceId);
+
+        if (self::isOk($result)) {
+            $data = $result['data'];
+            return $this->json(Errors::Ok, [
+                'list' => $data,
+                'pager' => []
+            ]);
+        }
     }
 }
