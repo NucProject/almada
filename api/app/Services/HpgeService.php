@@ -70,8 +70,13 @@ class HpgeService
     }
 
 
-    public static function downloadFile($deviceId, $dataId)
+    public static function getFileInfo($deviceId, $dataId)
     {
+        $fileInfo = DtData::queryDevice($deviceId)->where('data_id', $dataId)->first();
 
+        if ($fileInfo) {
+            return self::ok($fileInfo->toArray());
+        }
+        return self::error(Errors::BadArguments);
     }
 }

@@ -88,6 +88,17 @@ class HpgeController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
-        HpgeService::downloadFile($deviceId, $dataId);
+        $result = HpgeService::getFileInfo($deviceId, $dataId);
+        if (self::isOk($result)) {
+            $data = $result['data'];
+
+
+            header("Content-Disposition: attachment; filename={$data['file_name']}");
+            header('Content-Type: application/x-download');
+            echo file_get_contents($data['file_link']);
+            return;
+        }
+
+        return $this->jsonFromError($result);
     }
 }
