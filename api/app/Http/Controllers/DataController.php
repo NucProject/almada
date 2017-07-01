@@ -182,6 +182,10 @@ class DataController extends Controller
 
     private static function paddingDataList($avg, $order, $data)
     {
+        if (count($data) <= 1) {
+            return $data;
+        }
+
         $step = 1;
         if ($avg == '5m') {
             $step = 300;
@@ -189,15 +193,16 @@ class DataController extends Controller
             $step = 3600;
         } elseif ($avg == '1d') {
             $step = 3600 * 24;
+        } else {
+            return $data;
         }
 
         if ($order == 'desc') {
             $step = -$step;
         }
 
-
         $list = [];
-        $lastAvgDataTime = 0;
+
 
         $first = $data[0];
         $temp = [];
