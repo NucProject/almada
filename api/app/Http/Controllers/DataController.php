@@ -220,7 +220,9 @@ class DataController extends Controller
                 $times = $avgDataTimeDiff / $step;
                 for ($i = 1; $i < $times; $i++) {
                     $null = $temp;
-                    $null['avg_data_time'] = date('Y-m-d H:i', $lastAvgDataTime + $i * $step);
+                    $dataTime = $lastAvgDataTime + $i * $step;
+                    $null['data_time'] = $dataTime;
+                    $null['avg_data_time'] = date('Y-m-d H:i', $dataTime);
                     $list[] = $null;
                 }
             }
