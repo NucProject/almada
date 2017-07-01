@@ -62,7 +62,9 @@ class HpgeController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
-        $result = HpgeService::queryNuclide($deviceId);
+        $sid = $request->input('sid', '');
+
+        $result = HpgeService::queryNuclide($deviceId, $sid);
 
         if (self::isOk($result)) {
             $data = $result['data'];
@@ -71,5 +73,21 @@ class HpgeController extends Controller
                 'pager' => []
             ]);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param $deviceId
+     * @param $dataId
+     * @return string
+     */
+    public function download(Request $request, $deviceId, $dataId)
+    {
+        if (!self::isValidId($deviceId) ||
+            !self::isValidId($dataId)) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        HpgeService::downloadFile($deviceId, $dataId);
     }
 }

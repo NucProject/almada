@@ -37,26 +37,41 @@ class HpgeService
         return self::ok([]);
     }
 
-    public static function queryNuclide($deviceId)
+    /**
+     * @param $deviceId
+     * @param $sid
+     * @return array
+     */
+    public static function queryNuclide($deviceId, $sid)
     {
-        $entry = DtData::queryDevice($deviceId)
-            ->select('*')
-            ->orderBy('data_time', 'desc')
-            ->limit(1)
-            ->first();
+        if (!$sid) {
+            $entry = DtData::queryDevice($deviceId)
+                ->select('*')
+                ->orderBy('data_time', 'desc')
+                ->limit(1)
+                ->first();
 
-        if ($entry) {
-            $array = $entry->toArray();
-            $sid = $array['sid'];
-            if ($sid) {
-                $nuclides = DtData::queryDevice($deviceId)
-                    ->select('*')
-                    ->where('sid', $sid)
-                    ->get()
-                    ->toArray();
-                return self::ok($nuclides);
+            if ($entry) {
+                $array = $entry->toArray();
+                $sid = $array['sid'];
             }
         }
+
+        if ($sid) {
+            $nuclides = DtData::queryDevice($deviceId)
+                ->select('*')
+                ->where('sid', $sid)
+                ->get()
+                ->toArray();
+            return self::ok($nuclides);
+        }
+
         return self::ok([]);
+    }
+
+
+    public static function downloadFile($deviceId, $dataId)
+    {
+
     }
 }
