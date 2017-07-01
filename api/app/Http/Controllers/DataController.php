@@ -170,13 +170,64 @@ class DataController extends Controller
         $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $order);
         if (self::isOk($result)) {
             $data = $result['data'];
+            $list = self::paddingDataList($avg, $order, $data);
             return $this->json(Errors::Ok, [
-                'list' => $data,
+                'list' => $list,
                 'pager' => []
             ]);
         }
 
     }
+
+
+    private static function paddingDataList($avg, $order, $data)
+    {
+        $step = 1;
+        if ($avg == '5m') {
+            $step = 300;
+        } elseif ($avg == '1h') {
+            $step = 3600;
+        } elseif ($avg == '1d') {
+            $step = 3600 * 24;
+        }
+
+        if ($order == 'desc') {
+            $step = -$step;
+        }
+
+
+        $list = [];
+        $lastAvgDataTime = 0;
+
+        $first = $data[0];
+        $temp = [];
+        foreach ($first as $key => $value) {
+            $temp[$key] = '-';
+        }
+        $lastAvgDataTime = strtotime($first['avg_data_time']);
+        array_shift($data);
+        foreach ($data as $item) {
+
+            $avgDataTime = strtotime($item['avg_data_time']);
+
+            $avgDataTimeDiff = $avgDataTime - $lastAvgDataTime;
+            if ($avgDataTimeDiff != $step) {
+                $times = $avgDataTimeDiff / $step;
+                for ($i = 1; $i < $times; $i++) {
+                    $null = $temp;
+                    $null['avg_data_time'] = date('Y-m-d H:i', $lastAvgDataTime + $i * $step);
+                    $list[] = $null;
+                }
+            }
+
+            $list[] = $item;
+
+            $lastAvgDataTime = $avgDataTime;
+
+        }
+        return $list;
+    }
+
 
     /**
      * @param Request $request
