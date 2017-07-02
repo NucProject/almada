@@ -221,12 +221,14 @@ class DataController extends Controller
                 for ($i = 1; $i < $times; $i++) {
                     $null = $temp;
                     $dataTime = $lastAvgDataTime + $i * $step;
-                    $null['data_time'] = $dataTime;
+
                     $null['avg_data_time'] = date('Y-m-d H:i', $dataTime);
+                    $null['data_time'] = strtotime($null['avg_data_time']);
                     $list[] = $null;
                 }
             }
 
+            $item['data_time'] = strtotime($item['avg_data_time']);
             $list[] = $item;
 
             $lastAvgDataTime = $avgDataTime;
