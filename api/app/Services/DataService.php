@@ -23,6 +23,7 @@ class DataService
     public static function save($deviceId, array $data)
     {
         // 动态Model生成
+        $count = 0;
         foreach ($data as $item) {
 
             if (!array_key_exists('dataTime', $item)) {
@@ -39,10 +40,10 @@ class DataService
                 // 保存成功!
                 return self::error(Errors::SaveFailed, []);
             }
-
+            $count += 1;
         }
 
-        return self::ok(['deviceId' => $deviceId]);
+        return self::ok(['deviceId' => $deviceId, 'count' => $count]);
    }
 
 

@@ -43,7 +43,9 @@ $app->group([
     $app->post('device', 'DeviceController@create');
 
     //命令相关
-    $app->get('cmd/history', 'CommandController@history');
+    $app->get('cmd/integrity/{deviceId}', 'CommandController@integrityQuery');
+
+    $app->get('cmd/history/{deviceId}', 'CommandController@fetchHistoryCommand');
 });
 
 $app->group([
