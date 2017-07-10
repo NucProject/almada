@@ -9,7 +9,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\AdCommand;
 use App\Services\CommandService;
 use App\Services\DataService;
 use App\Services\Errors;
@@ -17,30 +16,6 @@ use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
-    /**
-     * @cat cmd
-     * @title 查询设备某时间段内数据完整性
-     * @comment 查询设备某时间段内数据完整性
-     *
-     * @param Request $request
-     * @param int $deviceId
-     * @return string
-     *
-     *
-     */
-    public function integrityQuery(Request $request, $deviceId)
-    {
-        $timeBegin = $request->input('timeBegin', 0);
-
-        $timeEnd = $request->input('timeEnd', time());
-        if ($timeBegin > $timeEnd) {
-            return $this->json(Errors::BadArguments);
-        }
-
-        $commends = [];
-        $commends[] = ['type' => 'history', 'timeBegin' => 1, 'timeEnd' => 10];
-        return $this->json(Errors::Ok, ['list' => $commends]);
-    }
 
     /**
      * @cat cmd
@@ -51,11 +26,17 @@ class CommandController extends Controller
      * @param $deviceId
      * @return string
      */
-    public function sendHistoryDataCommand(Request $request, $deviceId)
+    public function sendHistoryCommand(Request $request, $deviceId)
     {
-        $timeBegin = $request->input('timeBegin', 0);
+        $date = $request->input('date', '');
+        if ($date) {
+            $timeBegin = strtotime($date);
+            $timeEnd = $timeBegin + 24 * 3600;
+        } else {
+            $timeBegin = $request->input('timeBegin', 0);
+            $timeEnd = $request->input('timeEnd', time());
+        }
 
-        $timeEnd = $request->input('timeEnd', time());
         if ($timeBegin > $timeEnd) {
             return $this->json(Errors::BadArguments);
         }
@@ -65,6 +46,7 @@ class CommandController extends Controller
             return $this->jsonFromError($result);
         }
 
+        return $this->json(Errors::Ok, ['timeBegin' => $timeBegin, 'timeEnd' => $timeEnd]);
     }
 
     /**
