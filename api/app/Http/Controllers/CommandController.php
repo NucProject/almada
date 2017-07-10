@@ -9,6 +9,9 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\AdCommand;
+use App\Services\CommandService;
+use App\Services\DataService;
 use App\Services\Errors;
 use Illuminate\Http\Request;
 
@@ -50,13 +53,24 @@ class CommandController extends Controller
      */
     public function sendHistoryDataCommand(Request $request, $deviceId)
     {
+        $timeBegin = $request->input('timeBegin', 0);
+
+        $timeEnd = $request->input('timeEnd', time());
+        if ($timeBegin > $timeEnd) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        $result = CommandService::addHistoryCommand($deviceId, [$timeBegin, $timeEnd]);
+        if (self::hasError($result)) {
+            return $this->jsonFromError($result);
+        }
 
     }
 
     /**
      * @cat cmd
-     * @title 发起历史数据补齐命令
-     * @comment 用户向工控机发起历史数据补齐命令
+     * @title 获取历史数据补齐命令
+     * @comment 工控机获取(查询)历史数据补齐命令
      *
      * @param Request $request
      * @param $deviceId
@@ -64,7 +78,16 @@ class CommandController extends Controller
      */
     public function fetchHistoryCommand(Request $request, $deviceId)
     {
-        $commends = [1, 2, 3, 4];
-        return $this->json(Errors::Ok, ['list' => $commends]);
+        $result = CommandService::fetchDeviceHistoryCommand($deviceId);
+        if (self::isOk($result)) {
+
+            $timeRange = $result['data'];
+
+            $interval = $request->input('interval', 30);
+            $lost = DataService::lostData($deviceId, $timeRange, ['interval' => $interval]);
+            return $this->json(Errors::Ok, $lost);
+        }
+
+        return $this->jsonFromError($result);
     }
 }
