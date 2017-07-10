@@ -85,7 +85,9 @@ class CommandController extends Controller
 
             $interval = $request->input('interval', 30);
             $lost = DataService::lostData($deviceId, $timeRange, ['interval' => $interval]);
-            return $this->json(Errors::Ok, $lost);
+            if (self::isOk($lost)) {
+                return $this->json(Errors::Ok, $lost['data']);
+            }
         }
 
         return $this->jsonFromError($result);
