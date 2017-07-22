@@ -121,6 +121,46 @@ class DataController extends Controller
         return $this->json(Errors::BadArguments, ['msg' => 'No file handler for ' . $fileType]);
     }
 
+
+    /**
+     * @param Request $request
+     * @param $deviceId
+     * @return string
+     *
+     * @cat data
+     * @title 文件上传
+     * @comment 文件上传接口
+     *
+     * @url-param file || File || 文件
+     * @url-param fileType || string || 文件类型
+     *
+     * @ret-val fileLink || string || 文件链接(文件路径)
+     * @ret-val fileName || string || 文件名
+     */
+    public function upload(Request $request, $deviceId)
+    {
+        if (!ResultTrait::isValidId($deviceId)) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Bad deviceId']);
+        }
+
+        $file = $request->file('file');
+
+        $fileType = $request->input('fileType', '');
+
+        $handler = FileHandler::getHandler($fileType);
+        if ($handler) {
+            $result = $handler->save($request, $file, $deviceId);
+            if (self::isOk($result)) {
+                return $this->json(Errors::Ok, $result['data']);
+            }
+
+            return $this->jsonFromError($result);
+        }
+
+        return $this->json(Errors::BadArguments, ['msg' => 'No file handler for ' . $fileType]);
+    }
+
+
     /**
      * @param Request $request
      * @param int $deviceId

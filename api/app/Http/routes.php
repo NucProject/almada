@@ -27,6 +27,8 @@ $app->group([
     // 发送文件
     $app->post('file/{deviceId}', 'DataController@file');
 
+    $app->post('upload/{deviceId}', 'DataController@upload');
+
     // 发送文件
     $app->get('download/file', 'DataController@download');
 

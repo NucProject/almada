@@ -35,7 +35,7 @@ class HpgeReportFileHandler extends FileHandler
     {
         $this->fileName = $file->getFilename();
 
-        $sid = $request->input('folder', '');
+        $sid = $request->input('sid', '');
         // Save to dest path
         if (!$sid) {
             return self::error(Errors::BadArguments, ['reason' => 'Sid is required']);
@@ -59,15 +59,9 @@ class HpgeReportFileHandler extends FileHandler
         $fileName = md5($this->fileName);
         $file->move($destFilePath, $fileName);
 
-        $param = $request->input('param');
-        $params = explode(',', $param);
-
+        $originalFilename = $request->input('fileName', '');
         return self::ok(['fileLink' => $destFilePath . '/' . $fileName,
-                         'fileName' => trim(end($params), "!"),
-                         'dataTime' => time(),
-                         'startTime' => $params[1],
-                         'endTime' => $params[2],
-                         'fileType' => $params[3],
+                         'fileName' => $originalFilename,
                          'sid' => $sid]);
     }
 
