@@ -69,9 +69,9 @@ class DeviceController extends Controller
      */
     public function create(Request $request)
     {
-        $groupId = $request->input('groupId', 0);
-        if (!ResultTrait::isValidId($groupId)) {
-            return $this->json(Errors::BadArguments, ['msg' => 'Group id is required']);
+        $stationId = $request->input('stationId', 0);
+        if (!ResultTrait::isValidId($stationId)) {
+            return $this->json(Errors::BadArguments, ['msg' => 'The Station-Id  is required']);
         }
 
         // 设备必有其类型!
@@ -81,7 +81,7 @@ class DeviceController extends Controller
         }
 
         $data = $request->input();
-        $result = DeviceService::createDevice($groupId, $typeId, 0, $data);
+        $result = DeviceService::createDevice($stationId, $typeId, 0, $data);
         if (self::hasError($result)) {
             return $this->jsonFromError($result);
         }

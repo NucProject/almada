@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 class GroupController extends Controller
 {
     use ResultTrait;
+    
     /**
      * @cat group
      * @title 创建组

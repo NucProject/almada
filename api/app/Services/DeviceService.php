@@ -51,18 +51,26 @@ class DeviceService
     }
 
     /**
-     * @param int $groupId
+     * @param int $stationId
      * @param int $typeId
      * @param int $deviceId
      * @param array $data
      *
      * @return array
      */
-    public static function createDevice($groupId, $typeId, $deviceId, $data=[])
+    public static function createDevice($stationId, $typeId, $deviceId, $data=[])
     {
-        // TODO: deviceType find
+        $stationResult = StationService::findStationById($stationId);
+
+        if (self::hasError($stationResult)) {
+            return self::error(Errors::BadArguments);
+        }
+
+        $station = $stationResult['data'];
+
         $device = new AdDevice();
-        $device->group_id = $groupId;
+        $device->station_id = $stationId;
+        $device->group_id = $station['group_id'];
         $device->type_id = $typeId;
         $device->depend_device_id = $deviceId;
 

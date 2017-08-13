@@ -15,6 +15,7 @@ namespace App\Models\Base;
  * @property $device_desc    
  * @property $device_creator    
  * @property $group_id    
+ * @property $station_id    
  * @property $movable    
  * @property $status    
  * @property $create_time    
