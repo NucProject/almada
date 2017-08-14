@@ -62,4 +62,47 @@ class WeatherController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $deviceId
+     * @return array
+     *
+     * @cat data
+     * @title 气象风向风速信息
+     * @comment 气象风向风速信息(主要用于绘制玫瑰图)
+     * @url-param deviceId || int || 设备ID ||
+     * @url-param timeBegin || int || 起始时间 ||
+     * @url-param timeEnd || int || 结束时间 ||
+     *
+     *
+     * @ret-val list.0.
+     * @ret-val list.0.
+     * @ret-val list.0.
+     * @ret-val list.0.
+     *
+     */
+    public function windInfo(Request $request, $deviceId)
+    {
+        if (!self::isValidId($deviceId)) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        $timeBegin = $request->input('timeBegin', 0);
+        $timeEnd = $request->input('timeEnd', time());
+        if ($timeBegin > $timeEnd) {
+            return $this->json(Errors::BadArguments);
+        }
+
+        $degree = 30;
+        $result = WeatherService::queryWindData($deviceId, $degree, [$timeBegin, $timeEnd]);
+
+        if (self::isOk($result)) {
+            $data = $result['data'];
+            return $this->json(Errors::Ok, [
+                'list' => $data,
+                'degree' => $degree
+            ]);
+        }
+    }
+
 }

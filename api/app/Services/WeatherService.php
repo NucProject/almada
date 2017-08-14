@@ -36,4 +36,27 @@ class WeatherService
         return self::ok([]);
 
     }
+
+    /**
+     * @param $deviceId
+     * @param $degree
+     * @param $timeRange
+     * @return array
+     */
+    public static function queryWindData($deviceId, $degree, $timeRange)
+    {
+        $direction = "floor(direction / $degree) as direction";
+        $query = DtData::queryDevice($deviceId)
+            ->select(DB::raw('avg(wind_speed) as wind_speed'), DB::raw($direction))
+            ->whereBetween('data_time', $timeRange);
+
+        $query->groupBy('direction');
+
+        $data = $query->get();
+        if ($data) {
+            return self::ok($data->toArray());
+        }
+
+        return self::ok([]);
+    }
 }
