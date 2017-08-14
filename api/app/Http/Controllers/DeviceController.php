@@ -34,6 +34,12 @@ class DeviceController extends Controller
      * @ret-val list.0.data.dataId
      * @ret-val list.0.data.dataTime
      *
+     * @ret-val list.0.fields.0.fieldName
+     * @ret-val list.0.fields.0.fieldTitle
+     * @ret-val list.0.fields.0.fieldDesc
+     * @ret-val list.0.fields.0.displayFlag
+     *
+     *
      * @param Request $request
      * @return string
      */
@@ -57,6 +63,22 @@ class DeviceController extends Controller
         if (!$deviceOnly) {
             foreach ($devices as &$device) {
                 $deviceId = $device['device_id'];
+                $typeId = $device['type_id'];
+
+                $typeResult = DeviceTypeService::getFieldsByTypeId($typeId);
+
+                if (self::isOk($typeResult)) {
+                    $fields = $typeResult['data'];
+
+                    foreach ($fields as &$field) {
+                        unset($field['type_id']);
+                        unset($field['status']);
+                        unset($field['create_time']);
+                        unset($field['update_time']);
+                    }
+                    unset($field);
+                    $device['fields'] = $fields;
+                }
 
                 $dataEntry = DtData::queryDevice($deviceId)
                     ->select('*')
@@ -140,10 +162,34 @@ class DeviceController extends Controller
     /**
      * @param Request $request
      * @param $deviceId
+     * @return string
+     *
+     * @cat device
+     * @title 设备详情
+     * @comment 根据设备ID获得设备详细信息
+     *
+     * @url-param deviceId || int || 设备ID
+     * @url-param details || int || 是否返回详细信息 ||
+     *
+     * @ret-val deviceName
+     * @ret-val deviceDesc
+     * @ret-val deviceSn
+     * @ret-val stationId
+     *
      */
     public function deviceInfo(Request $request, $deviceId)
     {
-        // TODO:
+        if (!self::isValidId($deviceId)) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Invalid Device id']);
+        }
+
+        $deviceResult = DeviceService::getDeviceById($deviceId);
+        if (self::isOk($deviceResult)) {
+            $device = $deviceResult['data'];
+            return $this->json(Errors::Ok, $device);
+        }
+
+        return $this->jsonFromError($deviceResult);
     }
 
 }

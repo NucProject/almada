@@ -8,6 +8,8 @@ $app->group([
     // 设备相关
     $app->get('devices', 'DeviceController@devices');
 
+    $app->get('device/{deviceId}', 'DeviceController@deviceInfo');
+
     $app->get('device/{deviceId}/data', 'DataController@query');
 
     $app->get('device/{deviceId}/latest', 'DataController@latest');
@@ -36,13 +38,13 @@ $app->group([
     // 用户组相关
     $app->post('group', 'GroupController@create');
 
-    $app->get('device/types', 'DeviceTypeController@deviceTypes');
+    $app->get('deviceTypes', 'DeviceTypeController@deviceTypes');
 
-    $app->post('device/type', 'DeviceTypeController@create');
+    $app->post('deviceType', 'DeviceTypeController@create');
 
-    $app->post('device/type/{typeId}', 'DeviceTypeController@modify');
+    $app->post('deviceType/{typeId}', 'DeviceTypeController@modify');
 
-    $app->post('device/type/{typeId}/fields', 'DeviceTypeController@modifyFields');
+    $app->post('deviceType/{typeId}/fields', 'DeviceTypeController@modifyFields');
 
     $app->post('device', 'DeviceController@create');
 

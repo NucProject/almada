@@ -116,4 +116,25 @@ class DeviceTypeService
 
         return self::ok($types);
     }
+
+    /**
+     * @param $typeId
+     * @param array $filters
+     * @return array
+     */
+    public static function getFieldsByTypeId($typeId, $filters=[])
+    {
+        $query = AdDeviceField::query()
+            ->where('type_id', $typeId);
+
+        if ($filters) {
+            foreach ($filters as $filter) {
+                $query->where($filter['field'], $filter['value']);
+            }
+        }
+
+        $fields = $query->get()->toArray();
+
+        return self::ok($fields);
+    }
 }

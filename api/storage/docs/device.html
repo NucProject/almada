@@ -45,7 +45,7 @@
     
     <!-- 返回值 字段 -->
             <tr>
-            <td class="confluenceTd" rowspan="6"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd" rowspan="10"><p><strong>返回值字段 </strong></p></td>
             <td class="confluenceTd"><p><strong>名称</strong></p></td>
             <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
             <td class="confluenceTd"><p><strong>说明</strong></p></td>
@@ -59,8 +59,8 @@
             </tr>
                     <tr>
                 <td class="confluenceTd"><p>list.0.deviceName</p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备名称</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
                     <tr>
@@ -81,6 +81,30 @@
                 <td class="confluenceTd"><p>数据项时间</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.fields.0.fieldName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>字段名称</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.fields.0.fieldTitle</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>字段显示名称</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.fields.0.fieldDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>字段描述</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.fields.0.displayFlag</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
             
     <!-- 返回值status 说明 -->
     
@@ -90,7 +114,7 @@
         <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
-                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"createTime":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"data":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataId":&nbsp;1,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataTime":&nbsp;1500000000<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"createTime":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"data":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataId":&nbsp;1,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataTime":&nbsp;1500000000<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;"高压电离室",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fields":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"displayFlag":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldDesc":&nbsp;"剂量率",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldName":&nbsp;"doserate",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldTitle":&nbsp;"剂量率"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
         </td>
     </tr>
 
@@ -101,13 +125,100 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>2.&nbsp;创建设备类型&nbsp;</h3>
+<h3>2.&nbsp;设备详情&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/device/types'>/d/device/types</a></p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/device/{deviceId}'>/d/device/{deviceId}</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4">根据设备ID获得设备详细信息</td>
+    </tr>
+    <!-- URL 参数 -->
+        <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd"><p><strong>名称</strong></p></td>
+        <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+        <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        <td class="confluenceTd"><p><strong>必选</strong></p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>deviceId</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>设备ID</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>details</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>是否返回详细信息</p></td>
+        <td class="confluenceTd"><p>No</p></td>
+    </tr>
+            
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>deviceName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备名称</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>deviceDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备描述</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>deviceSn</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationId</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"deviceDesc":&nbsp;"高压电离室",<br>&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;"高压电离室"<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>3.&nbsp;创建设备类型&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/deviceTypes'>/d/deviceTypes</a></p></td>
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
@@ -138,13 +249,13 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>3.&nbsp;创建设备类型&nbsp;</h3>
+<h3>4.&nbsp;创建设备类型&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/device/type'>/d/device/type</a></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/deviceType'>/d/deviceType</a></p></td>
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
@@ -200,13 +311,13 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>4.&nbsp;修改设备类型信息&nbsp;</h3>
+<h3>5.&nbsp;修改设备类型信息&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/device/type/{typeId}'>/d/device/type/{typeId}</a></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/deviceType/{typeId}'>/d/deviceType/{typeId}</a></p></td>
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
@@ -262,13 +373,13 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>5.&nbsp;修改设备类型字段信息&nbsp;</h3>
+<h3>6.&nbsp;修改设备类型字段信息&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
     <tr>
         <td class="confluenceTd"><p><strong>API</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/device/type/{typeId}/fields'>/d/device/type/{typeId}/fields</a></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/deviceType/{typeId}/fields'>/d/deviceType/{typeId}/fields</a></p></td>
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
@@ -307,14 +418,14 @@
             </tr>
                     <tr>
                 <td class="confluenceTd"><p>fields.0.fieldName</p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>字段名称</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
                     <tr>
                 <td class="confluenceTd"><p>fields.0.fieldTitle</p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>字段显示名称</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
             
@@ -326,7 +437,7 @@
         <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
-                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"fields":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldId":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldName":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldTitle":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"fields":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldId":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldName":&nbsp;"doserate",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fieldTitle":&nbsp;"剂量率"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
         </td>
     </tr>
 
@@ -337,7 +448,7 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>6.&nbsp;创建设备&nbsp;</h3>
+<h3>7.&nbsp;创建设备&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
@@ -400,8 +511,8 @@
             </tr>
                     <tr>
                 <td class="confluenceTd"><p>device.deviceName</p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
-                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>设备名称</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
                     <tr>
@@ -425,7 +536,7 @@
         <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
-                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"device":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"groupId":&nbsp;3,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"typeId":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"device":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;"高压电离室",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"groupId":&nbsp;3,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"typeId":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
         </td>
     </tr>
 

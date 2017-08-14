@@ -38,6 +38,14 @@ class DocDict
         'dataId'         => ['int', '数据项ID', '1'],
         'dataTime'       => ['int', '数据项时间', '1500000000'],
 
+        'deviceName'     => ['string', '设备名称', '高压电离室'],
+        'deviceDesc'     => ['string', '设备描述', '高压电离室'],
+        'deviceType'     => ['string', '设备类型', '高压电离室'],
+
+        'fieldName'     => ['string', '字段名称', 'doserate'],
+        'fieldDesc'     => ['string', '字段描述', '剂量率'],
+        'fieldTitle'    => ['string', '字段显示名称', '剂量率'],
+
     ];
 
     public static function getInfoByName($word)

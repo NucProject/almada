@@ -30,8 +30,11 @@ class DeviceService
      */
     public static function getDeviceById($deviceId)
     {
-        $device = AdDevice::query()->find($deviceId);
-        return $device;
+        $device = AdDevice::query()->where('device_id', $deviceId)->first();
+        if ($device) {
+            return self::ok($device->toArray());
+        }
+        return self::error(Errors::BadArguments);
     }
 
     /**
