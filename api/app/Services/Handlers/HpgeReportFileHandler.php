@@ -10,6 +10,7 @@ namespace App\Services\Handlers;
 use App\Services\Errors;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class HpgeReportFileHandler extends FileHandler
 {
@@ -60,8 +61,17 @@ class HpgeReportFileHandler extends FileHandler
         $file->move($destFilePath, $fileName);
 
         $originalFilename = $request->input('fileName', '');
+        $originalFilenameLower = strtolower($originalFilename);
+        $fileType = 0;
+        if (Str::endsWith($originalFilenameLower, '.spe')) {
+            $fileType = 1;
+        } elseif (Str::endsWith($originalFilenameLower, '.rpt')) {
+            $fileType = 2;
+        }
+
         return self::ok(['fileLink' => $destFilePath . '/' . $fileName,
                          'fileName' => $originalFilename,
+                         'fileType' => $fileType,
                          'sid' => $sid]);
     }
 

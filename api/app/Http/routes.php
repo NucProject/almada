@@ -5,6 +5,7 @@ $app->group([
     'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
+    // 设备相关
     $app->get('devices', 'DeviceController@devices');
 
     $app->get('device/{deviceId}/data', 'DataController@query');
@@ -32,6 +33,7 @@ $app->group([
     // 发送文件
     $app->get('download/file', 'DataController@download');
 
+    // 用户组相关
     $app->post('group', 'GroupController@create');
 
     $app->get('device/types', 'DeviceTypeController@deviceTypes');
@@ -48,6 +50,11 @@ $app->group([
     $app->get('cmd/send/history/{deviceId}', 'CommandController@sendHistoryCommand');
 
     $app->get('cmd/fetch/history/{deviceId}', 'CommandController@fetchHistoryCommand');
+
+    // 自动站相关
+    $app->get('stations', 'StationController@stations');
+
+    $app->post('station', 'StationController@create');
 });
 
 $app->group([

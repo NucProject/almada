@@ -17,17 +17,26 @@ class DocDict
 {
     static $map = [
         // APP 相关
-        'deviceId'      => ['int', '设备ID', '12'],
+        'deviceId'       => ['int', '设备ID', '12'],
 
-        'groupId'       => ['int', '用户组ID', '3'],
-        'groupName'     => ['string', '用户组名称', '中检维康'],
-        'groupDesc'     => ['string', '用户组描述', '中检维康管理员分组'],
+        'groupId'        => ['int', '用户组ID', '3'],
+        'groupName'      => ['string', '用户组名称', '中检维康'],
+        'groupDesc'      => ['string', '用户组描述', '中检维康管理员分组'],
 
-        'maxFlow'       => ['float', '最大累积流量', '123.456'],
-        'timeBegin'     => ['int', '起始时间', '1493357200'],
-        'timeEnd'       => ['int', '结束时间', '1493358200'],
+        'maxFlow'        => ['float', '最大累积流量', '123.456'],
+        'timeBegin'      => ['int', '起始时间', '1493357200'],
+        'timeEnd'        => ['int', '结束时间', '1493358200'],
 
-        'saved'         => ['int', '是否保存(1保存成功, 0保存失败)', '1'],
+        'saved'          => ['int', '是否保存(1保存成功, 0保存失败)', '1'],
+
+
+        'stationName'    => ['string', '自动站名称', '北京全自动站'],
+        'stationDesc'    => ['string', '自动站描述', '北京全自动站(房山)'],
+        'stationAddress' => ['string', '自动站地址', '房山XX-XX'],
+        'stationType'    => ['int', '自动站类型', '1'],
+
+        'dataId'         => ['int', '数据项ID', '1'],
+        'dataTime'       => ['int', '数据项时间', '1500000000'],
 
     ];
 

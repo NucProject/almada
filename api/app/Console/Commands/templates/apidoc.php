@@ -12,7 +12,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p><?=$doc['comment']?></p></td>
+        <td class="confluenceTd" colspan="4"><?=$doc['comment']?></td>
     </tr>
     <!-- URL 参数 -->
     <?php if (count($doc['urlParams']) > 0):?>

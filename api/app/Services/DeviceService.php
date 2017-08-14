@@ -36,14 +36,19 @@ class DeviceService
 
     /**
      * @param $groupId
+     * @param $stationId
      * @return array
      */
-    public static function getDevices($groupId)
+    public static function getDevices($groupId, $stationId=0)
     {
         $query = AdDevice::query();
 
         if (self::isValidId($groupId)) {
             $query->where('group_id', $groupId);
+        }
+
+        if (self::isValidId($stationId)) {
+            $query->where('station_id', $stationId);
         }
 
         $devices = $query->get()->toArray();

@@ -10,7 +10,10 @@ namespace App\Models\Base;
  * Properties as follows
  * @property $station_id    
  * @property $station_name    
+ * @property $station_desc    
  * @property $station_address    
+ * @property $station_type    
+ * @property $group_id    
  * @property $status    
  * @property $create_time    
  * @property $update_time    

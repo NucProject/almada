@@ -12,11 +12,11 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>设备列表</p></td>
+        <td class="confluenceTd" colspan="4">当前用户组下(自动站下,如果stationId有值)设备列表</td>
     </tr>
     <!-- URL 参数 -->
         <tr>
-        <td class="confluenceTd" rowspan="2"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd" rowspan="4"><p><strong>URL参数 </strong></p></td>
         <td class="confluenceTd"><p><strong>名称</strong></p></td>
         <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
         <td class="confluenceTd"><p><strong>说明</strong></p></td>
@@ -28,12 +28,24 @@
         <td class="confluenceTd"><p>分组ID</p></td>
         <td class="confluenceTd"><p>No</p></td>
     </tr>
+            <tr>
+        <td class="confluenceTd"><p>stationId</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>Station ID</p></td>
+        <td class="confluenceTd"><p>No</p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>deviceOnly</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>是否只含有设备信息</p></td>
+        <td class="confluenceTd"><p>No</p></td>
+    </tr>
             
     <!-- Form表单 参数 -->
     
     <!-- 返回值 字段 -->
             <tr>
-            <td class="confluenceTd" rowspan="4"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd" rowspan="6"><p><strong>返回值字段 </strong></p></td>
             <td class="confluenceTd"><p><strong>名称</strong></p></td>
             <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
             <td class="confluenceTd"><p><strong>说明</strong></p></td>
@@ -52,9 +64,21 @@
                 <td class="confluenceTd"><p></p></td>
             </tr>
                     <tr>
-                <td class="confluenceTd"><p>list.0.</p></td>
+                <td class="confluenceTd"><p>list.0.createTime</p></td>
                 <td class="confluenceTd"><p><Unknown></p></td>
                 <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.data.dataId</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>数据项ID</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.data.dataTime</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>数据项时间</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
             
@@ -66,7 +90,7 @@
         <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
-                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"createTime":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"data":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataId":&nbsp;1,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"dataTime":&nbsp;1500000000<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceId":&nbsp;12,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"deviceName":&nbsp;null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
         </td>
     </tr>
 
@@ -87,7 +111,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>创建设备类型</p></td>
+        <td class="confluenceTd" colspan="4">创建设备类型</td>
     </tr>
     <!-- URL 参数 -->
     
@@ -124,7 +148,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>创建设备类型</p></td>
+        <td class="confluenceTd" colspan="4">创建设备类型</td>
     </tr>
     <!-- URL 参数 -->
     
@@ -186,7 +210,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>修改设备类型信息基本</p></td>
+        <td class="confluenceTd" colspan="4">修改设备类型信息基本</td>
     </tr>
     <!-- URL 参数 -->
     
@@ -248,7 +272,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>修改设备类型字段信息</p></td>
+        <td class="confluenceTd" colspan="4">修改设备类型字段信息</td>
     </tr>
     <!-- URL 参数 -->
     
@@ -323,7 +347,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"><p>创建设备</p></td>
+        <td class="confluenceTd" colspan="4">创建设备</td>
     </tr>
     <!-- URL 参数 -->
     
