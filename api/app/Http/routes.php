@@ -24,6 +24,8 @@ $app->group([
 
     $app->get('device/weather/{deviceId}/data', 'WeatherController@query');
 
+    $app->get('device/weather/{deviceId}/wind', 'WeatherController@windInfo');
+
     // 发送数据(Form)
     $app->post('send/{deviceId}', 'DataController@send');
 

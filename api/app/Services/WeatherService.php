@@ -42,15 +42,16 @@ class WeatherService
      * @param $degree
      * @param $timeRange
      * @return array
+     * 风向风速玫瑰图 实现
      */
     public static function queryWindData($deviceId, $degree, $timeRange)
     {
-        $direction = "floor(direction / $degree) as direction";
+        $direction = "floor((direction + 11.25) / $degree) % 16 as direction_divide";
         $query = DtData::queryDevice($deviceId)
-            ->select(DB::raw('avg(wind_speed) as wind_speed'), DB::raw($direction))
+            ->select(DB::raw('count(wind_speed) as wind_freq'), DB::raw($direction))
             ->whereBetween('data_time', $timeRange);
 
-        $query->groupBy('direction');
+        $query->groupBy('direction_divide');
 
         $data = $query->get();
         if ($data) {

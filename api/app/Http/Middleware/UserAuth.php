@@ -16,7 +16,8 @@ class UserAuth
 {
     public function handle(Request $request, Closure $next, $guard = null)
     {
-        $token = $request->input('token', '');
+        // TODO: Session handling
+        $token = $request->header('token', '');
 
         // TODO: SessionId to token?
 

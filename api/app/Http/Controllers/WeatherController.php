@@ -93,7 +93,7 @@ class WeatherController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
-        $degree = 30;
+        $degree = 22.5; // 16分图实现
         $result = WeatherService::queryWindData($deviceId, $degree, [$timeBegin, $timeEnd]);
 
         if (self::isOk($result)) {
