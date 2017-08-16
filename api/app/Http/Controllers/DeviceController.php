@@ -25,7 +25,7 @@ class DeviceController extends Controller
      * @comment 当前用户组下(自动站下,如果stationId有值)设备列表
      *
      * @url-param groupId || int || 分组ID ||
-     * @url-param stationId || int || Station ID ||
+     * @url-param stationId || int || Station ID
      * @url-param deviceOnly || int || 是否只含有设备信息 ||
      *
      * @ret-val list.0.deviceId
@@ -111,6 +111,7 @@ class DeviceController extends Controller
      * @comment 创建设备
      *
      * @form-param groupId || int || 分组ID
+     * @form-param stationId || int || Station ID
      * @form-param typeId || int || 设备类型ID
      * @form-param deviceName || string || 设备名称 ||
      * @form-param deviceSn || string || 设备SN ||

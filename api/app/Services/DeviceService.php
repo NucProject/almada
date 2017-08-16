@@ -127,6 +127,23 @@ class DeviceService
     }
 
     /**
+     * @param $deviceId
+     * @param $typeId
+     * TODO:
+     * alter table ...
+     */
+    public static function updateDeviceTable($deviceId, $typeId)
+    {
+        // TODO: get fields by deviceId from dt_data_X
+
+        // TODO: get all fields from field table,
+
+        // TODO: diff the two array, get the brand new fields
+
+        // TODO: alter table add column after~
+    }
+
+    /**
      * @param Blueprint $table
      * @param $typeId
      */

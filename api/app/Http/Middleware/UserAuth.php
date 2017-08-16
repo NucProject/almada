@@ -16,10 +16,13 @@ class UserAuth
 {
     public function handle(Request $request, Closure $next, $guard = null)
     {
-        // TODO: Session handling
-        $token = $request->header('token', '');
+        $debug = $request->header('_debug', 0);
 
-        // TODO: SessionId to token?
+        if ($debug) {
+
+        }
+
+        $token = 1;
 
 
         $request->setUserResolver(function() use ($token) {

@@ -41,6 +41,26 @@ class StationService
         return self::ok($station->toArray());
     }
 
+    public static function updateStation($stationId, $data)
+    {
+        if (!self::isValidId($stationId)) {
+            return self::error(Errors::BadArguments);
+        }
+
+        $station = AdStation::query()->where('station_id', $stationId)->first();
+
+        $station->station_name = $data['stationName'];
+        $station->station_desc = $data['stationDesc'];
+        $station->station_address = $data['stationAddress'];
+        $station->station_type = $data['stationType'];
+
+        if (!$station->save()) {
+            return self::error(Errors::SaveFailed);
+        }
+
+        return self::ok($station->toArray());
+    }
+
     public static function findStationById($stationId)
     {
         $entry = AdStation::query()->where('station_id', $stationId)->first();

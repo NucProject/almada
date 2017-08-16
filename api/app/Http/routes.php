@@ -59,6 +59,10 @@ $app->group([
     $app->get('stations', 'StationController@stations');
 
     $app->post('station', 'StationController@create');
+
+    $app->post('station/{stationId}', 'StationController@modify');
+
+    $app->post('station/{stationId}/remove', 'StationController@remove');
 });
 
 $app->group([
