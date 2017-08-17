@@ -51,7 +51,7 @@ $app->singleton(
 
 $app->configure('app');
 
-//$app->configure('imageupload');
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -63,9 +63,14 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->configure('session');
+$app->alias('session', 'Illuminate\Session\SessionManager');
+
+$app->middleware([
+    Illuminate\Session\Middleware\StartSession::class,
+ ]);
+
+$app->register(Illuminate\Session\SessionServiceProvider::class);
 
 $app->routeMiddleware([
     'AccessControlAllowOrigin' => App\Http\Middleware\AccessControlAllowOrigin::class,

@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Closure;
 
+
 class UserAuth
 {
     public function handle(Request $request, Closure $next, $guard = null)
@@ -22,10 +23,13 @@ class UserAuth
 
         }
 
-        $token = 1;
+        // $s = $request->session();//->get("d");
+        // $a = $s->get("myname");
+        // echo "($a)";
+        // $s->flush();
 
 
-        $request->setUserResolver(function() use ($token) {
+        $request->setUserResolver(function() use ($request) {
             $user = new User();
             $user->setUid(1);
             return $user;
