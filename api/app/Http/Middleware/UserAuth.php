@@ -28,7 +28,6 @@ class UserAuth
         // echo "($a)";
         // $s->flush();
 
-
         $request->setUserResolver(function() use ($request) {
             $user = new User();
             $user->setUid(1);

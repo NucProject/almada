@@ -125,7 +125,10 @@ class StationController extends Controller
      * @param Request $request
      * @param $stationId
      *
-     * TODO:
+     * @cat station
+     * @title 删除自动站
+     * @comment 删除自动站(未实现)
+     *
      */
     public function remove(Request $request, $stationId)
     {
