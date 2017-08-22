@@ -24,7 +24,7 @@ class DataService
     {
         // 动态Model生成
         $count = 0;
-        foreach ($data as $item) {
+        foreach ($data as &$item) {
 
             if (!array_key_exists('dataTime', $item)) {
                 // 必须在data中含有dataTime, 或者在Request中发送dataTime字段.
@@ -40,10 +40,12 @@ class DataService
                 // 保存成功!
                 return self::error(Errors::SaveFailed, []);
             }
+            $item['data_id'] = $model->data_id;
             $count += 1;
         }
+        unset($item);
 
-        return self::ok(['deviceId' => $deviceId, 'count' => $count]);
+        return self::ok(['deviceId' => $deviceId, 'count' => $count, 'data' => $data]);
    }
 
 

@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\AlertService;
 use App\Services\DataService;
 use App\Services\Errors;
 use App\Services\Handlers\FileHandler;
@@ -71,12 +72,21 @@ class DataController extends Controller
         }
 
         $history = $request->input('history', 0);
+        $historyAlert = 0;
+        if ($history) {
+            $historyAlert = $request->input('historyAlert', 0);
+        }
         // TODO:
 
         $saveResult = DataService::save($deviceId, $data);
         if ($this->isOk($saveResult)) {
 
             $saved = $saveResult['data'];
+            // $saved['data'] contains data_id
+            if (!$history || $historyAlert) {
+                // 非历史数据才报警
+                AlertService::checkDataAlert($saved['data'], $deviceId);
+            }
             return $this->json(Errors::Ok, ['saved' => $saved]);
         }
 
