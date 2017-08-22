@@ -196,6 +196,9 @@ class DataController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
+        // 是否尾部补齐
+        $tailPadding = $request->input('tailPadding', 1);
+
         // $algo = $request->input('algo', 'avg');
         $avg = $request->input('avg', 'none');
         $order = $request->input('order', '');
@@ -203,11 +206,10 @@ class DataController extends Controller
             $order = 'asc';
         }
 
-
         $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $order);
         if (self::isOk($result)) {
             $data = $result['data'];
-            $list = self::paddingDataList($avg, $order, $data);
+            $list = self::paddingDataList($avg, $order, $data, [$timeBegin, $timeEnd], ['tailPadding' => $tailPadding]);
             return $this->json(Errors::Ok, [
                 'list' => $list,
                 'pager' => []
@@ -216,20 +218,32 @@ class DataController extends Controller
 
     }
 
-
-    private static function paddingDataList($avg, $order, $data)
+    /**
+     * @param $avg
+     * @param $order
+     * @param $data
+     * @param $timeRange
+     * @param array $options
+     * @return array
+     */
+    private static function paddingDataList($avg, $order, $data, $timeRange, $options=[])
     {
         if (count($data) <= 1) {
             return $data;
         }
 
         $step = 1;
+        $lastTime = date('Y-m-d H:i', $timeRange[1]);
+
         if ($avg == '5m') {
             $step = 300;
+            $lastTime = date('Y-m-d H:i', intval($timeRange[1] / 300) * 300);
         } elseif ($avg == '1h') {
             $step = 3600;
+            $lastTime = date('Y-m-d H:00', $timeRange[1]);
         } elseif ($avg == '1d') {
             $step = 3600 * 24;
+            $lastTime = date('Y-m-d 00:00', $timeRange[1]);
         } else {
             return $data;
         }
@@ -240,7 +254,6 @@ class DataController extends Controller
 
         $list = [];
 
-
         $first = $data[0];
         $temp = [];
         foreach ($first as $key => $value) {
@@ -248,6 +261,12 @@ class DataController extends Controller
         }
         $lastAvgDataTime = strtotime($first['avg_data_time']);
         array_shift($data);
+
+        if (array_key_exists('tailPadding', $options) && $options['tailPadding']) {
+            $temp['avg_data_time'] = $lastTime;
+            array_push($data, $temp);
+        }
+
         foreach ($data as $item) {
 
             $avgDataTime = strtotime($item['avg_data_time']);
