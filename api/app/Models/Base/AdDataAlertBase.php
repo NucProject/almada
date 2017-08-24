@@ -11,6 +11,8 @@ namespace App\Models\Base;
  * @property $alert_id    
  * @property $device_id    
  * @property $data_id    
+ * @property $field_id    
+ * @property $alert_level    
  * @property $is_hide    
  * @property $status    
  * @property $create_time    

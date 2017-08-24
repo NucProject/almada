@@ -12,6 +12,8 @@ $app->group([
 
     $app->get('device/{deviceId}/data', 'DataController@query');
 
+    $app->get('device/{deviceId}/alerts', 'DataController@alerts');
+
     $app->get('device/{deviceId}/latest', 'DataController@latest');
 
     $app->get('device/hpge/{deviceId}/data', 'HpgeController@query');

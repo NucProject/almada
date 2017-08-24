@@ -372,4 +372,20 @@ class DataController extends Controller
             return $this->json(Errors::BadArguments);
         }
     }
+
+    public function alerts(Request $request, $deviceId)
+    {
+        $timeBegin = $request->input('timeBegin', 0);
+        // TODO: Parse time if in some format?
+        $timeEnd = $request->input('timeEnd', time());
+        $alertsResult = AlertService::getDataAlert($deviceId, [$timeBegin, $timeEnd], []);
+
+        if (self::isOk($alertsResult)) {
+            $alerts = $alertsResult['data'];
+
+            return $this->json(Errors::Ok, $alerts);
+        }
+        return $this->json(Errors::Ok, []);
+
+    }
 }

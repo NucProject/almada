@@ -11,10 +11,11 @@ namespace App\Models\Base;
  * @property $config_id    
  * @property $device_id    
  * @property $field_id    
+ * @property $field_name    
  * @property $alert_type    
  * @property $alert_value1    
  * @property $alert_value2    
- * @property $alert_status    
+ * @property $alert_status    1USE, 2NOUSE
  * @property $status    
  * @property $create_time    
  * @property $update_time    
