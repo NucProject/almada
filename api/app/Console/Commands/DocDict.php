@@ -42,9 +42,18 @@ class DocDict
         'deviceDesc'     => ['string', '设备描述', '高压电离室'],
         'deviceType'     => ['string', '设备类型', '高压电离室'],
 
-        'fieldName'     => ['string', '字段名称', 'doserate'],
-        'fieldDesc'     => ['string', '字段描述', '剂量率'],
-        'fieldTitle'    => ['string', '字段显示名称', '剂量率'],
+        'fieldId'        => ['int', '字段ID', '3'],
+        'fieldName'      => ['string', '字段名称', 'doserate'],
+        'fieldDesc'      => ['string', '字段描述', '剂量率'],
+        'fieldTitle'     => ['string', '字段显示名称', '剂量率'],
+
+        'configId'       => ['string', '字段显示名称', '剂量率'],
+
+        'alertType'      => ['int', '报警类型', '2'],
+        'alertValue1'    => ['double', '报警阈值1', '10.1'],
+        'alertValue2'    => ['double', '报警阈值2', '15.2'],
+        'alertStatus'    => ['int', '报警设置', '1'],
+
 
     ];
 

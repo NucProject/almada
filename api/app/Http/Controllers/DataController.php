@@ -373,6 +373,19 @@ class DataController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $deviceId
+     * @return string
+     *
+     * @cat data
+     * @title 获取设备数据报警信息
+     * @comment 获取设备数据报警信息(可以指定时间范围)
+     *
+     * @url-param deviceId || int || 设备ID
+     * @url-param timeBegin || int || 开始时间
+     * @url-param timeEnd  || int || 结束时间 ||
+     */
     public function alerts(Request $request, $deviceId)
     {
         $timeBegin = $request->input('timeBegin', 0);

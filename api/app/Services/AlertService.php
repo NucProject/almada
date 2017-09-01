@@ -27,6 +27,57 @@ class AlertService
     const AlertTypeChange       = 3;
 
     use ResultTrait;
+
+    /**
+     * @param $deviceId
+     * @return array
+     */
+    public static function getAlertConfigs($deviceId)
+    {
+        $configs = AdDeviceAlertConfig::query()
+            ->where('device_id', $deviceId)
+            ->get()
+            ->toArray();
+
+        return self::ok($configs);
+    }
+
+    /**
+     * @param $deviceId
+     * @param $alertConfigs
+     * @return array
+     */
+    public static function setAlertConfigs($deviceId, $alertConfigs)
+    {
+        // 先全部set status -> 0
+        AdDeviceAlertConfig::query()
+            ->where('device_id', $deviceId)
+            ->update(['status' => 1]);
+
+        foreach ($alertConfigs as $alertConfig) {
+            $configId = false;
+            if (array_key_exists('configId', $alertConfig)) {
+                $configId = $alertConfig['configId'];
+            }
+
+            if ($configId) {
+                $config = AdDeviceAlertConfig::query()
+                    ->where('config_id', $configId)
+                    ->first();
+            } else {
+                $config = new AdDeviceAlertConfig();
+            }
+
+            if ($config) {
+                $config->status = 1;
+                $config->save();
+            }
+
+        }
+
+        return self::ok([]);
+    }
+
     /**
      * @param $data
      * @param $deviceId

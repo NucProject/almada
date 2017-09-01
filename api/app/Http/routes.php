@@ -65,6 +65,11 @@ $app->group([
     $app->post('station/{stationId}', 'StationController@modify');
 
     $app->post('station/{stationId}/remove', 'StationController@remove');
+
+    // Alert
+    $app->get('device/{deviceId}/alertConfigs', 'AlertController@alertConfigs');
+
+    $app->post('device/{deviceId}/alertConfigs', 'AlertController@setAlertConfigs');
 });
 
 $app->group([
