@@ -42,6 +42,7 @@ class CommandService
             $cmd->command_p1 = $i;
             $cmd->command_p2 = $i + 3600;
 
+            $cmd->status = 1;
             if (!$cmd->save()) {
                 return self::error(Errors::SaveFailed);
             }
