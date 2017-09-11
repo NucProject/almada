@@ -16,12 +16,21 @@ use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
-
     /**
      * @cat cmd
      * @title 发起历史数据补齐命令
      * @comment 用户向工控机发起历史数据补齐命令
      *
+     * @url-param deviceId || int || 设备ID
+     * @url-param date || string || 日期 ||
+     * @url-param timeBegin || int || 日期 ||
+     * @url-param timeEnd || int || 日期 ||
+     * @ret-val timeBegin
+     * @ret-val timeEnd
+     *
+     * @example-begin
+     *
+     * @example-end
      * @param Request $request
      * @param $deviceId
      * @return string
@@ -54,6 +63,8 @@ class CommandController extends Controller
      * @title 获取历史数据补齐命令
      * @comment 工控机获取(查询)历史数据补齐命令
      *
+     * @url-param deviceId || int || 设备ID
+     * @url-param interval || int || 时间间隔 ||
      * @param Request $request
      * @param $deviceId
      * @return string
