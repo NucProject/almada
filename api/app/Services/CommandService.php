@@ -29,19 +29,25 @@ class CommandService
      */
     public static function addHistoryCommand($deviceId, $timeRange)
     {
-        $cmd = new AdCommand();
-        $cmd->target_id = $deviceId;
-        $cmd->command_status = self::CmdStt_Sent;
-        $cmd->command_type = self::HistoryCommand;
-        // p1 is begin-time, p2 is end-time
-        $cmd->command_p1 = $timeRange[0];
-        $cmd->command_p2 = $timeRange[1];
+        $beginTime = $timeRange[0];
+        $endTime = $timeRange[1];
 
-        if ($cmd->save()) {
-            return self::ok($cmd->toArray());
+        for ($i = $beginTime; $i < $endTime; $i += 3600) {
+
+            $cmd = new AdCommand();
+            $cmd->target_id = $deviceId;
+            $cmd->command_status = self::CmdStt_Sent;
+            $cmd->command_type = self::HistoryCommand;
+            // p1 is begin-time, p2 is end-time
+            $cmd->command_p1 = $i;
+            $cmd->command_p2 = $i + 3600;
+
+            if (!$cmd->save()) {
+                return self::error(Errors::SaveFailed);
+            }
         }
 
-        return self::error(Errors::SaveFailed);
+        return self::ok([]);
     }
 
     public static function fetchDeviceHistoryCommand($deviceId)
