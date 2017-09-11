@@ -49,7 +49,7 @@ class CommandService
         $cmd = AdCommand::query()
             ->where('command_type', self::HistoryCommand)
             ->where('target_id', $deviceId)
-            //->where('command_status', self::CmdStt_Sent)
+            ->where('command_status', self::CmdStt_Sent)
             ->orderBy('command_id')
             ->first();
 
