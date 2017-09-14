@@ -52,8 +52,9 @@ class AlertService
         // 先全部set status -> 0
         AdDeviceAlertConfig::query()
             ->where('device_id', $deviceId)
-            ->update(['status' => 1]);
+            ->update(['status' => 0]);
 
+        $configIdArray = [];
         foreach ($alertConfigs as $alertConfig) {
             $configId = false;
             if (array_key_exists('configId', $alertConfig)) {
@@ -61,7 +62,7 @@ class AlertService
             }
 
             if ($configId) {
-                $config = AdDeviceAlertConfig::query()
+                $config = AdDeviceAlertConfig::queryAll()
                     ->where('config_id', $configId)
                     ->first();
             } else {
@@ -69,13 +70,19 @@ class AlertService
             }
 
             if ($config) {
+                echo 444;
+                $config->alert_type = $alertConfig['alertType'];
+                $config->alert_status = $alertConfig['alertStatus'];
+                $config->alert_value1 = $alertConfig['alertValue1'];
+                $config->alert_value2 = $alertConfig['alertValue2'];
                 $config->status = 1;
                 $config->save();
+                $configIdArray[] = $config->config_id;
             }
 
         }
 
-        return self::ok([]);
+        return self::ok(['configIdArray' => $configIdArray]);
     }
 
     /**

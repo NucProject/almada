@@ -31,6 +31,7 @@ class CommandController extends Controller
      * @example-begin
      *
      * @example-end
+     *
      * @param Request $request
      * @param $deviceId
      * @return string

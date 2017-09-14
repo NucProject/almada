@@ -26,8 +26,8 @@ class AlertController extends Controller
      * @return string
      *
      * @cat device
-     * @title
-     * @comment
+     * @title 获取设备的报警设置
+     * @comment 根据设备ID获取设备的报警设置
      * @url-param deviceId || int || 设备ID
      *
      * @ret-val list.0.configId
@@ -95,8 +95,6 @@ class AlertController extends Controller
             'list' => $data,
             // 'fields' => $fieldResult['data']
         ]);
-
-
     }
 
     /**
@@ -105,10 +103,14 @@ class AlertController extends Controller
      * @return string
      *
      * @cat device
-     * @title
-     * @comment
+     * @title 更改设备的报警设置
+     * @comment 更改设备的报警设置 alertConfigs是表单参数, 支持多个字段的报警设置
      * @url-param deviceId || int || 设备ID
-     * @form-param alertConfigs || form || 表单数组
+     * @form-param alertConfigs || form || 表单数组, 包含configId(没有则填0), fieldId, fieldName, alertStatus, alertType, alertValue1, alertValue2
+     *
+     * @example-begin
+     * curl -d "alertConfigs[0][configId]=1&alertConfigs[0][fieldId]=5&alertConfigs[0][fieldName]=electric&alertConfigs[0][alertStatus]=1&alertConfigs[0][alertType]=1&alertConfigs[0][alertValue1]=10&alertConfigs[0][alertValue2]=15" http://127.0.0.1:1024/d/device/1/alertConfigs
+     * @example-end
      */
     public function setAlertConfigs(Request $request, $deviceId)
     {

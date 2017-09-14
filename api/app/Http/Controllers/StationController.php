@@ -142,10 +142,12 @@ class StationController extends Controller
      * @title 自动站列表
      * @comment 列出当前用户组下所有的自动站
      *
+     * @ret-val list.0.stationId
      * @ret-val list.0.stationName
      * @ret-val list.0.stationDesc
      * @ret-val list.0.stationAddress
      * @ret-val list.0.stationType
+     * @ret-val list.0.stationSn || string || Station SN(目前还没有支持) || S00001
      */
     public function stations(Request $request)
     {
