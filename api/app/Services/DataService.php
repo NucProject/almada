@@ -76,6 +76,8 @@ class DataService
         if ($avg != 'none') {
             if ($avg == '5m') {
                 $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), LPAD(floor(minute(FROM_UNIXTIME(data_time)) / 5) * 5, 2, \'0\') ) as avg_data_time'));
+            } elseif ($avg == '1m') {
+                $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), LPAD(floor(minute(FROM_UNIXTIME(data_time))), 2, \'0\') ) as avg_data_time'));
             } elseif ($avg == '1h') {
                 $query->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:00\') as avg_data_time'));
             } elseif ($avg == '1d') {

@@ -183,7 +183,7 @@ class DataController extends Controller
      * @url-param deviceId || int || 设备ID
      * @url-param timeBegin || int || 开始时间
      * @url-param timeEnd  || int || 结束时间 ||
-     * @url-param avg || string || 平均值时间间隔 5m, 1h, 1d
+     * @url-param avg || string || 平均值时间间隔 1m, 5m, 1h, 1d
      * @url-param algo || string || 数字取值算法
      *
      * @ret-val list.0.dataTime
