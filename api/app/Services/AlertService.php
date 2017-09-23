@@ -10,7 +10,9 @@ namespace App\Services;
 
 
 use App\Models\AdDataAlert;
+use App\Models\AdDevice;
 use App\Models\AdDeviceAlertConfig;
+use App\Models\AdDeviceField;
 
 class AlertService
 {
@@ -49,40 +51,63 @@ class AlertService
      */
     public static function setAlertConfigs($deviceId, $alertConfigs)
     {
+        $device = AdDevice::query()->find($deviceId);
+        if (!$device) {
+            return self::error(Errors::DeviceNotFound);
+        }
+
+        $deviceType = $device->device_type;
+
         // 先全部set status -> 0
         AdDeviceAlertConfig::query()
             ->where('device_id', $deviceId)
             ->update(['status' => 0]);
 
         $configIdArray = [];
+        $failedArray = [];
         foreach ($alertConfigs as $alertConfig) {
             $configId = false;
             if (array_key_exists('configId', $alertConfig)) {
                 $configId = $alertConfig['configId'];
             }
 
-            if ($configId) {
-                $config = AdDeviceAlertConfig::queryAll()
-                    ->where('config_id', $configId)
-                    ->first();
-            } else {
+            $config = AdDeviceAlertConfig::queryAll()
+                ->where('device_id', $deviceId)
+                ->where('field_id', $alertConfig['fieldId'])
+                ->first();
+
+            if (!$config) {
+
                 $config = new AdDeviceAlertConfig();
+                $config->device_id = $deviceId;
+                $config->field_id = $alertConfig['fieldId'];
+
+                $field = AdDeviceField::query()->find($config->field_id);
+                if ($field && $field->device_type != $deviceType) {
+                    return self::error(Errors::BadArguments, ['reason' => 'Wrong fieldId']);
+                }
+                $config->field_name = $field->field_name;
+
             }
 
             if ($config) {
-                echo 444;
+                $config->status = 1;
+
                 $config->alert_type = $alertConfig['alertType'];
                 $config->alert_status = $alertConfig['alertStatus'];
                 $config->alert_value1 = $alertConfig['alertValue1'];
                 $config->alert_value2 = $alertConfig['alertValue2'];
-                $config->status = 1;
-                $config->save();
-                $configIdArray[] = $config->config_id;
+
+                if ($config->save()) {
+                    $configIdArray[] = $config->config_id;
+                } else {
+                    $failedArray[] = $alertConfig['fieldName'];
+                }
             }
 
         }
 
-        return self::ok(['configIdArray' => $configIdArray]);
+        return self::ok(['configIdArray' => $configIdArray, 'failed' => $failedArray]);
     }
 
     /**
