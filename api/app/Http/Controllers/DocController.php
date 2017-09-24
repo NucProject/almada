@@ -90,6 +90,11 @@ class DocController extends Controller
      */
     public function now()
     {
-        return $this->json(Errors::Ok, ['now' => time()]);
+        date_default_timezone_set('PRC');
+        $now = date("Y-m-d H:i:s");
+
+        $gmt8 = strtotime($now);
+
+        return $this->json(Errors::Ok, ['local' => $gmt8, 'utc' => $gmt8 - 8 * 3600]);
     }
 }
