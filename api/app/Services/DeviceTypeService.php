@@ -137,4 +137,13 @@ class DeviceTypeService
 
         return self::ok($fields);
     }
+
+    public static function getTypeTitle($typeId)
+    {
+        $type = AdDeviceType::query()->find($typeId);
+        if ($type) {
+            return self::ok($type->type_title);
+        }
+        return self::error(Errors::BadArguments);
+    }
 }

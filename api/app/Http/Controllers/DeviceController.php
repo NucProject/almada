@@ -65,6 +65,13 @@ class DeviceController extends Controller
                 $deviceId = $device['device_id'];
                 $typeId = $device['type_id'];
 
+                $titleResult =  DeviceTypeService::getTypeTitle($typeId);
+                if (self::isOk($titleResult)) {
+                    $device['type_title'] = $titleResult['data'];
+                } else {
+                    $device['type_title'] = '?';
+                }
+
                 $typeResult = DeviceTypeService::getFieldsByTypeId($typeId);
 
                 if (self::isOk($typeResult)) {
