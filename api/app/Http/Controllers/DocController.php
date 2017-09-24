@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\Errors;
+
 class DocController extends Controller
 {
     /**
@@ -81,5 +83,13 @@ class DocController extends Controller
         } else {
             exit("IBFileSystem: $dirName is not a directory.");
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function now()
+    {
+        return $this->json(Errors::Ok, ['now' => time()]);
     }
 }

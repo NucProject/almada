@@ -93,4 +93,6 @@ $app->group([
 
     $app->get('doc/{docName}', 'DocController@render');
 
+    $app->get('now', 'DocController@now');
+
 });
