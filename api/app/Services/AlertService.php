@@ -13,6 +13,7 @@ use App\Models\AdDataAlert;
 use App\Models\AdDevice;
 use App\Models\AdDeviceAlertConfig;
 use App\Models\AdDeviceField;
+use Illuminate\Support\Str;
 
 class AlertService
 {
@@ -203,8 +204,8 @@ class AlertService
             $fieldId = $alert['field_id'];
             foreach ($configs as $config) {
                 if ($config['field_id'] == $fieldId) {
-                    $alert['field_name'] = $config['field_name'];
-                    // TODO: ?
+                    // 驼峰表达
+                    $alert['field_name'] = Str::camel($config['field_name']);
                 }
             }
 
