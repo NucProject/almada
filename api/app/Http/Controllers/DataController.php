@@ -199,6 +199,10 @@ class DataController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
+        date_default_timezone_set('UTC');
+        //echo date('Y-m-d H:i:s', );
+        //exit;
+
         $timeBegin = $request->input('timeBegin', 0);
         // TODO: Parse time if in some format?
         $timeEnd = $request->input('timeEnd', time());
@@ -215,6 +219,8 @@ class DataController extends Controller
         if (!$order) {
             $order = 'asc';
         }
+
+        // date_default_timezone_set('Asia/Shanghai');
 
         $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $order);
         if (self::isOk($result)) {
