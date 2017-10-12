@@ -199,10 +199,6 @@ class DataController extends Controller
             return $this->json(Errors::BadArguments);
         }
 
-        date_default_timezone_set('UTC');
-        //echo date('Y-m-d H:i:s', );
-        //exit;
-
         $timeBegin = $request->input('timeBegin', 0);
         // TODO: Parse time if in some format?
         $timeEnd = $request->input('timeEnd', time());
@@ -220,7 +216,6 @@ class DataController extends Controller
             $order = 'asc';
         }
 
-        // date_default_timezone_set('Asia/Shanghai');
 
         $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $order);
         if (self::isOk($result)) {
@@ -247,6 +242,9 @@ class DataController extends Controller
         if (count($data) <= 1) {
             return $data;
         }
+
+        // TODO: 时区计算得动态化
+        date_default_timezone_set('PRC');
 
         $step = 1;
         $lastTime = date('Y-m-d H:i', $timeRange[1]);
@@ -288,6 +286,9 @@ class DataController extends Controller
             $avgDataTime = strtotime($item['avg_data_time']);
 
             $avgDataTimeDiff = $avgDataTime - $lastAvgDataTime;
+            if ($avgDataTimeDiff == 0) {
+                continue;
+            }
             if ($avgDataTimeDiff != $step) {
                 $times = $avgDataTimeDiff / $step;
                 for ($i = 1; $i < $times; $i++) {

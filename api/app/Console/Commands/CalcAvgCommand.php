@@ -28,7 +28,6 @@ class CalcAvgCommand extends Command
     {
         $deviceId = $this->argument('deviceId');
 
-
         while (true) {
             $data = DtData::queryDevice($deviceId)
                 ->where('electric_avg', 0.0)
@@ -47,6 +46,7 @@ class CalcAvgCommand extends Command
     /**
      * @param $deviceId
      * @param DtData $data
+     * @return true
      */
     private function calcAvgValues($deviceId, $data)
     {
@@ -62,8 +62,9 @@ class CalcAvgCommand extends Command
         $data->setTable('dt_data_1');
 
         if ($data->save($avgs[0])) {
-
+            return true;
         }
+        return false;
     }
 
 
