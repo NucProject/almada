@@ -25,6 +25,7 @@ class CinderellaService
     {
         $query = DtData::queryDevice($deviceId)
             ->select('sid', DB::raw('max(flow) as maxFlow'), DB::raw('min(data_time) as timeBegin'), DB::raw('max(data_time) as timeEnd'))
+            ->where('sid', '!=', '')
             ->whereBetween('data_time', $timeRange);
 
         $query->groupBy('sid');
