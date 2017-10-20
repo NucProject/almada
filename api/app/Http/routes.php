@@ -86,7 +86,7 @@ $app->group([
 
 $app->group([
     'prefix' => '/p',
-    // 'middleware' => ['AccessControlAllowOrigin'],
+    'middleware' => ['AccessControlAllowOrigin'],
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
     $app->get('doc/list', 'DocController@pages');
