@@ -9,6 +9,8 @@
 namespace App\Services;
 
 
+use App\Models\AdDevice;
+use App\Models\AdDeviceField;
 use App\Models\DtData;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +63,7 @@ class DataService
     }
 
     /**
+     * TODO: avg
      * @param $deviceId
      * @param $timeRange
      * @param $avg
@@ -69,9 +72,27 @@ class DataService
      */
     public static function queryData($deviceId, $timeRange, $avg, $order='asc')
     {
+        $device = AdDevice::query()->find($deviceId);
+        if (!$device) {
+            return self::error(Errors::DeviceNotFound);
+        }
+
+
+        $fields = AdDeviceField::query()
+            ->where('type_id', $device->type_id)->get()->toArray();
+
+        if (empty($fields)) {
+            return self::error(Errors::DeviceNotFound);
+        }
+
         $query = DtData::queryDevice($deviceId)
-            ->select('*')
+            ->select('data_time')
             ->whereBetween('data_time', $timeRange);
+
+        foreach ($fields as $field) {
+            $fieldName = $field['field_name'];
+            $query->addSelect(DB::raw("round(avg($fieldName), 2) as $fieldName"));
+        }
 
         if ($avg != 'none') {
             if ($avg == '5m') {
