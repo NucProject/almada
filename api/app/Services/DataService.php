@@ -175,4 +175,29 @@ class DataService
                          'timePoints' => $lostTimePoints
         ]);
     }
+
+    /**
+     * @param $deviceId
+     * @param $timeRange
+     * @param array $options
+     * @return array
+     */
+    public static function getDeviceDataRatio($deviceId, $timeRange, array $options)
+    {
+        $query = DtData::queryDevice($deviceId)
+            ->select(DB::raw('count(1) count'))
+            ->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d\') as date'))
+            ->whereBetween('data_time', $timeRange);
+
+        $query->groupBy('date');
+        $data = $query->get()->toArray();
+
+        $totalDaily = isset($options['totalDaily']) ? $options['totalDaily'] : 2880;
+        foreach ($data as &$item) {
+
+            $item['ratio'] = round($item['count'] / $totalDaily, 2);
+        }
+        unset($item);
+        return self::ok($data);
+    }
 }

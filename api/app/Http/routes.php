@@ -16,6 +16,8 @@ $app->group([
 
     $app->get('device/{deviceId}/latest', 'DataController@latest');
 
+    $app->get('device/{deviceId}/ratio', 'DataController@ratio');
+
     $app->get('device/hpge/{deviceId}/data', 'HpgeController@query');
 
     $app->get('device/hpge/{deviceId}/nuclide', 'HpgeController@nuclide');
