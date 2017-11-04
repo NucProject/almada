@@ -40,6 +40,7 @@ class DeviceService
     /**
      * @param $groupId
      * @param $stationId
+     * 二者提供其一即可
      * @return array
      */
     public static function getDevices($groupId, $stationId=0)

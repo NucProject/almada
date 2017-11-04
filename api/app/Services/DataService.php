@@ -91,7 +91,14 @@ class DataService
 
         foreach ($fields as $field) {
             $fieldName = $field['field_name'];
-            $query->addSelect(DB::raw("round(avg($fieldName), 2) as $fieldName"));
+            $fieldConfig = $field['field_config'];
+
+            if (strstr($fieldConfig, 'max')) {
+                $query->addSelect(DB::raw("round(max($fieldName), 2) as {$fieldName}"));
+                continue;
+            }
+            $query->addSelect(DB::raw("round(avg($fieldName), 2) as {$fieldName}"));
+
         }
 
         if ($avg != 'none') {

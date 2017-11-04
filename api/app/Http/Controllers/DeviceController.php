@@ -48,8 +48,8 @@ class DeviceController extends Controller
         $stationId = $request->input('stationId', 0);
         $groupId = $request->input('groupId', 0);
 
-        if (!self::isValidId($groupId)) {
-            return $this->json(Errors::BadArguments, ['msg' => 'Group id is required']);
+        if (!(self::isValidId($groupId) || self::isValidId($stationId))) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Provide a group-id or station-id']);
         }
 
         $devicesResult = DeviceService::getDevices($groupId, $stationId);

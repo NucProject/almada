@@ -12,9 +12,12 @@ namespace App\Models\Base;
  * @property $type_id    
  * @property $field_type    
  * @property $field_name    
+ * @property $field_config    
  * @property $field_title    
  * @property $field_desc    
  * @property $field_unit    
+ * @property $display_flag    
+ * @property $alert_flag    
  * @property $status    
  * @property $create_time    
  * @property $update_time    
