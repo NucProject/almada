@@ -86,7 +86,6 @@ class DataService
         }
 
         $query = DtData::queryDevice($deviceId)
-            ->select('data_time')
             ->whereBetween('data_time', $timeRange);
 
         foreach ($fields as $field) {
@@ -121,7 +120,12 @@ class DataService
         $query->orderBy('avg_data_time', $order);
         $data = $query->get();
         if ($data) {
-            return self::ok($data->toArray());
+            $data = $data->toArray();
+            foreach ($data as &$item) {
+                $item['data_time'] = strtotime($item['avg_data_time']);
+            }
+            unset($item);
+            return self::ok($data);
         }
         return self::ok([]);
     }
