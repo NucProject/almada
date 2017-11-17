@@ -30,21 +30,37 @@ class GroupController extends Controller
      * @ret-val group.groupId
      * @ret-val group.groupName
      * @ret-val group.groupDesc
+     *
      */
     public function create(Request $request)
     {
         $data = $request->input();
 
-        $valid = $this->validate2($data, ['groupName' => 'required|string']);
+        $valid = $this->validate2($data, [
+            'groupName' => 'required|string',
+            'groupDesc' => 'required|string'
+        ]);
         if ($valid->fails()) {
+            return $this->json(Errors::BadArguments, $valid->messages());
+        }
 
+        $userId = $request->user()->getUid();
+        if (!self::isValidId($userId)) {
+            return $this->json(Errors::UserNotLogin);
         }
 
         $result = GroupService::create($data);
-        if (self::isOk($result)) {
-            $group = $request['data'];
-            return $this->json(Errors::Ok, $group);
+        if (self::hasError($result)) {
+            return $this->jsonFromError($result);
         }
+
+        $group = $result['data'];
+        unset($group['update_time']);
+        unset($group['create_time']);
+        return $this->json(Errors::Ok, [
+            'group' => $group,
+            'userId' => $userId]);
+
     }
 
     /**
@@ -85,6 +101,8 @@ class GroupController extends Controller
         }
 
         $result = GroupService::getUsers($groupId);
+        $users = $result['data'];
+        return $this->json(Errors::Ok, ['list' => $users]);
     }
 
 

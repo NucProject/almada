@@ -29,6 +29,10 @@ class Errors
 
     const UserStateError = 8;
 
+    const UserWrongPassword = 9;
+
+    const UserExists = 10;
+
     private static $errorsMap = [
         self::Ok           => ['msg' => 'OK', 'comment' => '成功'],
         self::BadArguments => ['msg' => 'Bad arguments', 'comment' => '参数错误'],
@@ -39,6 +43,8 @@ class Errors
         self::UserNotFound   => ['msg' => 'No this user', 'comment' => '没有这个用户'],
         self::UserNotLogin   => ['msg' => 'User not login', 'comment' => '用户没有登录'],
         self::UserStateError   => ['msg' => 'User state error', 'comment' => '用户状态错误'],
+        self::UserWrongPassword => ['msg' => 'Wrong password', 'comment' => '用户名或密码错误'],
+        self::UserExists => ['msg' => 'User exists', 'comment' => '用户已经存在'],
     ];
 
     public static function getErrorMsg($status)

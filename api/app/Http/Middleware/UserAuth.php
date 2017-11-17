@@ -20,17 +20,15 @@ class UserAuth
         $debug = $request->header('_debug', 0);
 
         if ($debug) {
-
         }
 
-        // $s = $request->session();//->get("d");
-        // $a = $s->get("myname");
-        // echo "($a)";
-        // $s->flush();
-
         $request->setUserResolver(function() use ($request) {
+
+            $session = $request->session();
+
             $user = new User();
-            $user->setUid(1);
+            $userId = $session->get('userId', 0);
+            $user->setUid($userId);
             return $user;
         });
 

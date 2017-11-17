@@ -14,6 +14,7 @@ use App\Models\AdGroup;
 class GroupService
 {
     use ResultTrait;
+
     /**
      * @param $data
      * @return array
@@ -26,11 +27,11 @@ class GroupService
         }
 
         if (array_key_exists('groupDesc', $data)) {
-            $group->group_name = $data['groupDesc'];
+            $group->group_desc = $data['groupDesc'];
         }
 
         // 创建组的时候生成邀请码
-        $group->group_invite = substr(md5($group->group_name . time()), 0, 10);
+        $group->group_invite = substr(md5($group->group_name . time()), 4, 10);
 
         $group->status = 1;
         if (!$group->save()) {

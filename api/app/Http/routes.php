@@ -41,8 +41,6 @@ $app->group([
     // 发送文件
     $app->get('download/file', 'DataController@download');
 
-    // 用户组相关
-    $app->post('group', 'GroupController@create');
 
     $app->get('deviceTypes', 'DeviceTypeController@deviceTypes');
 
@@ -76,14 +74,21 @@ $app->group([
 
 $app->group([
     'prefix' => '/u',
-    'middleware' => ['AccessControlAllowOrigin'],
+    'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
     'namespace' => 'App\Http\Controllers'], function() use ($app) {
 
     // 注册
-    $app->post('/register', 'UserController@register');
+    $app->post('register', 'UserController@register');
 
     // 登录
     $app->post('login', 'UserController@login');
+
+    $app->post('join', 'UserController@join');
+
+    // 用户组相关
+    $app->post('group', 'GroupController@create');
+
+    $app->get('users', 'GroupController@users');
 });
 
 $app->group([

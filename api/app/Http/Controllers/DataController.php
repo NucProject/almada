@@ -226,7 +226,7 @@ class DataController extends Controller
                 'pager' => []
             ]);
         }
-
+        return $this->jsonFromError($result);
     }
 
     /**

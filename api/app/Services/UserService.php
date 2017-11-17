@@ -23,9 +23,33 @@ class UserService
     public static function newUser($data)
     {
         $username = $data['username'];
+        $nickname = isset($data['nickname']) ? $data['nickname'] : '';
         $password = $data['password'];
 
+        $user = new AdUser();
+        $user->status = 1;
+        $user->user_name = $username;
+        $user->user_nick = $nickname;
+        $user->user_password = password_hash($password, PASSWORD_DEFAULT);
+        if (!$user->save()) {
+            return self::error(Errors::SaveFailed);
+        }
 
+        return self::ok($user->toArray());
+    }
+
+    /**
+     * @param $username
+     * @return array
+     */
+    public static function findUser($username)
+    {
+        $user = AdUser::query()->where('user_name', $username)->first();
+        if ($user) {
+            return self::ok($user->toArray());
+        }
+
+        return self::error(Errors::UserNotFound);
     }
 
     /**

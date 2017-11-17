@@ -8,10 +8,8 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Services\Errors;
 use App\Services\GroupService;
-use App\Services\ResultTrait;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -26,9 +24,12 @@ class UserController extends Controller
      *
      * @return string
      *
-     *
      * @form-param username || string || 用户名
      * @form-param password || string || 密码
+     *
+     * @ret-val user.userName || string || 用户名
+     * @ret-val user.userNick || string || 昵称
+     * @ret-val user.userId || int || User ID
      */
     public function register(Request $request)
     {
@@ -39,17 +40,21 @@ class UserController extends Controller
             'password' => 'required|string',
         ]);
         if ($valid->fails()) {
-
+            return $this->json(Errors::BadArguments);
         }
 
-        $groupId = $request->input('groupId', 0);
-        if (!ResultTrait::isValidId($groupId)) {
-
+        $foundResult = UserService::findUser($data['username']);
+        if (self::isOk($foundResult)) {
+            return $this->json(Errors::UserExists);
         }
 
         $result = UserService::newUser($data);
         if (self::isOk($result)) {
-            return $this->json(Errors::Ok, ['user' => $result['data']]);
+            $user = $result['data'];
+            unset($user['user_password']);
+            unset($user['create_time']);
+            unset($user['update_time']);
+            return $this->json(Errors::Ok, ['user' => $user]);
         }
 
         return $this->jsonFromError($result['data']);
@@ -61,13 +66,16 @@ class UserController extends Controller
      *
      * @cat user
      * @title 用户登录
-     * @comment 用户登录
+     * @comment 用户登录(服务端会Set-Cookie)
      *
      * @return string
      *
-     *
      * @form-param username || string || 用户名
      * @form-param password || string || 密码
+     *
+     * @ret-val token || string || token
+     * @ret-val userId || int || 用户ID
+     *
      */
     public function login(Request $request)
     {
@@ -82,10 +90,24 @@ class UserController extends Controller
             return $this->json(Errors::BadArguments, []);
         }
 
-        $token = null;
+        $username = $data['username'];
+        $foundResult = UserService::findUser($username);
+        if (self::hasError($foundResult)) {
+            return $this->jsonFromError($foundResult);
+        }
+
+        $user = $foundResult['data'];
+
+        if (!password_verify($data['password'], $user['user_password'])) {
+            return $this->json(Errors::UserWrongPassword);
+        }
+        $userId = $user['user_id'];
+        session_start();
+        $sid = session_id();
+        $request->session()->set('userId', $userId);
 
         // TODO: Set-Cookie
-        return $this->json(Errors::Ok, ['token' => $token]);
+        return $this->json(Errors::Ok, ['token' => $sid, 'userId' => $userId]);
 
     }
 
@@ -98,11 +120,15 @@ class UserController extends Controller
      * @comment 用户通过用户组ID申请加入该组
      *
      * @return string
+     *
+     * @form-param invite || string || 邀请码
+     * @form-param password || string || 密码
+     *
      */
     public function join(Request $request)
     {
         $invite = $request->input('invite');
-        if (!$invite) {
+        if (!$invite || strlen($invite) != 10) {
             return $this->json(Errors::BadArguments, ['msg' => 'Wrong Invite']);
         }
 
