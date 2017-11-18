@@ -20,12 +20,18 @@
     
     <!-- 返回值 字段 -->
             <tr>
-            <td class="confluenceTd" rowspan="5"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd" rowspan="7"><p><strong>返回值字段 </strong></p></td>
             <td class="confluenceTd"><p><strong>名称</strong></p></td>
             <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
             <td class="confluenceTd"><p><strong>说明</strong></p></td>
             <td class="confluenceTd"><p><strong>其他</strong></p></td>
         </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationId</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
                     <tr>
                 <td class="confluenceTd"><p>list.0.stationName</p></td>
                 <td class="confluenceTd"><p>string</p></td>
@@ -50,6 +56,12 @@
                 <td class="confluenceTd"><p>自动站类型</p></td>
                 <td class="confluenceTd"><p></p></td>
             </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationSn</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>Station SN(目前还没有支持)</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
             
     <!-- 返回值status 说明 -->
     
@@ -59,7 +71,7 @@
         <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
         <td class="confluenceTd" colspan="4">
             <p>
-                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationAddress":&nbsp;"房山XX-XX",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationDesc":&nbsp;"北京全自动站(房山)",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationName":&nbsp;"北京全自动站",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationType":&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationAddress":&nbsp;"房山XX-XX",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationDesc":&nbsp;"北京全自动站(房山)",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationId":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationName":&nbsp;"北京全自动站",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationSn":&nbsp;"S00001",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationType":&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
         </td>
     </tr>
 

@@ -553,7 +553,7 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>8.&nbsp;&nbsp;</h3>
+<h3>8.&nbsp;获取设备的报警设置&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
@@ -563,7 +563,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"></td>
+        <td class="confluenceTd" colspan="4">根据设备ID获取设备的报警设置</td>
     </tr>
     <!-- URL 参数 -->
         <tr>
@@ -658,7 +658,7 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- REST API doc template for WIKI -->
-<h3>9.&nbsp;&nbsp;</h3>
+<h3>9.&nbsp;更改设备的报警设置&nbsp;</h3>
 <div style="margin: 0 30px 0 30px">
 <table class="table table-bordered table-striped">
     <tbody>
@@ -668,7 +668,7 @@
     </tr>
     <tr>
         <td class="confluenceTd"><p><strong>注释</strong></p></td>
-        <td class="confluenceTd" colspan="4"></td>
+        <td class="confluenceTd" colspan="4">更改设备的报警设置 alertConfigs是表单参数, 支持多个字段的报警设置</td>
     </tr>
     <!-- URL 参数 -->
         <tr>
@@ -696,7 +696,7 @@
                     <tr>
                 <td class="confluenceTd"><p>alertConfigs</p></td>
                 <td class="confluenceTd"><p>form</p></td>
-                <td class="confluenceTd"><p>表单数组</p></td>
+                <td class="confluenceTd"><p>表单数组, 包含configId(没有则填0), fieldId, fieldName, alertStatus, alertType, alertValue1, alertValue2</p></td>
                 <td class="confluenceTd"><p>Yes</p></td>
             </tr>
             
@@ -705,6 +705,13 @@
     <!-- 返回值status 说明 -->
     
 
+            <tr>
+            <td class="confluenceTd" rowspan="1"><p><strong>调用示例</strong></p></td>
+            <td class="confluenceTd" colspan="4">
+                <p>
+                    curl -d "alertConfigs[0][configId]=1&alertConfigs[0][fieldId]=5&alertConfigs[0][fieldName]=electric&alertConfigs[0][alertStatus]=1&alertConfigs[0][alertType]=1&alertConfigs[0][alertValue1]=10&alertConfigs[0][alertValue2]=15" http://127.0.0.1:1024/d/device/1/alertConfigs                </p>
+            </td>
+        </tr>
     
     <tr>
         <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>

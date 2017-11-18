@@ -96,10 +96,18 @@ $app->group([
     'middleware' => ['AccessControlAllowOrigin'],
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
+    $app->get('now', 'DocController@now');
+
+});
+
+
+$app->group([
+    'prefix' => '/p',
+    'middleware' => [],
+    'namespace' => 'App\Http\Controllers'], function () use ($app) {
+
     $app->get('doc/list', 'DocController@pages');
 
     $app->get('doc/{docName}', 'DocController@render');
-
-    $app->get('now', 'DocController@now');
 
 });
