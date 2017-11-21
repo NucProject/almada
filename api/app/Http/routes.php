@@ -30,6 +30,8 @@ $app->group([
 
     $app->get('device/weather/{deviceId}/wind', 'WeatherController@windInfo');
 
+    $app->get('device/em/{deviceId}/e/{n}', 'EMDeviceController@eData');
+
     // 发送数据(Form)
     $app->post('send/{deviceId}', 'DataController@send');
 
@@ -84,6 +86,8 @@ $app->group([
     $app->post('login', 'UserController@login');
 
     $app->post('join', 'UserController@join');
+
+    $app->get('invite', 'GroupController@inviteCode');
 
     // 用户组相关
     $app->post('group', 'GroupController@create');

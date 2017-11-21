@@ -86,6 +86,14 @@ class GroupController extends Controller
 
     /**
      * @param Request $request
+     */
+    public function inviteCode(Request $request)
+    {
+
+    }
+
+    /**
+     * @param Request $request
      * @param $groupId
      * @return string
      *
