@@ -16,6 +16,7 @@ use App\Services\Handlers\FileHandler;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class DataController extends Controller
@@ -220,12 +221,14 @@ class DataController extends Controller
         $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $order);
         if (self::isOk($result)) {
             $data = $result['data'];
+
             $list = self::paddingDataList($avg, $order, $data, [$timeBegin, $timeEnd], ['tailPadding' => $tailPadding]);
             return $this->json(Errors::Ok, [
                 'list' => $list,
                 'pager' => []
             ]);
         }
+
         return $this->jsonFromError($result);
     }
 

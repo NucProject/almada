@@ -72,6 +72,8 @@ class DataService
      */
     public static function queryData($deviceId, $timeRange, $avg, $order='asc')
     {
+        DB::connection()->enableQueryLog();
+
         $device = AdDevice::query()->find($deviceId);
         if (!$device) {
             return self::error(Errors::DeviceNotFound);
@@ -93,19 +95,19 @@ class DataService
             $query->addSelect('lat')->addSelect('lng');
         }
 
-        foreach ($fields as $field) {
-            $fieldName = $field['field_name'];
-            $fieldConfig = $field['field_config'];
-
-            if (strstr($fieldConfig, 'max')) {
-                $query->addSelect(DB::raw("round(max($fieldName), 2) as {$fieldName}"));
-                continue;
-            }
-            $query->addSelect(DB::raw("round(avg($fieldName), 2) as {$fieldName}"));
-
-        }
-
         if ($avg != 'none') {
+
+            foreach ($fields as $field) {
+                $fieldName = $field['field_name'];
+                $fieldConfig = $field['field_config'];
+
+                if (strstr($fieldConfig, 'max')) {
+                    $query->addSelect(DB::raw("round(max($fieldName), 2) as {$fieldName}"));
+                    continue;
+                }
+                $query->addSelect(DB::raw("round(avg($fieldName), 2) as {$fieldName}"));
+            }
+
             if ($avg == '5m') {
                 $query->addSelect(DB::raw('concat(FROM_UNIXTIME(data_time, \'%Y-%m-%d %H:\'), LPAD(floor(minute(FROM_UNIXTIME(data_time)) / 5) * 5, 2, \'0\') ) as avg_data_time'));
             } elseif ($avg == '1m') {
@@ -119,6 +121,12 @@ class DataService
             $query->groupBy('avg_data_time');
 
         } else {
+            foreach ($fields as $field) {
+                $fieldName = $field['field_name'];
+                // $fieldConfig = $field['field_config'];
+                $query->addSelect($fieldName);
+            }
+
             $query->addSelect(DB::raw('FROM_UNIXTIME(data_time) as avg_data_time'));
         }
 
@@ -126,6 +134,7 @@ class DataService
         $data = $query->get();
         if ($data) {
             $data = $data->toArray();
+
             /*
             foreach ($data as &$item) {
                 $item['data_time'] = strtotime($item['avg_data_time']);
