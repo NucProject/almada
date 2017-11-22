@@ -89,6 +89,10 @@ class DataService
             ->select('data_time')
             ->whereBetween('data_time', $timeRange);
 
+        if ($device->movable) {
+            $query->addSelect('lat')->addSelect('lng');
+        }
+
         foreach ($fields as $field) {
             $fieldName = $field['field_name'];
             $fieldConfig = $field['field_config'];
