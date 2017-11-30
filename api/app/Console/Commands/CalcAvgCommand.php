@@ -59,7 +59,7 @@ class CalcAvgCommand extends Command
             ->get()
             ->toArray();
 
-        $data->setTable('dt_data_1');
+        $data->setTable("dt_data_{$deviceId}");
 
         if ($data->save($avgs[0])) {
             return true;
