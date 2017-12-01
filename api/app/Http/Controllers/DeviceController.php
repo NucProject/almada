@@ -48,9 +48,7 @@ class DeviceController extends Controller
         $stationId = $request->input('stationId', 0);
         $groupId = $request->input('groupId', 0);
 
-        if (!(self::isValidId($groupId) || self::isValidId($stationId))) {
-            return $this->json(Errors::BadArguments, ['msg' => 'Provide a group-id or station-id']);
-        }
+        // TODO:
 
         $devicesResult = DeviceService::getDevices($groupId, $stationId);
         if (self::hasError($devicesResult)) {
@@ -105,6 +103,45 @@ class DeviceController extends Controller
 
             unset($device);
         }
+
+        $data = [
+            'list' => $devices
+        ];
+        return $this->json(Errors::Ok, $data);
+    }
+
+    /**
+     * @cat device
+     * @title 全部设备列表
+     * @comment 全部设备列表
+     *
+     * @url-param groupId || int || 分组ID ||
+     * @url-param stationId || int || Station ID
+     * @url-param deviceOnly || int || 是否只含有设备信息 ||
+     *
+     * @ret-val list.0.deviceId
+     * @ret-val list.0.deviceName
+     * @ret-val list.0.createTime
+     * @ret-val list.0.data.dataId
+     * @ret-val list.0.data.dataTime
+     *
+     * @ret-val list.0.fields.0.fieldName
+     * @ret-val list.0.fields.0.fieldTitle
+     * @ret-val list.0.fields.0.fieldDesc
+     * @ret-val list.0.fields.0.displayFlag
+     *
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function allDevices(Request $request)
+    {
+        $devicesResult = DeviceService::getAllDevices();
+        if (self::hasError($devicesResult)) {
+            return $this->jsonFromError($devicesResult);
+        }
+
+        $devices = $devicesResult['data'];
 
         $data = [
             'list' => $devices

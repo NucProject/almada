@@ -8,6 +8,8 @@ $app->group([
     // 设备相关
     $app->get('devices', 'DeviceController@devices');
 
+    $app->get('allDevices', 'DeviceController@allDevices');
+
     $app->get('device/{deviceId}', 'DeviceController@deviceInfo');
 
     $app->get('device/{deviceId}/data', 'DataController@query');
