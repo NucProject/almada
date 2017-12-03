@@ -67,12 +67,15 @@ class DataService
      * @param $deviceId
      * @param $timeRange
      * @param $avg
+     * @param $fieldsSet
      * @param $order
      * @return array
      */
-    public static function queryData($deviceId, $timeRange, $avg, $order='asc')
+    public static function queryData($deviceId, $timeRange, $avg, $fieldsSet, $order='asc')
     {
-        DB::connection()->enableQueryLog();
+        // DB::connection()->enableQueryLog();
+        $fieldsSetArray = explode(',', trim($fieldsSet, ', '));
+        $fieldsSetArray = array_filter($fieldsSetArray, function($i) { return $i; });
 
         $device = AdDevice::query()->find($deviceId);
         if (!$device) {
@@ -99,6 +102,11 @@ class DataService
 
             foreach ($fields as $field) {
                 $fieldName = $field['field_name'];
+
+                if (!empty($fieldsSetArray) && !in_array(camel_case($fieldName), $fieldsSetArray)) {
+                    continue;
+                }
+
                 $fieldConfig = $field['field_config'];
 
                 if (strstr($fieldConfig, 'max')) {
@@ -123,7 +131,10 @@ class DataService
         } else {
             foreach ($fields as $field) {
                 $fieldName = $field['field_name'];
-                // $fieldConfig = $field['field_config'];
+                if (!empty($fieldsSetArray) && !in_array(camel_case($fieldName), $fieldsSetArray)) {
+                    continue;
+                }
+
                 $query->addSelect($fieldName);
             }
 

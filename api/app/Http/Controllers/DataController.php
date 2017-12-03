@@ -217,8 +217,10 @@ class DataController extends Controller
             $order = 'asc';
         }
 
+        // 逗号分隔
+        $fieldsSet = $request->input('fields', '');
 
-        $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $order);
+        $result = DataService::queryData($deviceId, [$timeBegin, $timeEnd], $avg, $fieldsSet, $order);
         if (self::isOk($result)) {
             $data = $result['data'];
 
