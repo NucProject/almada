@@ -54,6 +54,8 @@ $app->group([
 
     $app->post('deviceType/{typeId}/fields', 'DeviceTypeController@modifyFields');
 
+    $app->get('deviceType/{typeId}/fields', 'DeviceTypeController@getFields');
+
     $app->post('device', 'DeviceController@create');
 
     //命令相关

@@ -146,4 +146,17 @@ class DeviceTypeController extends Controller
         $data = $result['data'];
         return $this->json(Errors::Ok, $data);
     }
+
+    public function getFields(Request $request, $typeId)
+    {
+        $fieldsResult = DeviceTypeService::getFieldsByTypeId($typeId);
+
+        if (self::hasError($fieldsResult)) {
+            return $this->jsonFromError($fieldsResult);
+        }
+
+
+        $data = $fieldsResult['data'];
+        return $this->json(Errors::Ok, $data);
+    }
 }
