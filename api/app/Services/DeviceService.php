@@ -60,14 +60,19 @@ class DeviceService
     }
 
     /**
-     * 二者提供其一即可
+     * @param $filter
+     *
      * @return array
      */
-    public static function getAllDevices()
+    public static function getAllDevices(array $filter=[])
     {
         $query = AdDevice::queryAll()
             ->where('ad_device.status', 1)
             ->where('ad_station.status', 1);
+
+        if (array_key_exists('typeId', $filter) && $filter['typeId'] > 0) {
+            $query->where('type_id', $filter['typeId']);
+        }
 
         $query->leftJoin('ad_station', 'ad_device.station_id', '=', 'ad_station.station_id');
         $query->orderBy('ad_device.station_id');

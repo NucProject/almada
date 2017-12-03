@@ -136,7 +136,9 @@ class DeviceController extends Controller
      */
     public function allDevices(Request $request)
     {
-        $devicesResult = DeviceService::getAllDevices();
+        $typeId = $request->input('typeId', 0);
+
+        $devicesResult = DeviceService::getAllDevices(['typeId' => $typeId]);
         if (self::hasError($devicesResult)) {
             return $this->jsonFromError($devicesResult);
         }
