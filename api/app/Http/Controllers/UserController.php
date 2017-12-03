@@ -121,20 +121,21 @@ class UserController extends Controller
      *
      * @return string
      *
-     * @form-param invite || string || 邀请码
-     * @form-param password || string || 密码
+     * @form-param invite || string || 邀请码 12位大写字母+数字
      *
+     * @ret-val groupId || int || 组ID
+     * @ret-val join || int || 是否加入
      */
     public function join(Request $request)
     {
-        $invite = $request->input('invite');
-        if (!$invite || strlen($invite) != 10) {
-            return $this->json(Errors::BadArguments, ['msg' => 'Wrong Invite']);
-        }
-
         $userId = $request->user()->getUid();
         if (!self::isValidId($userId)) {
             return $this->json(Errors::UserNotLogin);
+        }
+
+        $invite = $request->input('invite');
+        if (!$invite || strlen($invite) != 12) {
+            return $this->json(Errors::BadArguments, ['msg' => 'Wrong Invite']);
         }
 
         $result = GroupService::getGroupByInvite($invite);
@@ -149,6 +150,7 @@ class UserController extends Controller
             return $this->jsonFromError($result);
         }
 
-        return $this->json(Errors::Ok, []);
+        $data = $result['data'];
+        return $this->json(Errors::Ok, $data);
     }
 }

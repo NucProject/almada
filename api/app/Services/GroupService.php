@@ -31,7 +31,7 @@ class GroupService
         }
 
         // 创建组的时候生成邀请码
-        $group->group_invite = substr(md5($group->group_name . time()), 4, 16);
+        $group->group_invite = strtoupper(substr(md5($group->group_name . time()), 4, 12));
 
         $group->status = 1;
         if (!$group->save()) {

@@ -64,7 +64,7 @@ class UserService
             return self::error(Errors::UserNotFound, ['msg' => '没有这个用户']);
         }
 
-        if ($user->group_id > 0) {
+        if ($user->group_id > 0 && $user->group_id != $groupId) {
             return self::error(Errors::UserStateError, ['msg' => '已经加入其它组']);
         }
 
@@ -73,6 +73,6 @@ class UserService
             return self::error(Errors::SaveFailed, ['msg' => '保存失败']);
         }
 
-        return self::ok($user->toArray());
+        return self::ok(['groupId' => $groupId, 'join' => 1]);
     }
 }
