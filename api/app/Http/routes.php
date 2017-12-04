@@ -95,10 +95,7 @@ $app->group([
 
     // 注册
     $app->post('register', 'UserController@register');
-
-    // 登录
-    $app->post('login', 'UserController@login');
-
+    
     $app->get('invite', 'GroupController@inviteCode');
 
     // 用户组相关
