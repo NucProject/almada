@@ -27,6 +27,7 @@ class UserAuth
             $userId = $session->get('userId', 0);
         }
 
+
         if (!$userId) {
             echo json_encode([
                 'status' => Errors::UserNotLogin,
@@ -35,6 +36,7 @@ class UserAuth
             ]);
             exit();
         }
+        
 
         $request->setUserResolver(function() use ($userId) {
             $user = new User();

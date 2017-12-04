@@ -76,7 +76,7 @@ $app->group([
 
     $app->post('device/{deviceId}/alertConfigs', 'AlertController@setAlertConfigs');
 
-    $app->get('stations', 'StationController@stations');
+
 });
 
 
@@ -86,7 +86,7 @@ $app->group([
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
     // 自动站相关
-
+    $app->get('stations', 'StationController@stations');
 });
 
 // 需要鉴权的!
