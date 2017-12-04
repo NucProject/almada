@@ -116,8 +116,7 @@ class DeviceController extends Controller
      * @comment 全部设备列表
      *
      * @url-param groupId || int || 分组ID ||
-     * @url-param stationId || int || Station ID
-     * @url-param deviceOnly || int || 是否只含有设备信息 ||
+     * @url-param typeId || int || Type ID (支持TypeId筛选)
      *
      * @ret-val list.0.deviceId
      * @ret-val list.0.deviceName

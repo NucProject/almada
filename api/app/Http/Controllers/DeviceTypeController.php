@@ -26,6 +26,12 @@ class DeviceTypeController extends Controller
      *
      * @return string
      *
+     * @ret-val list.0.typeId
+     * @ret-val list.0.dependTypeId
+     * @ret-val list.0.typeName
+     * @ret-val list.0.typeTitle
+     * @ret-val list.0.typeDesc
+     * @ret-val list.0.typeCreator
      */
     public function deviceTypes()
     {
@@ -80,6 +86,7 @@ class DeviceTypeController extends Controller
      * @title 修改设备类型字段信息
      * @comment 修改设备类型字段信息
      *
+     * @url-param typeId || int || TypeID
      * @form-param fields || array || 设备类型名称(参加返回值字段)
      *
      * @ret-val fields.0.fieldId
@@ -101,7 +108,6 @@ class DeviceTypeController extends Controller
             return $this->jsonFromError($check);
         }
 
-        // var_dump($fields);
         $result = DeviceTypeService::updateFields($typeId, $fields);
         if (self::hasError($result)) {
             return $this->jsonFromError($result);
@@ -147,6 +153,23 @@ class DeviceTypeController extends Controller
         return $this->json(Errors::Ok, $data);
     }
 
+    /**
+     * @param Request $request
+     * @param $typeId
+     * @return string
+     *
+     * @url-param typeId || int || Type ID
+     *
+     * @ret-val list.0.fieldId
+     * @ret-val list.0.fieldType
+     * @ret-val list.0.fieldName
+     * @ret-val list.0.fieldConfig
+     * @ret-val list.0.fieldTitle
+     * @ret-val list.0.fieldDesc
+     * @ret-val list.0.fieldUnit
+     * @ret-val list.0.displayFlag
+     * @ret-val list.0.alertFlag
+     */
     public function getFields(Request $request, $typeId)
     {
         $fieldsResult = DeviceTypeService::getFieldsByTypeId($typeId);
@@ -155,8 +178,7 @@ class DeviceTypeController extends Controller
             return $this->jsonFromError($fieldsResult);
         }
 
-
         $data = $fieldsResult['data'];
-        return $this->json(Errors::Ok, $data);
+        return $this->json(Errors::Ok, ['list' => $data]);
     }
 }

@@ -186,10 +186,11 @@ class DataController extends Controller
      * @url-param timeEnd  || int || 结束时间 ||
      * @url-param avg || string || 平均值时间间隔 1m, 5m, 1h, 1d
      * @url-param algo || string || 数字取值算法
+     * @url-param tailPadding || int || 是否补齐尾部数据?
+     * @url-param fields || string || 字段显示列表(逗号分隔)
      *
      * @ret-val list.0.dataTime
      * @ret-val list.0.someFieldValue
-     *
      * @ret-val pager.currentPage
      * @ret-val pager.totalPage
      *
