@@ -75,6 +75,8 @@ $app->group([
     $app->get('device/{deviceId}/alertConfigs', 'AlertController@alertConfigs');
 
     $app->post('device/{deviceId}/alertConfigs', 'AlertController@setAlertConfigs');
+
+    $app->get('stations', 'StationController@stations');
 });
 
 
@@ -84,7 +86,7 @@ $app->group([
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
     // 自动站相关
-    $app->get('stations', 'StationController@stations');
+
 });
 
 // 需要鉴权的!
@@ -95,7 +97,7 @@ $app->group([
 
     // 注册
     $app->post('register', 'UserController@register');
-    
+
     $app->get('invite', 'GroupController@inviteCode');
 
     // 用户组相关

@@ -106,7 +106,7 @@ class UserController extends Controller
         $sid = session_id();
         $request->session()->set('userId', $userId);
 
-        // TODO: Set-Cookie
+
         return $this->json(Errors::Ok, ['token' => $sid, 'userId' => $userId]);
 
     }
