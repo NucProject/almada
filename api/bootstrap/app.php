@@ -67,7 +67,7 @@ $app->configure('session');
 $app->alias('session', 'Illuminate\Session\SessionManager');
 
 $app->middleware([
-    Illuminate\Session\Middleware\StartSession::class,
+    // Illuminate\Session\Middleware\StartSession::class,
  ]);
 
 $app->register(Illuminate\Session\SessionServiceProvider::class);

@@ -7,7 +7,7 @@ return [
 
     'files' => '/tmp/php_session',
 
-    'lifetime' => 360,
+    'lifetime' => 7200,
 
     'expire_on_close' => false,
 
