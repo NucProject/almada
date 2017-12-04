@@ -12,12 +12,14 @@ use App\Models\User;
 use App\Services\Errors;
 use Illuminate\Http\Request;
 use Closure;
+use Illuminate\Support\Facades\Session;
 
 
 class UserAuth
 {
     public function handle(Request $request, Closure $next, $guard = null)
     {
+        
         $debugUserId = $request->input('__debug_user_id', 0);
         $session = $request->session();
 

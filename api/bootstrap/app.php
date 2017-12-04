@@ -75,6 +75,7 @@ $app->register(Illuminate\Session\SessionServiceProvider::class);
 $app->routeMiddleware([
     'AccessControlAllowOrigin' => App\Http\Middleware\AccessControlAllowOrigin::class,
     'UserAuth' => \App\Http\Middleware\UserAuth::class,
+    'Session' => Illuminate\Session\Middleware\StartSession::class,
 ]);
 
 /*

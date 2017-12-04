@@ -82,7 +82,7 @@ $app->group([
 
 $app->group([
     'prefix' => '/d',
-    'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
+    'middleware' => ['AccessControlAllowOrigin', 'Session', 'UserAuth'],
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
     // 自动站相关
