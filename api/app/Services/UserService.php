@@ -75,4 +75,17 @@ class UserService
 
         return self::ok(['groupId' => $groupId, 'join' => 1]);
     }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public static function getUserById($userId)
+    {
+        $user = AdUser::query()->find($userId);
+        if ($user) {
+            return self::ok($user);
+        }
+        return self::error(Errors::UserNotFound, []);
+    }
 }

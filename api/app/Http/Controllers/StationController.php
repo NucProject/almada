@@ -10,8 +10,10 @@ namespace App\Http\Controllers;
 
 
 use App\Services\Errors;
+use App\Services\GroupService;
 use App\Services\ResultTrait;
 use App\Services\StationService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class StationController extends Controller
@@ -151,10 +153,16 @@ class StationController extends Controller
      */
     public function stations(Request $request)
     {
-        // TODO:
-        $groupId = $request->input('groupId', 0);
+        $userId = $request->user()->getUid();
 
-        $stationsResult = StationService::getStationsInGroup($groupId);
+        $userResult = UserService::getUserById($userId);
+        if (self::hasError($userResult)) {
+            return $this->jsonFromError($userResult);
+        }
+
+        $user = $userResult['data'];
+
+        $stationsResult = StationService::getStationsInGroup($user->group_id);
         if (self::isOk($stationsResult)) {
             $stations = $stationsResult['data'];
 

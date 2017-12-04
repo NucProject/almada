@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\Errors;
 use App\Services\ResultTrait;
 use App\Services\ValidateService;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -19,6 +20,8 @@ class Controller extends BaseController
     {
         $this->beginTime = microtime(1);
     }
+
+
 
     /**
      * @param int $status

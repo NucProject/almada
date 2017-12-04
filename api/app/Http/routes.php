@@ -2,7 +2,7 @@
 
 $app->group([
     'prefix' => '/d',
-    'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
+    'middleware' => ['AccessControlAllowOrigin'],
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
     // 设备相关
@@ -63,8 +63,7 @@ $app->group([
 
     $app->get('cmd/fetch/history/{deviceId}', 'CommandController@fetchHistoryCommand');
 
-    // 自动站相关
-    $app->get('stations', 'StationController@stations');
+
 
     $app->post('station', 'StationController@create');
 
@@ -76,6 +75,16 @@ $app->group([
     $app->get('device/{deviceId}/alertConfigs', 'AlertController@alertConfigs');
 
     $app->post('device/{deviceId}/alertConfigs', 'AlertController@setAlertConfigs');
+});
+
+
+$app->group([
+    'prefix' => '/d',
+    'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
+    'namespace' => 'App\Http\Controllers'], function () use ($app) {
+
+    // 自动站相关
+    $app->get('stations', 'StationController@stations');
 });
 
 $app->group([
