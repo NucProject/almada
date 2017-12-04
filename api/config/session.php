@@ -5,7 +5,7 @@ return [
 
     'lottery' => [0, 999],
 
-    'files' => '/Users/healer/session',
+    'files' => '/tmp/php_session',
 
     'lifetime' => 360,
 

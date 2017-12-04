@@ -105,7 +105,7 @@ class UserController extends Controller
         session_start();
         $sid = session_id();
         $request->session()->set('userId', $userId);
-
+        $request->session()->save();
 
         return $this->json(Errors::Ok, ['token' => $sid, 'userId' => $userId]);
 

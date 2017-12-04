@@ -36,7 +36,7 @@ class UserAuth
             ]);
             exit();
         }
-        
+
 
         $request->setUserResolver(function() use ($userId) {
             $user = new User();
