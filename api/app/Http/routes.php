@@ -87,6 +87,7 @@ $app->group([
     $app->get('stations', 'StationController@stations');
 });
 
+// 需要鉴权的!
 $app->group([
     'prefix' => '/u',
     'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
@@ -98,8 +99,6 @@ $app->group([
     // 登录
     $app->post('login', 'UserController@login');
 
-    $app->post('join', 'UserController@join');
-
     $app->get('invite', 'GroupController@inviteCode');
 
     // 用户组相关
@@ -107,6 +106,21 @@ $app->group([
 
     $app->get('users', 'GroupController@users');
 });
+
+// 不需要鉴权的
+$app->group([
+    'prefix' => '/u',
+    'middleware' => ['AccessControlAllowOrigin'],
+    'namespace' => 'App\Http\Controllers'], function() use ($app) {
+
+    // 注册
+    $app->post('register', 'UserController@register');
+
+    // 登录
+    $app->post('login', 'UserController@login');
+});
+
+
 
 $app->group([
     'prefix' => '/p',
