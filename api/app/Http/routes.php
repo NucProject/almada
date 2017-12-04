@@ -109,7 +109,7 @@ $app->group([
 // 不需要鉴权的
 $app->group([
     'prefix' => '/u',
-    'middleware' => ['AccessControlAllowOrigin'],
+    'middleware' => ['AccessControlAllowOrigin', 'Session'],
     'namespace' => 'App\Http\Controllers'], function() use ($app) {
 
     // 注册
