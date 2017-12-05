@@ -98,7 +98,7 @@ class StationController extends Controller
     public function modify(Request $request, $stationId)
     {
         // TODO: Get groupId
-        $groupId = $request->input('groupId', 0);
+        $userId = $request->user()->getUid();
 
         $data = $request->input();
         $valid = $this->validate2($data, [
@@ -112,7 +112,7 @@ class StationController extends Controller
             return $this->json(Errors::BadArguments, $valid->messages());
         }
 
-        $stationResult = StationService::updateStation($stationId, $data);
+        $stationResult = StationService::updateStation($stationId, $userId, $data);
 
         if (self::isOk($stationResult)) {
             $station = $stationResult['data'];
@@ -161,8 +161,13 @@ class StationController extends Controller
         }
 
         $user = $userResult['data'];
+        if ($user['is_admin']) {
+            // As an Admin user, can see all stations.
+            $stationsResult = StationService::getStations();
+        } else {
+            $stationsResult = StationService::getStationsInGroup($user->group_id);
+        }
 
-        $stationsResult = StationService::getStationsInGroup($user->group_id);
         if (self::isOk($stationsResult)) {
             $stations = $stationsResult['data'];
 

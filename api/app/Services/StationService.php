@@ -41,7 +41,7 @@ class StationService
         return self::ok($station->toArray());
     }
 
-    public static function updateStation($stationId, $data)
+    public static function updateStation($stationId, $userId, $data)
     {
         if (!self::isValidId($stationId)) {
             return self::error(Errors::BadArguments);
@@ -69,6 +69,19 @@ class StationService
         }
 
         return self::error(Errors::BadArguments);
+    }
+
+
+    /**
+     * @return array
+     */
+    public static function getStations()
+    {
+        $stations = AdStation::query()
+            ->get()
+            ->toArray();
+
+        return self::ok($stations);
     }
 
     /**

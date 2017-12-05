@@ -106,7 +106,7 @@ $app->group([
     $app->get('users', 'GroupController@users');
 });
 
-// 不需要鉴权的
+// 不需要鉴权的, 但是需要Session支持的
 $app->group([
     'prefix' => '/u',
     'middleware' => ['AccessControlAllowOrigin', 'Session'],
