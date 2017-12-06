@@ -302,15 +302,9 @@ class DataController extends Controller
         foreach ($first as $key => $value) {
             $temp[$key] = '-';
         }
-        $lastAvgDataTime = strtotime($first['avg_data_time']);
-        array_shift($data);
+        $lastAvgDataTime = strtotime($firstTime);
+        $lastAvgDataOffset = 0;
 
-        /*
-        if (array_key_exists('headPadding', $options) && $options['headPadding']) {
-            $temp['avg_data_time'] = $firstTime;
-            array_push($data, $temp);
-        }
-        */
 
         if (array_key_exists('tailPadding', $options) && $options['tailPadding']) {
             $temp['avg_data_time'] = $lastTime;
@@ -327,21 +321,24 @@ class DataController extends Controller
             }
             if ($avgDataTimeDiff != $step) {
                 $times = $avgDataTimeDiff / $step;
-                for ($i = 1; $i < $times; $i++) {
+
+                for ($i = $lastAvgDataOffset; $i < $times; $i++) {
+
                     $null = $temp;
                     $dataTime = $lastAvgDataTime + $i * $step;
 
                     $null['avg_data_time'] = date('Y-m-d H:i', $dataTime);
-                    $null['data_time'] = strtotime($null['avg_data_time']) - 0; //$step;
+                    $null['data_time'] = strtotime($null['avg_data_time']);
                     $list[] = $null;
                 }
             }
 
-            $item['data_time'] = strtotime($item['avg_data_time']) - 0; //$step;
+
+            $item['data_time'] = strtotime($item['avg_data_time']);
             $list[] = $item;
 
             $lastAvgDataTime = $avgDataTime;
-
+            $lastAvgDataOffset = 1;
         }
         return $list;
     }
