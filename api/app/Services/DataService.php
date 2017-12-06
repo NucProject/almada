@@ -81,7 +81,6 @@ class DataService
             return self::error(Errors::DeviceNotFound);
         }
 
-
         $fields = AdDeviceField::query()
             ->where('type_id', $device->type_id)->get()->toArray();
 

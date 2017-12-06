@@ -305,7 +305,6 @@ class DataController extends Controller
         $lastAvgDataTime = strtotime($firstTime);
         $lastAvgDataOffset = 0;
 
-
         if (array_key_exists('tailPadding', $options) && $options['tailPadding']) {
             $temp['avg_data_time'] = $lastTime;
             array_push($data, $temp);
@@ -328,7 +327,7 @@ class DataController extends Controller
                     $dataTime = $lastAvgDataTime + $i * $step;
 
                     $null['avg_data_time'] = date('Y-m-d H:i', $dataTime);
-                    $null['data_time'] = strtotime($null['avg_data_time']);
+                    $null['data_time'] = $dataTime; //strtotime($null['avg_data_time']);
                     $list[] = $null;
                 }
             }
