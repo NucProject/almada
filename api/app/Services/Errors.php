@@ -33,6 +33,8 @@ class Errors
 
     const UserExists = 10;
 
+    const ResourceNotFound = 11;
+
     private static $errorsMap = [
         self::Ok           => ['msg' => 'OK', 'comment' => '成功'],
         self::BadArguments => ['msg' => 'Bad arguments', 'comment' => '参数错误'],
@@ -45,6 +47,7 @@ class Errors
         self::UserStateError   => ['msg' => 'User state error', 'comment' => '用户状态错误'],
         self::UserWrongPassword => ['msg' => 'Wrong password', 'comment' => '用户名或密码错误'],
         self::UserExists => ['msg' => 'User exists', 'comment' => '用户已经存在'],
+        self::ResourceNotFound => ['msg' => 'Resource not found', 'comment' => '资源不存在'],
     ];
 
     public static function getErrorMsg($status)

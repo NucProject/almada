@@ -209,6 +209,7 @@ class DataController extends Controller
         }
 
         // 是否尾部补齐
+        $headPadding = $request->input('headPadding', 1);
         $tailPadding = $request->input('tailPadding', 1);
 
         // $algo = $request->input('algo', 'avg');
@@ -225,7 +226,25 @@ class DataController extends Controller
         if (self::isOk($result)) {
             $data = $result['data'];
 
-            $list = self::paddingDataList($avg, $order, $data, [$timeBegin, $timeEnd], ['tailPadding' => $tailPadding]);
+            $list = self::paddingDataList($avg, $order, $data, [$timeBegin, $timeEnd],
+                [
+                    'headPadding' => $headPadding,
+                    'tailPadding' => $tailPadding,
+
+                ]);
+            return $this->json(Errors::Ok, [
+                'list' => $list,
+                'pager' => []
+            ]);
+        } elseif (self::hasError($result) && $result['error'] == Errors::ResourceNotFound) {
+
+            $list = self::paddingEmptyDataList($avg, $order, [$timeBegin, $timeEnd],
+                [
+                    'headPadding' => $headPadding,
+                    'tailPadding' => $tailPadding,
+                    'dataTemplate' => $result['data']['template']
+
+                ]);
             return $this->json(Errors::Ok, [
                 'list' => $list,
                 'pager' => []
@@ -253,16 +272,20 @@ class DataController extends Controller
         date_default_timezone_set('PRC');
 
         $step = 1;
+        $firstTime = date('Y-m-d H:i', $timeRange[0]);
         $lastTime = date('Y-m-d H:i', $timeRange[1]);
 
         if ($avg == '5m') {
             $step = 300;
+            $firstTime = date('Y-m-d H:i', intval($timeRange[0] / 300) * 300);
             $lastTime = date('Y-m-d H:i', intval($timeRange[1] / 300) * 300);
         } elseif ($avg == '1h') {
             $step = 3600;
+            $firstTime = date('Y-m-d H:00', $timeRange[0]);
             $lastTime = date('Y-m-d H:00', $timeRange[1]);
         } elseif ($avg == '1d') {
             $step = 3600 * 24;
+            $firstTime = date('Y-m-d 00:00', $timeRange[0]);
             $lastTime = date('Y-m-d 00:00', $timeRange[1]);
         } else {
             return $data;
@@ -281,6 +304,13 @@ class DataController extends Controller
         }
         $lastAvgDataTime = strtotime($first['avg_data_time']);
         array_shift($data);
+
+        /*
+        if (array_key_exists('headPadding', $options) && $options['headPadding']) {
+            $temp['avg_data_time'] = $firstTime;
+            array_push($data, $temp);
+        }
+        */
 
         if (array_key_exists('tailPadding', $options) && $options['tailPadding']) {
             $temp['avg_data_time'] = $lastTime;
@@ -315,6 +345,63 @@ class DataController extends Controller
         }
         return $list;
     }
+
+    /**
+     * @param $avg
+     * @param $order
+     * @param $timeRange
+     * @param array $options
+     * @return array
+     */
+    private static function paddingEmptyDataList($avg, $order, $timeRange, $options=[])
+    {
+        // TODO: 时区计算得动态化
+        date_default_timezone_set('PRC');
+
+        $step = 1;
+        $firstTime = date('Y-m-d H:i', $timeRange[0]);
+        $lastTime = date('Y-m-d H:i', $timeRange[1]);
+
+        if ($avg == '5m') {
+            $step = 300;
+            $firstTime = date('Y-m-d H:i', intval($timeRange[0] / 300) * 300);
+            $lastTime = date('Y-m-d H:i', intval($timeRange[1] / 300) * 300);
+        } elseif ($avg == '1h') {
+            $step = 3600;
+            $firstTime = date('Y-m-d H:00', $timeRange[0]);
+            $lastTime = date('Y-m-d H:00', $timeRange[1]);
+        } elseif ($avg == '1d') {
+            $step = 3600 * 24;
+            $firstTime = date('Y-m-d 00:00', $timeRange[0]);
+            $lastTime = date('Y-m-d 00:00', $timeRange[1]);
+        }
+
+        if ($order == 'desc') {
+            $step = -$step;
+        }
+
+        $list = [];
+        $template = $options['dataTemplate'];
+        $temp = [];
+        foreach ($template as $key => $value) {
+            $temp[$key] = '-';
+        }
+
+        $firstAvgDataTime = strtotime($firstTime);
+        $lastAvgDataTime = strtotime($lastTime);
+
+        $time = $firstAvgDataTime;
+        for (; $time <= $lastAvgDataTime; $time += $step) {
+            $item = $temp;
+            $item['avg_data_time'] = date('Y-m-d H:i', $time);
+            $item['data_time'] = $time; //$step;
+            $list[] = $item;
+
+
+        }
+        return $list;
+    }
+
 
 
     /**

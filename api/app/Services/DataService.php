@@ -73,7 +73,6 @@ class DataService
      */
     public static function queryData($deviceId, $timeRange, $avg, $fieldsSet, $order='asc')
     {
-        // DB::connection()->enableQueryLog();
         $fieldsSetArray = explode(',', trim($fieldsSet, ', '));
         $fieldsSetArray = array_filter($fieldsSetArray, function($i) { return $i; });
 
@@ -91,8 +90,8 @@ class DataService
         }
 
         $query = DtData::queryDevice($deviceId)
-            ->select('data_time')
-            ->whereBetween('data_time', $timeRange);
+            ->select('data_time');
+
 
         if ($device->movable) {
             $query->addSelect('lat')->addSelect('lng');
@@ -141,21 +140,30 @@ class DataService
             $query->addSelect(DB::raw('FROM_UNIXTIME(data_time) as avg_data_time'));
         }
 
+        $templateQuery = clone $query;
+
+        $query->whereBetween('data_time', $timeRange);
+
         $query->orderBy('avg_data_time', $order);
         $data = $query->get();
         if ($data) {
             $data = $data->toArray();
-
-            /*
-            foreach ($data as &$item) {
-                $item['data_time'] = strtotime($item['avg_data_time']);
-                $item['data_time2'] = strtotime($item['avg_data_time']);
+            if (!empty($data)) {
+                return self::ok($data);
             }
-            unset($item);
-            */
-            return self::ok($data);
         }
-        return self::ok([]);
+
+        $first = $templateQuery->first();
+
+        if ($first) {
+            return self::error(Errors::ResourceNotFound, ['template' => $first->toArray()]);
+        }
+        return self::error(Errors::BadArguments);
+    }
+
+    public static function queryDataFirst($deviceId)
+    {
+
     }
 
     public static function latestData($deviceId)
