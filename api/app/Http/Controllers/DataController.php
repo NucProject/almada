@@ -303,12 +303,15 @@ class DataController extends Controller
             $temp[$key] = '-';
         }
         $lastAvgDataTime = strtotime($firstTime);
-        //echo "($lastAvgDataTime)";
+
         $lastAvgDataOffset = 0;
 
         if (array_key_exists('tailPadding', $options) && $options['tailPadding']) {
-            $temp['avg_data_time'] = $lastTime;
-            array_push($data, $temp);
+            // 只有最后一个数据的时间不是结束时间的时候, 才追加一个空对象到尾部
+            if (strtotime(end($data)['avg_data_time']) != strtotime($lastTime)) {
+                $temp['avg_data_time'] = $lastTime;
+                array_push($data, $temp);
+            }
         }
 
         foreach ($data as $item) {
@@ -317,6 +320,8 @@ class DataController extends Controller
 
             $avgDataTimeDiff = $avgDataTime - $lastAvgDataTime;
             if ($avgDataTimeDiff == 0) {
+                $lastAvgDataTime = $avgDataTime;
+                $lastAvgDataOffset = 1;
                 $list[] = $item;
                 continue;
             }
