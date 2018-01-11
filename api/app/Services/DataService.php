@@ -241,7 +241,7 @@ class DataService
         $totalDaily = isset($options['totalDaily']) ? $options['totalDaily'] : 2880;
         foreach ($data as &$item) {
 
-            $item['ratio'] = round($item['count'] / $totalDaily, 2);
+            $item['ratio'] = round($item['count'] * 100 / $totalDaily, 2);
         }
         unset($item);
         return self::ok($data);

@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\DeviceService;
 use App\Services\Errors;
 use App\Services\GroupService;
 use App\Services\ResultTrait;
@@ -171,6 +172,15 @@ class StationController extends Controller
         if (self::isOk($stationsResult)) {
             $stations = $stationsResult['data'];
 
+            foreach ($stations as &$station) {
+
+                $devicesResult = DeviceService::getDevices(0, $station['station_id']);
+                if (self::isOk($devicesResult)) {
+                    $station['devices'] = $devicesResult['data'];
+                }
+            }
+
+            unset($station);
             return $this->json(Errors::Ok, ['list' => $stations]);
         }
 

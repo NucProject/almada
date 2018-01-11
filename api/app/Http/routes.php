@@ -87,6 +87,8 @@ $app->group([
 
     // 自动站相关
     $app->get('stations', 'StationController@stations');
+
+    $app->get('devices', 'StationController@stations');
 });
 
 // 需要鉴权的!
