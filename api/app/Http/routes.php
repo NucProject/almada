@@ -85,10 +85,10 @@ $app->group([
     'middleware' => ['AccessControlAllowOrigin', 'Session', 'UserAuth'],
     'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
-    // 自动站相关
+    // 获取自动站, 并且聚合每个自动站下面的devices
     $app->get('stations', 'StationController@stations');
 
-    $app->get('devices', 'StationController@stations');
+    $app->get('typedDevices', 'DeviceController@typedDevices');
 });
 
 // 需要鉴权的!

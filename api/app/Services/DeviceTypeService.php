@@ -17,9 +17,19 @@ class DeviceTypeService
 {
     use ResultTrait;
 
-    public static function getAllTypes()
+    /**
+     * @param array $typeIdArray
+     * @return array
+     */
+    public static function getAllTypes($typeIdArray=[])
     {
-        $types = AdDeviceType::query()->get();
+        $query = AdDeviceType::query();
+
+        if (!empty($typeIdArray)) {
+            $query->whereIn('type_id', $typeIdArray);
+        }
+
+        $types = $query->get();
         return self::ok($types->toArray());
     }
 

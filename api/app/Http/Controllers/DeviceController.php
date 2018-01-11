@@ -15,6 +15,7 @@ use App\Services\DeviceService;
 use App\Services\DeviceTypeService;
 use App\Services\Errors;
 use App\Services\ResultTrait;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -238,4 +239,46 @@ class DeviceController extends Controller
         return $this->jsonFromError($deviceResult);
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function typedDevices(Request $request)
+    {
+        $userId = $request->user()->getUid();
+
+        $userResult = UserService::getUserById($userId);
+        if (self::hasError($userResult)) {
+            return $this->jsonFromError($userResult);
+        }
+
+        $user = $userResult['data'];
+        $groupId = $user['group_id'];
+
+        $devicesResult = DeviceService::getDevices($groupId);
+        if (self::hasError($devicesResult)) {
+            return $this->jsonFromError($devicesResult);
+        }
+
+        $devices = $devicesResult['data'];
+        $typeIdArray = array_unique(array_map(function($i) { return $i['type_id'];}, $devices));
+
+        $typesResult = DeviceTypeService::getAllTypes($typeIdArray);
+        if (self::hasError($typesResult)) {
+            return $this->jsonFromError($typesResult);
+        }
+
+        $types = $typesResult['data'];
+
+        foreach ($types as &$type) {
+            $typeId = $type['type_id'];
+            $type['devices'] = array_values(
+                array_filter($devices, function($i) use ($typeId) { return $i['type_id'] == $typeId; }));
+        }
+        unset($type);
+
+        return $this->json(Errors::Ok, ['list' => $types]);
+
+
+    }
 }
