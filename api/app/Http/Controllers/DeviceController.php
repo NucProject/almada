@@ -278,7 +278,5 @@ class DeviceController extends Controller
         unset($type);
 
         return $this->json(Errors::Ok, ['list' => $types]);
-
-
     }
 }

@@ -153,4 +153,34 @@ class UserController extends Controller
         $data = $result['data'];
         return $this->json(Errors::Ok, $data);
     }
+
+    /**
+     * @param Request $request
+     * @return string
+     *
+     * @cat user
+     * @title 用户信息
+     * @comment 获取用户信息
+     *
+     * @ret-val
+     * @ret-val
+     */
+    public function info(Request $request)
+    {
+        $userId = $request->user()->getUid();
+        if (!self::isValidId($userId)) {
+            return $this->json(Errors::UserNotLogin);
+        }
+
+        $userResult = UserService::getUserById($userId);
+
+        if (self::hasError($userResult)) {
+            return $this->jsonFromError($userResult);
+        }
+
+        $user = $userResult['data'];
+        unset($user['user_password']);
+        unset($user['status']);
+        return $this->json(Errors::Ok, $user);
+    }
 }

@@ -94,7 +94,7 @@ $app->group([
 // 需要鉴权的!
 $app->group([
     'prefix' => '/u',
-    'middleware' => ['AccessControlAllowOrigin', 'UserAuth'],
+    'middleware' => ['AccessControlAllowOrigin', 'Session', 'UserAuth'],
     'namespace' => 'App\Http\Controllers'], function() use ($app) {
 
     // 注册
@@ -106,6 +106,8 @@ $app->group([
     $app->post('group', 'GroupController@create');
 
     $app->get('users', 'GroupController@users');
+
+    $app->get('info', 'UserController@info');
 });
 
 // 不需要鉴权的, 但是需要Session支持的
