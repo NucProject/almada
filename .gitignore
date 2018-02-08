@@ -1,5 +1,6 @@
 vendor/
 node_modules/
+<<<<<<< HEAD
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -14,4 +15,29 @@ bootstrap/cache/
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
 .idea/*
+=======
+npm-debug.log
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+public/storage
+public/hot
+storage/*.key
+.env.*.php
+.env.php
+.env
+Homestead.yaml
+Homestead.json
+
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+.rocketeer/
+.idea/.name
+.idea/almada.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+>>>>>>> f10a263bb06fbc810844d776dfba081974461168
 .idea/workspace.xml
