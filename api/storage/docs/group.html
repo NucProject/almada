@@ -1,0 +1,119 @@
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>1.&nbsp;创建组&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/u/group'>/u/group</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4">创建组</td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="3"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>groupName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>用户组名称</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>groupDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>用户组描述</p></td>
+                <td class="confluenceTd"><p>No</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="4"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>group.groupId</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>用户组ID</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>group.groupName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>用户组名称</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>group.groupDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>用户组描述</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"group":&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"groupDesc":&nbsp;"中检维康管理员分组",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"groupId":&nbsp;3,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"groupName":&nbsp;"中检维康"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>2.&nbsp;用户组用户列表&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/u/users'>/u/users</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4">用户组用户列表</td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+    
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                []            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div>

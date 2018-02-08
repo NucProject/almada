@@ -1,0 +1,343 @@
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>1.&nbsp;自动站列表&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>GET&nbsp;<a href='/d/stations'>/d/stations</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4">列出当前用户组下所有的自动站</td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="7"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationId</p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p><Unknown></p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站名称</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站描述</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationAddress</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站地址</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationType</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>自动站类型</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>list.0.stationSn</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>Station SN(目前还没有支持)</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"list":&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationAddress":&nbsp;"房山XX-XX",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationDesc":&nbsp;"北京全自动站(房山)",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationId":&nbsp;null,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationName":&nbsp;"北京全自动站",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationSn":&nbsp;"S00001",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"stationType":&nbsp;1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;]<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>2.&nbsp;创建自动站&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/station'>/d/station</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4">在当前用户组下创建一个自动站</td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站名称</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站描述</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationAddress</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站地址</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationType</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>自动站类型 (1, 固定自动站; 2, 移动自动站; 3, 虚拟自动站)</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站名称</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站描述</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationAddress</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站地址</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationType</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>自动站类型</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+            <tr>
+            <td class="confluenceTd" rowspan="1"><p><strong>调用示例</strong></p></td>
+            <td class="confluenceTd" colspan="4">
+                <p>
+                    curl -d"stationName=station&stationDesc=XYZ&stationAddress=someAddress&stationType=1" http://127.0.0.1:1024/d/station?groupId=1                </p>
+            </td>
+        </tr>
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationAddress":&nbsp;"房山XX-XX",<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationDesc":&nbsp;"北京全自动站(房山)",<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationName":&nbsp;"北京全自动站",<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationType":&nbsp;1<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>3.&nbsp;编辑自动站信息&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/station/{stationId}'>/d/station/{stationId}</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4">编辑自动站信息</td>
+    </tr>
+    <!-- URL 参数 -->
+        <tr>
+        <td class="confluenceTd" rowspan="2"><p><strong>URL参数 </strong></p></td>
+        <td class="confluenceTd"><p><strong>名称</strong></p></td>
+        <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+        <td class="confluenceTd"><p><strong>说明</strong></p></td>
+        <td class="confluenceTd"><p><strong>必选</strong></p></td>
+    </tr>
+            <tr>
+        <td class="confluenceTd"><p>$stationId</p></td>
+        <td class="confluenceTd"><p>int</p></td>
+        <td class="confluenceTd"><p>station id</p></td>
+        <td class="confluenceTd"><p>Yes</p></td>
+    </tr>
+            
+    <!-- Form表单 参数 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>表单参数 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>必选</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站名称</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站描述</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationAddress</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站地址</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationType</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>自动站类型 (1, 固定自动站; 2, 移动自动站; 3, 虚拟自动站)</p></td>
+                <td class="confluenceTd"><p>Yes</p></td>
+            </tr>
+            
+    <!-- 返回值 字段 -->
+            <tr>
+            <td class="confluenceTd" rowspan="5"><p><strong>返回值字段 </strong></p></td>
+            <td class="confluenceTd"><p><strong>名称</strong></p></td>
+            <td class="confluenceTd"><p><strong>类型及范围</strong></p></td>
+            <td class="confluenceTd"><p><strong>说明</strong></p></td>
+            <td class="confluenceTd"><p><strong>其他</strong></p></td>
+        </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationName</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站名称</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationDesc</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站描述</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationAddress</p></td>
+                <td class="confluenceTd"><p>string</p></td>
+                <td class="confluenceTd"><p>自动站地址</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+                    <tr>
+                <td class="confluenceTd"><p>stationType</p></td>
+                <td class="confluenceTd"><p>int</p></td>
+                <td class="confluenceTd"><p>自动站类型</p></td>
+                <td class="confluenceTd"><p></p></td>
+            </tr>
+            
+    <!-- 返回值status 说明 -->
+    
+
+            <tr>
+            <td class="confluenceTd" rowspan="1"><p><strong>调用示例</strong></p></td>
+            <td class="confluenceTd" colspan="4">
+                <p>
+                    curl -d"stationName=new-station-name&stationDesc=desc&stationAddress=&stationType=1"  http://127.0.0.1:1024/d/station/4?groupId=1                </p>
+            </td>
+        </tr>
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                {<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationAddress":&nbsp;"房山XX-XX",<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationDesc":&nbsp;"北京全自动站(房山)",<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationName":&nbsp;"北京全自动站",<br>&nbsp;&nbsp;&nbsp;&nbsp;"stationType":&nbsp;1<br>}            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div><link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- REST API doc template for WIKI -->
+<h3>4.&nbsp;删除自动站&nbsp;</h3>
+<div style="margin: 0 30px 0 30px">
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td class="confluenceTd"><p><strong>API</strong></p></td>
+        <td class="confluenceTd" colspan="4"><p>POST&nbsp;<a href='/d/station/{stationId}/remove'>/d/station/{stationId}/remove</a></p></td>
+    </tr>
+    <tr>
+        <td class="confluenceTd"><p><strong>注释</strong></p></td>
+        <td class="confluenceTd" colspan="4">删除自动站(未实现)</td>
+    </tr>
+    <!-- URL 参数 -->
+    
+    <!-- Form表单 参数 -->
+    
+    <!-- 返回值 字段 -->
+    
+    <!-- 返回值status 说明 -->
+    
+
+    
+    <tr>
+        <td class="confluenceTd" rowspan="3"><p><strong>返回值示例(data)</strong></p></td>
+        <td class="confluenceTd" colspan="4">
+            <p>
+                []            </p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</div>
