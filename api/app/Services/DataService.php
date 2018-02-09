@@ -111,6 +111,8 @@ class DataService
                 if (strstr($fieldConfig, 'max')) {
                     $query->addSelect(DB::raw("round(max($fieldName), 2) as {$fieldName}"));
                     continue;
+                } elseif (strstr($fieldConfig, 'no-sel')) {
+                    continue;
                 }
                 $query->addSelect(DB::raw("round(avg($fieldName), 2) as {$fieldName}"));
             }
