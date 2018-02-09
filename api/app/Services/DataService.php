@@ -44,7 +44,7 @@ class DataService
             }
             $item['data_id'] = $model->data_id;
             $count += 1;
-            RedisService::setLatestData($deviceId, $data);
+            RedisService::setLatestData($deviceId, $item);
         }
         unset($item);
 
