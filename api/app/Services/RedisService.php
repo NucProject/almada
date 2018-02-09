@@ -33,4 +33,14 @@ class RedisService
         return true;
     }
 
+    public static function getLatestData($deviceId)
+    {
+        $redis = self::getConnection();
+        $value = $redis->hGet("latest-data", $deviceId);
+        if ($value) {
+            return json_decode($value, true);
+        }
+        return false;
+    }
+
 }

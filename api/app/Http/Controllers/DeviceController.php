@@ -14,6 +14,7 @@ use App\Models\DtData;
 use App\Services\DeviceService;
 use App\Services\DeviceTypeService;
 use App\Services\Errors;
+use App\Services\RedisService;
 use App\Services\ResultTrait;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -87,17 +88,23 @@ class DeviceController extends Controller
                 }
 
                 // TODO: Optimize: order by cause slow query. use redis!
-                $dataEntry = DtData::queryDevice($deviceId)
-                    ->select('*')
-                    ->orderBy('data_time', 'desc')
-                    ->first();
-                if ($dataEntry) {
-                    $data = $dataEntry->toArray();
-                    unset($data['status']);
-                    unset($data['create_time']);
-                    unset($data['update_time']);
-                    $device['data'] = $data;
+                $latestData = RedisService::getLatestData($deviceId);
+                if (!$latestData) {
+                    $dataEntry = DtData::queryDevice($deviceId)
+                        ->select('*')
+                        ->orderBy('data_time', 'desc')
+                        ->first();
+                    if ($dataEntry) {
+                        $data = $dataEntry->toArray();
+                        unset($data['status']);
+                        unset($data['create_time']);
+                        unset($data['update_time']);
+                        $device['data'] = $data;
+                    }
+                } else {
+                    $device['data'] = $latestData;
                 }
+
 
                 unset($device['status']);
                 unset($device['group_id']);
