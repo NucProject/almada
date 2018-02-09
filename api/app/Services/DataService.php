@@ -40,6 +40,8 @@ class DataService
 
             if (!$model->save()) {
                 // 保存成功!
+
+                RedisService::setLatestData($deviceId, $data);
                 return self::error(Errors::SaveFailed, []);
             }
             $item['data_id'] = $model->data_id;

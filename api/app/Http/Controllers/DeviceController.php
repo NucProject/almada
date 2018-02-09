@@ -86,6 +86,7 @@ class DeviceController extends Controller
                     $device['fields'] = $fields;
                 }
 
+                // TODO: Optimize: order by cause slow query. use redis!
                 $dataEntry = DtData::queryDevice($deviceId)
                     ->select('*')
                     ->orderBy('data_time', 'desc')
