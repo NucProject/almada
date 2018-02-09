@@ -77,6 +77,6 @@ class HpgeService
         if ($fileInfo) {
             return self::ok($fileInfo->toArray());
         }
-        return self::error(Errors::ResourceNotFound);
+        return self::error(Errors::ResourceNotFound, ['deviceId' => $deviceId, 'dataId' => $dataId]);
     }
 }
