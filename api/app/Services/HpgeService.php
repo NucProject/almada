@@ -77,6 +77,6 @@ class HpgeService
         if ($fileInfo) {
             return self::ok($fileInfo->toArray());
         }
-        return self::error(Errors::BadArguments);
+        return self::error(Errors::ResourceNotFound);
     }
 }
