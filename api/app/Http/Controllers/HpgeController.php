@@ -106,7 +106,7 @@ class HpgeController extends Controller
     {
         if (!self::isValidId($deviceId) ||
             !self::isValidId($dataId)) {
-            return $this->json(Errors::BadArguments);
+            return $this->json(Errors::BadArguments, [$deviceId, $dataId]);
         }
 
         $result = HpgeService::getFileInfo($deviceId, $dataId);
