@@ -76,6 +76,7 @@ $app->group([
 
     $app->post('device/{deviceId}/alertConfigs', 'AlertController@setAlertConfigs');
 
+    $app->get('redis/setValue', 'RedisController@setValue');
 
 });
 
