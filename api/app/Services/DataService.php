@@ -39,13 +39,12 @@ class DataService
             $model->status = 1;
 
             if (!$model->save()) {
-                // 保存成功!
-
-                RedisService::setLatestData($deviceId, $data);
+                // 保存!成功!
                 return self::error(Errors::SaveFailed, []);
             }
             $item['data_id'] = $model->data_id;
             $count += 1;
+            RedisService::setLatestData($deviceId, $data);
         }
         unset($item);
 
