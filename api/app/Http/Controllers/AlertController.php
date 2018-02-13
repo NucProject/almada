@@ -13,6 +13,7 @@ use App\Services\AlertService;
 use App\Services\DeviceService;
 use App\Services\DeviceTypeService;
 use App\Services\Errors;
+use App\Services\RedisService;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
 
@@ -132,5 +133,25 @@ class AlertController extends Controller
             }
         }
         return null;
+    }
+
+    /**
+     * @title 离线报警
+     * @comment 获取所有的离线报警信息
+     * @cat device
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function getOfflineAlerts(Request $request)
+    {
+        $offlineAlerts = RedisService::getOfflineAlerts();
+        $data = [];
+        foreach ($offlineAlerts as $deviceId => $info) {
+            $data[] = ['deviceId' => $deviceId, 'info' => $info];
+        }
+
+        // TODO: 区分Group!
+        return $this->json(Errors::Ok, ['alerts' => $data]);
     }
 }

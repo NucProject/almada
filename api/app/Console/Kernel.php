@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\ModelCommand',
         'App\Console\Commands\DocCommand',
-        'App\Console\Commands\CalcAvgCommand'
+        'App\Console\Commands\CalcAvgCommand',
+        'App\Console\Commands\CalcOfflineCommand'
     ];
 
     /**
