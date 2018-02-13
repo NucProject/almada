@@ -78,6 +78,8 @@ $app->group([
 
     $app->get('redis/setValue', 'RedisController@setValue');
 
+
+    $app->get('offline/alerts', "AlertController@getOfflineAlerts");
 });
 
 

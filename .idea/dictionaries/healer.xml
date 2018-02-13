@@ -2,6 +2,8 @@
   <dictionary name="healer">
     <words>
       <w>hpge</w>
+      <w>nuclide</w>
+      <w>nuclides</w>
     </words>
   </dictionary>
 </component>

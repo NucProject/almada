@@ -13,6 +13,7 @@ use App\Services\AlertService;
 use App\Services\DeviceService;
 use App\Services\DeviceTypeService;
 use App\Services\Errors;
+use App\Services\RedisService;
 use App\Services\ResultTrait;
 use Illuminate\Http\Request;
 
@@ -132,5 +133,15 @@ class AlertController extends Controller
             }
         }
         return null;
+    }
+
+    public function getOfflineAlerts(Request $request)
+    {
+        $offlineAlerts = RedisService::getOfflineAlerts();
+        $data = [];
+        foreach ($offlineAlerts as $deviceId => $info) {
+            $data[] = ['deviceId' => $deviceId, 'info' => $info];
+        }
+        return $this->json(Errors::Ok, ['alerts' => $data]);
     }
 }

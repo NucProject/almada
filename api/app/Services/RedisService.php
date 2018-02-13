@@ -43,4 +43,22 @@ class RedisService
         return false;
     }
 
+    public static function getAllLatestData()
+    {
+        $redis = self::getConnection();
+        return $redis->hGetAll("latest-data");
+    }
+
+    public static function setOfflineAlert($deviceId)
+    {
+        $redis = self::getConnection();
+        $redis->hSet("offline-devices", $deviceId, time());
+    }
+
+    public static function getOfflineAlerts()
+    {
+        $redis = self::getConnection();
+        return $redis->hGetAll("offline-devices");
+    }
+
 }
