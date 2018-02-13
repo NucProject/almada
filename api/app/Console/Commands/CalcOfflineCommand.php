@@ -42,21 +42,16 @@ class CalcOfflineCommand extends Command
 
     public function handle()
     {
-        while (true) {
+        $allLatestData = RedisService::getAllLatestData();
 
-            $allLatestData = RedisService::getAllLatestData();
+        $now = time();
+        foreach ($allLatestData as $deviceId => $latestData) {
 
-            $now = time();
-            foreach ($allLatestData as $deviceId => $latestData) {
-
-                $data = json_decode($latestData, true);
-                $interval = $now - $data['dataTime'];
-                if ($interval > 30) {
-                    self::addOfflineAlert($deviceId);
-                }
+            $data = json_decode($latestData, true);
+            $interval = $now - $data['dataTime'];
+            if ($interval > 30) {
+                self::addOfflineAlert($deviceId);
             }
-
-            sleep(60);
         }
 
     }
