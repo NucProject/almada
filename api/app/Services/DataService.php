@@ -130,6 +130,7 @@ class DataService
             $query->groupBy('avg_data_time');
 
         } else {
+            $query->addSelect('data_id');
             foreach ($fields as $field) {
                 $fieldName = $field['field_name'];
                 if (!empty($fieldsSetArray) && !in_array(camel_case($fieldName), $fieldsSetArray)) {
