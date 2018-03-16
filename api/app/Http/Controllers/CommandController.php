@@ -43,8 +43,7 @@ class CommandController extends Controller
             $timeBegin = strtotime($date);
             $timeEnd = $timeBegin + 24 * 3600;
         } else {
-            $timeBegin = $request->input('timeBegin', 0);
-            $timeEnd = $request->input('timeEnd', time());
+            return $this->json(Errors::BadArguments);
         }
 
         if ($timeBegin > $timeEnd) {
@@ -80,6 +79,7 @@ class CommandController extends Controller
             $interval = $request->input('interval', 30);
             $lost = DataService::lostData($deviceId, $timeRange, ['interval' => $interval]);
             if (self::isOk($lost)) {
+                file_put_contents('/var/www/almada/api/storage/logs/fetch.log', json_encode($lost['data']), FILE_APPEND);
                 return $this->json(Errors::Ok, $lost['data']);
             }
         }

@@ -78,7 +78,6 @@ class DataController extends Controller
             $historyAlert = $request->input('historyAlert', 0);
         }
         // TODO:
-
         $saveResult = DataService::save($deviceId, $data);
         if ($this->isOk($saveResult)) {
 
@@ -86,7 +85,8 @@ class DataController extends Controller
             // $saved['data'] contains data_id
             if (!$history || $historyAlert) {
                 // 非历史数据才报警
-                AlertService::checkDataAlert($saved['data'], $deviceId);
+                // 以后由Python脚本处理Alert逻辑
+                // AlertService::checkDataAlert($saved['data'], $deviceId);
             }
             return $this->json(Errors::Ok, ['saved' => $saved]);
         }
