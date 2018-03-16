@@ -26,10 +26,10 @@ class DataService
     {
         // 动态Model生成
         $count = 0;
-        foreach ($data as &$item) {
+        foreach ($data as $key => &$item) {
 
             if (!array_key_exists('dataTime', $item)) {
-                // 必须在data中含有dataTime, 或者在Request中发送dataTime字段.
+                file_put_contents('/var/www/almada/api/storage/logs/post.log', $key . json_encode($item) ."\n", FILE_APPEND);
                 return self::error(Errors::NoDataTime, []);
             }
 
