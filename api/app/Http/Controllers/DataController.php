@@ -377,6 +377,10 @@ class DataController extends Controller
             $step = 3600 * 24;
             $firstTime = date('Y-m-d 00:00', $timeRange[0]);
             $lastTime = date('Y-m-d 00:00', $timeRange[1]);
+        } else {
+            $step = 300;
+            $firstTime = date('Y-m-d H:i', intval($timeRange[0] / 300) * 300);
+            $lastTime = date('Y-m-d H:i', intval($timeRange[1] / 300) * 300);
         }
 
         if ($order == 'desc') {
