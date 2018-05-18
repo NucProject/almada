@@ -11,6 +11,7 @@ namespace App\Services;
 
 use App\Models\AdDevice;
 use App\Models\AdDeviceField;
+use App\Models\AdDeviceType;
 use App\Models\DtData;
 use Illuminate\Support\Facades\DB;
 
@@ -234,6 +235,19 @@ class DataService
      */
     public static function getDeviceDataRatio($deviceId, $timeRange, array $options)
     {
+        $device = AdDevice::query()->find($deviceId);
+        if (!$device) {
+            return self::error(Errors::DeviceNotFound);
+        }
+
+        $deviceType = AdDeviceType::query()->where('type_id', $device->type_id)->first();
+        if (!$deviceType) {
+            return self::error(Errors::DeviceNotFound);
+        }
+
+        $interval = $deviceType->interval;
+        $count = 24 * 3600 / $interval;
+
         $query = DtData::queryDevice($deviceId)
             ->select(DB::raw('count(1) count'))
             ->addSelect(DB::raw('FROM_UNIXTIME(data_time, \'%Y-%m-%d\') as date'))
@@ -242,7 +256,7 @@ class DataService
         $query->groupBy('date');
         $data = $query->get()->toArray();
 
-        $totalDaily = isset($options['totalDaily']) ? $options['totalDaily'] : 2880;
+        $totalDaily = isset($options['totalDaily']) ? $options['totalDaily'] : $count;
         foreach ($data as &$item) {
 
             $item['ratio'] = round($item['count'] * 100 / $totalDaily, 2);
