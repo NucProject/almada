@@ -281,7 +281,7 @@ class DataService
             $time = 0;
             if (count($ratios) > 0) {
                 $first = $ratios[0];
-                $time = $first['date'];
+                $time = strtotime($first['date']) - 8 * 3600;
             }
 
             if ($time != $i) {
