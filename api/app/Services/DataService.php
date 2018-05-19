@@ -277,21 +277,19 @@ class DataService
 
         $array = [];
         for ($i = $b; $i <= $e; $i += 3600 * 24) {
-
-            $time = 0;
-            if (count($ratios) > 0) {
-                $first = $ratios[0];
-                $time = strtotime($first['date']) - 8 * 3600;
-            }
-
-            if ($time != $i) {
-                array_push($array, ['date' => date('Y-m-d', $i), 'count' => 0, 'ratio' => 0]);
-            } else {
-                array_push($array, $first);
-                array_shift($array);
-            }
-
+            array_push($array, ['date' => date('Y-m-d', $i), 'count' => 0, 'ratio' => 0]);
         }
+
+        foreach ($array as &$item) {
+            $date = $item['date'];
+            $found = array_first($ratios, function($i) use($date) { return $i['date'] == $date; });
+            if ($found) {
+                $item['count'] = $found['count'];
+                $item['ratio'] = $found['ratio'];
+            }
+        }
+        unset($item);
+
         return $array;
     }
 }
