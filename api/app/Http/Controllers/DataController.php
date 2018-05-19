@@ -533,6 +533,8 @@ class DataController extends Controller
         if (self::isOk($ratioResult)) {
             $ratios = $ratioResult['data'];
 
+            $ratios = DataService::paddingRatios($ratios, [$timeBegin, $timeEnd]);
+
             return $this->json(Errors::Ok, ['list' => $ratios]);
         }
         return $this->json(Errors::Ok, []);
