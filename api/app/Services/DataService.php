@@ -282,7 +282,9 @@ class DataService
 
         foreach ($array as &$item) {
             $date = $item['date'];
-            $found = array_first($ratios, function($i) use($date) { return $i['date'] == $date; });
+
+            $found = array_first($ratios, function($i) use($ratios, $date) { $item = $ratios[$i];return $item['date'] == $date; });
+
             if ($found) {
                 $item['count'] = $found['count'];
                 $item['ratio'] = $found['ratio'];
