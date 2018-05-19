@@ -264,4 +264,30 @@ class DataService
         unset($item);
         return self::ok($data);
     }
+
+    /**
+     * @param $ratios
+     * @param [$timeBegin, $timeEnd]
+     * @return array
+     */
+    public static function paddingRatios($ratios, $timeRange) {
+
+        $b = $timeRange[0];
+        $e = $timeRange[1];
+        
+        $array = [];
+        for ($i = $b; $i < $e; $i += 3600 * 24) {
+
+            $first = $ratios[0];
+            $time = $first['data'];
+            if ($time != $i) {
+                array_push($array, ['date' => date('Y-m-d', $b), 'count' => 0, 'ratio' => 0]);
+            } else {
+                array_push($array, $first);
+                array_shift($array);
+            }
+
+        }
+        return $array;
+    }
 }
