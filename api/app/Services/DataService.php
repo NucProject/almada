@@ -276,7 +276,7 @@ class DataService
         $e = $timeRange[1];
 
         $array = [];
-        for ($i = $b; $i < $e; $i += 3600 * 24) {
+        for ($i = $b; $i <= $e; $i += 3600 * 24) {
 
             $time = 0;
             if (count($ratios) > 0) {
