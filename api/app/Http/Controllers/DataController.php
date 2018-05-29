@@ -287,6 +287,10 @@ class DataController extends Controller
             $step = 3600 * 24;
             $firstTime = date('Y-m-d 00:00', $timeRange[0]);
             $lastTime = date('Y-m-d 00:00', $timeRange[1]);
+        } elseif ($avg == '1m') {
+            $step = 60;
+            $firstTime = date('Y-m-d H:i', $timeRange[0]);
+            $lastTime = date('Y-m-d H:i', $timeRange[1] );
         } else {
             return $data;
         }
