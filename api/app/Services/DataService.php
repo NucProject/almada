@@ -210,6 +210,8 @@ class DataService
             $cursor = $cursor + $interval;
         }
 
+        $data = array_map(function($i) { return $i['data_time'];}, $data);
+
         $exists = array_values($data);
 
         $lostTimePoints = array_diff($full, $exists);
