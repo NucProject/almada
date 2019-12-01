@@ -200,27 +200,19 @@ class DataService
             ->get()
             ->toArray();
 
-        $first = ['data_time' => $timeRange[0]];
-        $last = ['data_time' => $timeRange[1]];
-
-        array_unshift($data, $first);
-        array_push($data, $last);
-
-        // Array MUST has 2 items.
-        $lastDataTime = $data[0]['data_time'];
+        // $first = ['data_time' => $timeRange[0]];
+        $last =  $timeRange[1];
+        $cursor = $timeRange[0];
         $interval = $options['interval'];
-
-        array_shift($data);
-        $lostTimePoints = [];
-        foreach ($data as $item) {
-            $dataTime = $item['data_time'];
-            if ($dataTime - $lastDataTime != $interval) {
-                for ($i = $lastDataTime + $interval; $i < $dataTime; $i += $interval) {
-                    $lostTimePoints[] = $i;
-                }
-            }
-            $lastDataTime = $dataTime;
+        $full = [];
+        while ($cursor < $last) {
+            array_push($full, $cursor);
+            $cursor = $cursor + $interval;
         }
+
+        $exists = array_values($data);
+
+        $lostTimePoints = array_diff($full, $exists);
 
         return self::ok(['all' => 0,
                          'timePoints' => $lostTimePoints
