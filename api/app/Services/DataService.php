@@ -215,9 +215,12 @@ class DataService
         $exists = array_values($data);
 
         $lostTimePoints = array_diff($full, $exists);
-
+        $returnValues = [];
+        foreach($lostTimePoints as $index => $value) {
+            $returnValues[] = $value;
+        }
         return self::ok(['all' => 0,
-                         'timePoints' => $lostTimePoints
+                         'timePoints' => $returnValues
         ]);
     }
 
