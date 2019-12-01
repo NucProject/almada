@@ -194,7 +194,7 @@ class DataService
     public static function lostData($deviceId, $timeRange, array $options)
     {
         $data = DtData::queryDevice($deviceId)
-            ->select('data_id', 'data_time')
+            ->select('data_time')
             ->whereBetween('data_time', $timeRange)
             ->orderBy('data_time')
             ->get()
