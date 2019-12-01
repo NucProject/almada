@@ -219,10 +219,8 @@ class DataService
         foreach($lostTimePoints as $index => $value) {
             $returnValues[] = $value;
         }
-        if (count($returnValues) == 0) {
-            return self::error(-1, []);
-        }
-        return self::ok(['all' => 0,
+
+        return self::ok(['all' => count($returnValues),
                          'timePoints' => $returnValues
         ]);
     }
