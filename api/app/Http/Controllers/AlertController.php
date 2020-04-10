@@ -154,4 +154,19 @@ class AlertController extends Controller
         // TODO: 区分Group!
         return $this->json(Errors::Ok, ['alerts' => $data]);
     }
+
+
+    public function getLatestUnclearAlerts(Request $request, $deviceId) {
+        $data = AlertService::getLatestUnclearAlert($deviceId);
+        return $this->json(Errors::Ok, ['alerts' => $data]);
+    }
+
+    public function clearAlertsByDeviceId(Request $request, $deviceId) {
+        AlertService::clearAlertsByDeviceId($deviceId);
+        return $this->json(Errors::Ok, []);
+    }
+
+    public function clearAlertsById(Request $request, $id) {
+
+    }
 }

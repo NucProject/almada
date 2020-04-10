@@ -217,4 +217,60 @@ class AlertService
 
         return self::ok($alerts);
     }
+
+    /**
+     * 策略采取最新5天的报警, 如果超过五天的报警都没有clear, 也不返回
+     * @param $deviceId
+     */
+    public static function getLatestUnclearAlert($deviceId) {
+
+        $now = time();
+        $query = AdDataAlert::queryAll()
+            ->where('ad_data_alert.device_id', $deviceId)
+            ->where('ad_data_alert.status', 1)
+            ->where('ad_data_alert.is_hide', 0)
+            ->whereBetween('ad_data_alert.create_time', [$now - 3600*24*5, $now])
+            ->orderBy('ad_data_alert.create_time', 'desc')
+            ->limit(10);
+
+        $alerts = $query->get()->toArray();
+        foreach ($alerts as &$alert) {
+            $fieldId = $alert['field_id'];
+//            foreach ($configs as $config) {
+//                if ($config['field_id'] == $fieldId) {
+//                    // 驼峰表达
+//                    $alert['field_name'] = Str::camel($config['field_name']);
+//                }
+//            }
+
+            unset($alert['device_id']);
+            unset($alert['is_hide']);
+            unset($alert['status']);
+            unset($alert['update_time']);
+        }
+        return $alerts;
+
+    }
+
+    public static function clearAlertsByDeviceId($deviceId) {
+        // $now = time();
+        $query = AdDataAlert::queryAll()
+            ->where('ad_data_alert.device_id', $deviceId)
+            ->where('ad_data_alert.status', 1)
+            ->where('ad_data_alert.is_hide', 0);
+            // ->whereBetween('ad_data_alert.create_time', [$now - 3600*24*5, $now])
+            // ->orderBy('ad_data_alert.create_time', 'desc')
+            // ->limit(10);
+        $alerts = $query->get();
+        // print_r($alerts);
+        foreach ($alerts as &$alert) {
+            $alert->is_hide = 1;
+            $alert->save();
+        }
+        return 1;
+    }
+
+    public static function clearAlertsById($id) {
+
+    }
 }

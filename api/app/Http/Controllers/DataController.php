@@ -453,8 +453,10 @@ class DataController extends Controller
         $result = DataService::latestData($deviceId, [$timeBegin, $timeEnd], $avg);
         if (self::isOk($result)) {
             $data = $result['data'];
+            $alerts = AlertService::getLatestUnclearAlert($deviceId);
             return $this->json(Errors::Ok, [
                 'list' => $data,
+                'alerts' => $alerts,
                 'pager' => []
             ]);
         }

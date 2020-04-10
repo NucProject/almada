@@ -16,6 +16,8 @@ $app->group([
 
     $app->get('device/{deviceId}/alerts', 'DataController@alerts');
 
+    $app->get('device/{deviceId}/latestAlerts', 'AlertController@getLatestUnclearAlerts');
+
     $app->get('device/{deviceId}/latest', 'DataController@latest');
 
     $app->get('device/{deviceId}/ratio', 'DataController@ratio');
@@ -41,6 +43,11 @@ $app->group([
     $app->post('file/{deviceId}', 'DataController@file');
 
     $app->post('upload/{deviceId}', 'DataController@upload');
+
+
+    $app->get('alert/clear/device/{deviceId}', 'AlertController@clearAlertsByDeviceId');
+
+    $app->get('alert/clear/id/{alertId}', 'AlertController@clearAlertsById');
 
     // 发送文件
     $app->get('download/file', 'DataController@download');
